@@ -2,6 +2,7 @@
 const images = {
   logoIcon: require('../Images/logo-icon.png'),
   avatar: require('../Images/avatar.jpg'),
+  imagePlaceholder: require('../Images/image-placeholder.jpeg'),
   logo: require('../Images/ir.png'),
   clearLogo: require('../Images/top_logo.png'),
   launch: require('../Images/launch-icon.png'),
