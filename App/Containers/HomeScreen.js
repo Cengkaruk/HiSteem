@@ -16,6 +16,7 @@ import {
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import Sidebar from '../Components/Sidebar'
 import PostCarousel from '../Components/PostCarousel'
+import PostList from '../Components/PostList'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -56,6 +57,9 @@ class HomeScreen extends Component {
               <Grid>
                 <Row>
                   <PostCarousel />
+                </Row>
+                <Row>
+                  <PostList />
                 </Row>
               </Grid>
             </Content>
