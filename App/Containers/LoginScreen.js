@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Image } from 'react-native'
 import {
   StyleProvider,
   Container,
@@ -11,14 +10,14 @@ import {
   Input,
   Button
 } from 'native-base'
-import { Col, Row, Grid } from 'react-native-easy-grid'
+import { Row, Grid } from 'react-native-easy-grid'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
-import styles from './Styles/LoginScreenStyle'
+// import styles from './Styles/LoginScreenStyle'
 
 class LoginScreen extends Component {
   render () {
@@ -28,8 +27,8 @@ class LoginScreen extends Component {
           <Content>
             <Grid>
               <Row style={{ flexDirection: 'column', alignItems: 'center', marginTop: 100 }}>
-                <Text style={{ fontFamily: 'Lora-Bold', fontSize: 64 }}>{"HiSteem"}</Text>
-                <Text style={{ marginTop: 20, fontFamily: 'Cabin-Regular', fontSize: 18 }}>{"Your voice is worth something"}</Text>
+                <Text style={{ fontFamily: 'Lora-Bold', fontSize: 64 }}>{'HiSteem'}</Text>
+                <Text style={{ marginTop: 20, fontFamily: 'Cabin-Regular', fontSize: 18 }}>{'Your voice is worth something'}</Text>
               </Row>
               <Row style={{ flexDirection: 'column', padding: 10 }}>
                 <Form>
