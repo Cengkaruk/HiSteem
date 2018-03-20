@@ -25,6 +25,7 @@ export default class PostCarousel extends Component {
   // }
 
   render () {
+    const { navigate } = this.props.navigation
     return (
       <Grid>
         <Row style={{ paddingTop: 15 }}>
@@ -36,7 +37,7 @@ export default class PostCarousel extends Component {
             <CarouselItem />
           </Carousel>
         </Row>
-        <Row style={{ padding: 15, alignItems: 'center', justifyContent: 'space-between' }}>
+        <Row style={{ paddingHorizontal: 10, paddingTop: 5, alignItems: 'center', justifyContent: 'space-between' }} onPress={() => navigate('HighlightScreen')}>
           <Text note style={{ fontFamily: 'Cabin-Bold' }}>See all trending</Text>
           <Icon name="ios-arrow-forward" />
         </Row>
