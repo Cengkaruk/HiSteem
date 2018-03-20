@@ -33,8 +33,15 @@ export default class CarouselItem extends Component {
           </Row>
           <Row size={1} style={{ flexDirection: 'column', padding: 20, paddingTop: 30 }}>
             <Text style={{ fontFamily: 'Cabin-Bold' }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>
-            <Text note style={{ marginTop: 20 }}>Aji Kisworo Mukti</Text>
-            <Text note>11/09/2017</Text>
+            <Grid style={{ marginTop: 20 }}>
+              <Col>
+                <Text note>Aji Kisworo Mukti</Text>
+                <Text note>11/09/2017</Text>
+              </Col>
+              <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
+                <Text note>$324</Text>
+              </Col>
+            </Grid>
           </Row>
         </Grid>
       </Container>

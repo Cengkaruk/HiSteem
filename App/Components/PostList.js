@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
-import { Dimensions, View, Image } from 'react-native'
+import { Dimensions, Image } from 'react-native'
 import {
   Icon,
   Text,
@@ -42,10 +42,15 @@ export default class PostList extends Component {
         </Row>
         <Row style={{ alignItems: 'center', marginTop: 15 }}>
           <Thumbnail small source={Images.avatar} />
-          <View style={{ marginLeft: 10 }}>
-            <Text note>Aji Kisworo Mukti</Text>
-            <Text note>11/09/2017</Text>
-          </View>
+          <Grid style={{ marginLeft: 10 }}>
+            <Col>
+              <Text note>Aji Kisworo Mukti</Text>
+              <Text note>11/09/2017</Text>
+            </Col>
+            <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
+              <Text note>$324</Text>
+            </Col>
+          </Grid>
         </Row>
       </Grid>
     )
@@ -70,10 +75,15 @@ export default class PostList extends Component {
         </Row>
         <Row style={{ alignItems: 'center', marginTop: 15 }}>
           <Thumbnail small source={Images.avatar} />
-          <View style={{ marginLeft: 10 }}>
-            <Text note>Aji Kisworo Mukti</Text>
-            <Text note>11/09/2017</Text>
-          </View>
+          <Grid style={{ marginLeft: 10 }}>
+            <Col>
+              <Text note>Aji Kisworo Mukti</Text>
+              <Text note>11/09/2017</Text>
+            </Col>
+            <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
+              <Text note>$324</Text>
+            </Col>
+          </Grid>
         </Row>
       </Grid>
     )
