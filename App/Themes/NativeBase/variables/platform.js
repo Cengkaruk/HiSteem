@@ -130,14 +130,14 @@ export default {
   tabActiveBgColor: platform === 'ios' ? '#cde1f9' : '#3F51B5',
 
   // Header
-  toolbarBtnColor: platform === 'ios' ? '#007aff' : '#fff',
-  toolbarDefaultBg: platform === 'ios' ? '#F8F8F8' : '#3F51B5',
+  toolbarBtnColor: platform === 'ios' ? '#007aff' : '#F8F8F8',
+  toolbarDefaultBg: '#000',
   toolbarHeight: platform === 'ios' ? (isIphoneX ? 88 : 64) : 56,
   toolbarSearchIconSize: platform === 'ios' ? 20 : 23,
-  toolbarInputColor: platform === 'ios' ? '#CECDD2' : '#fff',
+  toolbarInputColor: platform === 'ios' ? '#CECDD2' : '#F8F8F8',
   searchBarHeight: platform === 'ios' ? 30 : 40,
   searchBarInputHeight: platform === 'ios' ? 30 : 50,
-  toolbarBtnTextColor: platform === 'ios' ? '#007aff' : '#fff',
+  toolbarBtnTextColor: platform === 'ios' ? '#007aff' : '#F8F8F8',
   toolbarDefaultBorder: platform === 'ios' ? '#a7a6ab' : '#3F51B5',
   iosStatusbar: platform === 'ios' ? 'dark-content' : 'light-content',
   get statusBarColor () {
@@ -232,8 +232,8 @@ export default {
   titleFontfamily: platform === 'ios' ? 'System' : 'Roboto_medium',
   titleFontSize: platform === 'ios' ? 17 : 19,
   subTitleFontSize: platform === 'ios' ? 12 : 14,
-  subtitleColor: platform === 'ios' ? '#8e8e93' : '#FFF',
-  titleFontColor: platform === 'ios' ? '#000' : '#FFF',
+  subtitleColor: platform === 'ios' ? '#8e8e93' : '#F8F8F8',
+  titleFontColor: platform === 'ios' ? '#000' : '#F8F8F8',
 
   // Other
   borderRadiusBase: platform === 'ios' ? 5 : 2,
