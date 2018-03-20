@@ -259,6 +259,13 @@ export default (variables = variable) => {
       }
     },
 
+    '.medium': {
+      height: 35,
+      'NativeBase.Text': {
+        fontSize: 14
+      }
+    },
+
     '.large': {
       height: 60,
       'NativeBase.Text': {

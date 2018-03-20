@@ -309,6 +309,45 @@ export default (variables = variable) => {
       flexDirection: 'row',
       justifyContent: 'flex-end'
     },
+    '.light': {
+      backgroundColor: '#FFF',
+      'NativeBase.Left': {
+        'NativeBase.Button': {
+          backgroundColor: 'transparent',
+          elevation: 0,
+          shadowColor: null,
+          shadowOffset: null,
+          shadowRadius: null,
+          shadowOpacity: null,
+          'NativeBase.Icon': {
+            color: '#000'
+          },
+          'NativeBase.IconNB': {
+            color: '#000'
+          }
+        }
+      },
+      'NativeBase.Right': {
+        'NativeBase.Button': {
+          alignSelf: 'center',
+          backgroundColor: 'transparent',
+          elevation: 0,
+          shadowColor: null,
+          shadowOffset: null,
+          shadowRadius: null,
+          shadowOpacity: null,
+          'NativeBase.Icon': {
+            color: '#000'
+          },
+          'NativeBase.IconNB': {
+            color: '#000'
+          },
+          'NativeBase.Text': {
+            color: '#000'
+          }
+        }
+      }
+    },
     backgroundColor: variables.toolbarDefaultBg,
     flexDirection: 'row',
     paddingHorizontal: 10,
