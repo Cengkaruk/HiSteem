@@ -38,7 +38,7 @@ export default class PostList extends Component {
           <Image source={Images.imagePlaceholder} resizeMode="cover" style={{ width: width - 30, height: 240, borderRadius: 5 }} />
         </Row>
         <Row style={{ marginTop: 10 }}>
-          <Text style={{ fontFamily: 'Cabin-Bold' }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>
+          <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>
         </Row>
         <Row style={{ alignItems: 'center', marginTop: 15 }}>
           <Thumbnail small source={Images.avatar} />
@@ -66,7 +66,7 @@ export default class PostList extends Component {
         <Row style={{ marginTop: 10 }}>
           <Grid>
             <Col style={{ justifyContent: 'center' }}>
-              <Text style={{ fontFamily: 'Cabin-Bold' }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>
+              <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>
             </Col>
             <Col>
               <Image source={Images.imagePlaceholder} resizeMode="cover" style={{ width: (width / 2) - 15, height: 100, borderRadius: 5 }} />

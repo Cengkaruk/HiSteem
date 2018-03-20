@@ -32,7 +32,7 @@ export default class CarouselItem extends Component {
             <Image source={Images.imagePlaceholder} resizeMode="cover" style={{ height: 110, width: width - 30 }} />
           </Row>
           <Row size={1} style={{ flexDirection: 'column', padding: 20, paddingTop: 30 }}>
-            <Text style={{ fontFamily: 'Cabin-Bold' }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>
+            <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>
             <Grid style={{ marginTop: 20 }}>
               <Col>
                 <Text note>Aji Kisworo Mukti</Text>
