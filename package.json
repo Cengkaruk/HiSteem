@@ -76,6 +76,11 @@
     "snazzy": "^7.1.1",
     "standard": "10.0.2"
   },
+  "rnpm": {
+    "assets": [
+	    "./App/Fonts"
+    ]
+  },
   "jest": {
     "testMatch": [
       "<rootDir>/Tests/**/*.js",

@@ -63,6 +63,21 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Cabin-Bold.otf</string>
+		<string>Cabin-BoldItalic.otf</string>
+		<string>Cabin-Italic.otf</string>
+		<string>Cabin-Medium.otf</string>
+		<string>Cabin-MediumItalic.otf</string>
+		<string>Cabin-Regular.otf</string>
+		<string>Cabin-SemiBold.otf</string>
+		<string>Cabin-SemiBoldItalic.otf</string>
+		<string>Lora-Bold.ttf</string>
+		<string>Lora-BoldItalic.ttf</string>
+		<string>Lora-Italic.ttf</string>
+		<string>Lora-Regular.ttf</string>
+		<string>Roboto_medium.ttf</string>
+		<string>Roboto.ttf</string>
+		<string>rubicon-icon-font.ttf</string>
 	</array>
 </dict>
 </plist>
