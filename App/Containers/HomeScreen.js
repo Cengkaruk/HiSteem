@@ -39,7 +39,7 @@ class HomeScreen extends Component {
       <StyleProvider style={getTheme()}>
         <Drawer
         ref={(ref) => { this.drawer = ref; }}
-        content={<Sidebar navigator={this.navigator} />}
+        content={<Sidebar navigation={this.props.navigation} />}
         onClose={() => this.closeDrawer()} >
           <Container style={{ backgroundColor: '#EEEEEE' }}>
             <Header>
@@ -56,7 +56,7 @@ class HomeScreen extends Component {
             <Content>
               <Grid>
                 <Row>
-                  <PostCarousel />
+                  <PostCarousel navigation={this.props.navigation} />
                 </Row>
                 <Row>
                   <PostList />

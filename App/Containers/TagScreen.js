@@ -38,7 +38,7 @@ class TagScreen extends Component {
       <StyleProvider style={getTheme()}>
         <Drawer
         ref={(ref) => { this.drawer = ref; }}
-        content={<Sidebar navigator={this.navigator} />}
+        content={<Sidebar navigation={this.props.navigation} />}
         onClose={() => this.closeDrawer()} >
           <Container style={{ backgroundColor: '#EEEEEE' }}>
             <Header>

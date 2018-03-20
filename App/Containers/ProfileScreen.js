@@ -30,12 +30,13 @@ import Images from '../Themes/Images'
 
 class ProfileScreen extends Component {
   render () {
+    const { goBack } = this.props.navigation
     return (
       <StyleProvider style={getTheme()}>
         <Container style={{ backgroundColor: '#EEEEEE' }}>
           <Header noShadow light>
             <Left>
-              <Button>
+              <Button onPress={() => goBack()}>
                 <Icon name='ios-arrow-back' />
               </Button>
             </Left>
