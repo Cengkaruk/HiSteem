@@ -22,13 +22,13 @@ import { connect } from 'react-redux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
-import styles from './Styles/TagScreenStyle'
+// import styles from './Styles/TagScreenStyle'
 
 class TagScreen extends Component {
   closeDrawer = () => {
     this.drawer._root.close()
   }
-  
+
   openDrawer = () => {
     this.drawer._root.open()
   }
@@ -37,9 +37,9 @@ class TagScreen extends Component {
     return (
       <StyleProvider style={getTheme()}>
         <Drawer
-        ref={(ref) => { this.drawer = ref; }}
-        content={<Sidebar navigation={this.props.navigation} />}
-        onClose={() => this.closeDrawer()} >
+          ref={(ref) => { this.drawer = ref }}
+          content={<Sidebar navigation={this.props.navigation} />}
+          onClose={() => this.closeDrawer()} >
           <Container style={{ backgroundColor: '#EEEEEE' }}>
             <Header>
               <Left>

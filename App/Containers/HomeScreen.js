@@ -10,10 +10,9 @@ import {
   Right,
   Title,
   Button,
-  Icon,
-  Text
+  Icon
 } from 'native-base'
-import { Col, Row, Grid } from 'react-native-easy-grid'
+import { Row, Grid } from 'react-native-easy-grid'
 import Sidebar from '../Components/Sidebar'
 import PostCarousel from '../Components/PostCarousel'
 import PostList from '../Components/PostList'
@@ -23,13 +22,13 @@ import { connect } from 'react-redux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
-import styles from './Styles/HomeScreenStyle'
+// import styles from './Styles/HomeScreenStyle'
 
 class HomeScreen extends Component {
   closeDrawer = () => {
     this.drawer._root.close()
   }
-  
+
   openDrawer = () => {
     this.drawer._root.open()
   }
@@ -38,9 +37,9 @@ class HomeScreen extends Component {
     return (
       <StyleProvider style={getTheme()}>
         <Drawer
-        ref={(ref) => { this.drawer = ref; }}
-        content={<Sidebar navigation={this.props.navigation} />}
-        onClose={() => this.closeDrawer()} >
+          ref={(ref) => { this.drawer = ref }}
+          content={<Sidebar navigation={this.props.navigation} />}
+          onClose={() => this.closeDrawer()} >
           <Container style={{ backgroundColor: '#EEEEEE' }}>
             <Header>
               <Left>

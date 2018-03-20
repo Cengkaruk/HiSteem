@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
 import {
-  Image
-} from 'react-native'
-import {
   Container,
   Content,
   List,
@@ -12,8 +9,8 @@ import {
   Text,
   Thumbnail
 } from 'native-base'
-import { Col, Row, Grid } from 'react-native-easy-grid'
-import styles from './Styles/SidebarStyle'
+import { Row, Grid } from 'react-native-easy-grid'
+// import styles from './Styles/SidebarStyle'
 
 import Images from '../Themes/Images'
 

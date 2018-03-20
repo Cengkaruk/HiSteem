@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import {
   StyleProvider,
-  Drawer,
   Container,
   Content,
   Header,
   Left,
   Body,
   Right,
-  Title,
   Button,
   Icon,
   Text,
@@ -24,7 +22,7 @@ import { connect } from 'react-redux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
-import styles from './Styles/ProfileScreenStyle'
+// import styles from './Styles/ProfileScreenStyle'
 
 import Images from '../Themes/Images'
 
@@ -73,21 +71,21 @@ class ProfileScreen extends Component {
                     tabStyle={{ backgroundColor: '#FFF' }}
                     activeTabStyle={{ backgroundColor: '#FFF' }}
                     activeTextStyle={{ color: '#000' }}
-                    heading="Latest">
+                    heading='Latest'>
                     <PostList />
                   </Tab>
                   <Tab
                     tabStyle={{ backgroundColor: '#FFF' }}
                     activeTabStyle={{ backgroundColor: '#FFF' }}
                     activeTextStyle={{ color: '#000' }}
-                    heading="Comments">
+                    heading='Comments'>
                     <Text>Comments</Text>
                   </Tab>
                   <Tab
                     tabStyle={{ backgroundColor: '#FFF' }}
                     activeTabStyle={{ backgroundColor: '#FFF' }}
                     activeTextStyle={{ color: '#000' }}
-                    heading="Replies">
+                    heading='Replies'>
                     <Text>Replies</Text>
                   </Tab>
                 </Tabs>

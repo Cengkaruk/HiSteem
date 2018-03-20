@@ -3,14 +3,13 @@ import React, { Component } from 'react'
 import { Image, Dimensions } from 'react-native'
 import {
   Container,
-  Text,
-  Thumbnail
+  Text
 } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import Images from '../Themes/Images'
-import styles from './Styles/CarouselItemStyle'
+// import styles from './Styles/CarouselItemStyle'
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 export default class CarouselItem extends Component {
   // // Prop type warnings
@@ -29,7 +28,7 @@ export default class CarouselItem extends Component {
       <Container style={{ backgroundColor: '#FFF', height: 240, marginRight: 15, borderRadius: 5 }}>
         <Grid>
           <Row>
-            <Image source={Images.imagePlaceholder} resizeMode="cover" style={{ height: 110, width: width - 30 }} />
+            <Image source={Images.imagePlaceholder} resizeMode='cover' style={{ height: 110, width: width - 30 }} />
           </Row>
           <Row size={1} style={{ flexDirection: 'column', padding: 20, paddingTop: 30 }}>
             <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>

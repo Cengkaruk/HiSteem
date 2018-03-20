@@ -3,7 +3,6 @@ import {
   StyleProvider,
   Drawer,
   Container,
-  Content,
   Header,
   Left,
   Body,
@@ -23,13 +22,13 @@ import { connect } from 'react-redux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
-import styles from './Styles/HighlightScreenStyle'
+// import styles from './Styles/HighlightScreenStyle'
 
 class HighlightScreen extends Component {
   closeDrawer = () => {
     this.drawer._root.close()
   }
-  
+
   openDrawer = () => {
     this.drawer._root.open()
   }
@@ -38,9 +37,9 @@ class HighlightScreen extends Component {
     return (
       <StyleProvider style={getTheme()}>
         <Drawer
-        ref={(ref) => { this.drawer = ref; }}
-        content={<Sidebar navigation={this.props.navigation} />}
-        onClose={() => this.closeDrawer()} >
+          ref={(ref) => { this.drawer = ref }}
+          content={<Sidebar navigation={this.props.navigation} />}
+          onClose={() => this.closeDrawer()} >
           <Container style={{ backgroundColor: '#EEEEEE' }}>
             <Header hasTabs>
               <Left>
@@ -54,16 +53,16 @@ class HighlightScreen extends Component {
               <Right />
             </Header>
             <Tabs>
-              <Tab heading="Trending">
+              <Tab heading='Trending'>
                 <PostList />
               </Tab>
-              <Tab heading="New">
+              <Tab heading='New'>
                 <Text>New</Text>
               </Tab>
-              <Tab heading="Hot">
+              <Tab heading='Hot'>
                 <Text>Hot</Text>
               </Tab>
-              <Tab heading="Promoted">
+              <Tab heading='Promoted'>
                 <Text>Promoted</Text>
               </Tab>
             </Tabs>

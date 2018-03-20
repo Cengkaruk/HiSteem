@@ -5,12 +5,12 @@ import {
   Icon,
   Text
 } from 'native-base'
-import { Col, Row, Grid } from 'react-native-easy-grid'
+import { Row, Grid } from 'react-native-easy-grid'
 import Carousel from 'react-native-carousel-control'
 import CarouselItem from './CarouselItem'
-import styles from './Styles/PostCarouselStyle'
+// import styles from './Styles/PostCarouselStyle'
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 export default class PostCarousel extends Component {
   // // Prop type warnings
@@ -39,7 +39,7 @@ export default class PostCarousel extends Component {
         </Row>
         <Row style={{ paddingHorizontal: 10, paddingTop: 5, alignItems: 'center', justifyContent: 'space-between' }} onPress={() => navigate('HighlightScreen')}>
           <Text note style={{ fontFamily: 'Cabin-Bold' }}>See all trending</Text>
-          <Icon name="ios-arrow-forward" />
+          <Icon name='ios-arrow-forward' />
         </Row>
       </Grid>
     )
