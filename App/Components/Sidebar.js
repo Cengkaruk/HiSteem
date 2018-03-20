@@ -52,7 +52,7 @@ export default class Sidebar extends Component {
                 <ListItem noBorder onPress={() => navigate('NewPostScreen')}>
                   <Text style={{ marginLeft: 20 }}>New post</Text>
                 </ListItem>
-                <ListItem noBorder>
+                <ListItem noBorder onPress={() => navigate('WalletScreen')}>
                   <Text style={{ marginLeft: 20 }}>Wallet</Text>
                 </ListItem>
               </List>
