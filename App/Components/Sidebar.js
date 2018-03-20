@@ -45,6 +45,9 @@ export default class Sidebar extends Component {
                   <Text style={{ marginLeft: 20 }}>Home</Text>
                 </ListItem>
                 <ListItem noBorder>
+                  <Text style={{ marginLeft: 20 }}>Highlights</Text>
+                </ListItem>
+                <ListItem noBorder>
                   <Text style={{ marginLeft: 20 }}>Tags</Text>
                 </ListItem>
                 <Separator style={{ backgroundColor: '#EEEEEE' }} />

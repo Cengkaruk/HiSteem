@@ -210,8 +210,8 @@ export default {
   inverseSpinnerColor: '#1A191B',
 
   // Tab
-  tabDefaultBg: platform === 'ios' ? '#F8F8F8' : '#3F51B5',
-  topTabBarTextColor: platform === 'ios' ? '#6b6b6b' : '#b3c7f9',
+  tabDefaultBg: '#000',
+  topTabBarTextColor: '#a7a6ab',
   topTabBarActiveTextColor: platform === 'ios' ? '#007aff' : '#fff',
   topTabBarBorderColor: platform === 'ios' ? '#a7a6ab' : '#fff',
   topTabBarActiveBorderColor: platform === 'ios' ? '#007aff' : '#fff',
