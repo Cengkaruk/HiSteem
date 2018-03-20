@@ -327,6 +327,11 @@ export default (variables = variable) => {
           }
         }
       },
+      'NativeBase.Body': {
+        'NativeBase.Title': {
+          color: '#000'
+        }
+      },
       'NativeBase.Right': {
         'NativeBase.Button': {
           alignSelf: 'center',

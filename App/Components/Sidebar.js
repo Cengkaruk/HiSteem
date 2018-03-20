@@ -49,7 +49,7 @@ export default class Sidebar extends Component {
                   <Text style={{ marginLeft: 20 }}>Tags</Text>
                 </ListItem>
                 <Separator style={{ backgroundColor: '#EEEEEE' }} />
-                <ListItem noBorder>
+                <ListItem noBorder onPress={() => navigate('NewPostScreen')}>
                   <Text style={{ marginLeft: 20 }}>New post</Text>
                 </ListItem>
                 <ListItem noBorder>

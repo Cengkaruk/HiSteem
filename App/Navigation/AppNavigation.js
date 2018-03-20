@@ -1,4 +1,5 @@
 import { StackNavigator } from 'react-navigation'
+import NewPostScreen from '../Containers/NewPostScreen'
 import ProfileScreen from '../Containers/ProfileScreen'
 import HighlightScreen from '../Containers/HighlightScreen'
 import TagScreen from '../Containers/TagScreen'
@@ -10,6 +11,7 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
+  NewPostScreen: { screen: NewPostScreen },
   ProfileScreen: { screen: ProfileScreen },
   HighlightScreen: { screen: HighlightScreen },
   TagScreen: { screen: TagScreen },
