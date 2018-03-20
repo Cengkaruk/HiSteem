@@ -83,7 +83,7 @@ export default class PostList extends Component {
     let items = [1, 2, 3, 4, 5]
     return (
       <Grid>
-        <Row style={{ padding: 15 }}>
+        <Row style={{ padding: 15, height: 50 }}>
           <Text style={{ fontFamily: 'Cabin-Bold' }}>People you follow</Text>
         </Row>
         <Row>

@@ -15,6 +15,7 @@ import {
   Text
 } from 'native-base'
 import Sidebar from '../Components/Sidebar'
+import PostList from '../Components/PostList'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -41,7 +42,7 @@ class HighlightScreen extends Component {
           </Header>
           <Tabs>
             <Tab heading="Trending">
-              <Text>Trending</Text>
+              <PostList />
             </Tab>
             <Tab heading="New">
               <Text>New</Text>
