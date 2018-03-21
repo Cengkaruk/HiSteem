@@ -30,11 +30,11 @@ export default class PostCarousel extends Component {
       <Grid>
         <Row style={{ paddingTop: 15 }}>
           <Carousel pageWidth={width - 30}>
-            <CarouselItem />
-            <CarouselItem />
-            <CarouselItem />
-            <CarouselItem />
-            <CarouselItem />
+            <CarouselItem navigation={this.props.navigation} />
+            <CarouselItem navigation={this.props.navigation} />
+            <CarouselItem navigation={this.props.navigation} />
+            <CarouselItem navigation={this.props.navigation} />
+            <CarouselItem navigation={this.props.navigation} />
           </Carousel>
         </Row>
         <Row style={{ paddingHorizontal: 10, paddingTop: 5, alignItems: 'center', justifyContent: 'space-between' }} onPress={() => navigate('HighlightScreen')}>

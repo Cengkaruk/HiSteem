@@ -27,16 +27,17 @@ export default class PostList extends Component {
   // }
 
   renderFirstPostItem = () => {
+    const { navigate } = this.props.navigation
     return (
       <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }}>
         <Row style={{ alignItems: 'center' }}>
           <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
           <Text note style={{ marginLeft: 10 }}>Wiku Baskoro and 35 others</Text>
         </Row>
-        <Row style={{ marginTop: 10 }}>
+        <Row style={{ marginTop: 10 }} onPress={() => navigate('SinglePostScreen')}>
           <Image source={Images.imagePlaceholder} resizeMode='cover' style={{ width: width - 30, height: 240, borderRadius: 5 }} />
         </Row>
-        <Row style={{ marginTop: 10 }}>
+        <Row style={{ marginTop: 10 }} onPress={() => navigate('SinglePostScreen')}>
           <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>
         </Row>
         <Row style={{ alignItems: 'center', marginTop: 15 }}>
@@ -62,7 +63,7 @@ export default class PostList extends Component {
           <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
           <Text note style={{ marginLeft: 10 }}>Wiku Baskoro and 35 others</Text>
         </Row>
-        <Row style={{ marginTop: 10 }}>
+        <Row style={{ marginTop: 10 }} onPress={() => navigate('SinglePostScreen')}>
           <Grid>
             <Col style={{ justifyContent: 'center' }}>
               <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>

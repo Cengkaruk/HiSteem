@@ -24,13 +24,14 @@ export default class CarouselItem extends Component {
   // }
 
   render () {
+    const { navigate } = this.props.navigation
     return (
       <Container style={{ backgroundColor: '#FFF', height: 240, marginRight: 15, borderRadius: 5 }}>
         <Grid>
-          <Row>
+          <Row onPress={() => navigate('SinglePostScreen')}>
             <Image source={Images.imagePlaceholder} resizeMode='cover' style={{ height: 110, width: width - 30 }} />
           </Row>
-          <Row size={1} style={{ flexDirection: 'column', padding: 20, paddingTop: 30 }}>
+          <Row size={1} style={{ flexDirection: 'column', padding: 10 }} onPress={() => navigate('SinglePostScreen')}>
             <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>
             <Grid style={{ marginTop: 20 }}>
               <Col>

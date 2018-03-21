@@ -330,6 +330,9 @@ export default (variables = variable) => {
       'NativeBase.Body': {
         'NativeBase.Title': {
           color: '#000'
+        },
+        'NativeBase.Subtitle': {
+          color: '#a7a7a7'
         }
       },
       'NativeBase.Right': {

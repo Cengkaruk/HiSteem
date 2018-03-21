@@ -54,7 +54,7 @@ class HighlightScreen extends Component {
             </Header>
             <Tabs>
               <Tab heading='Trending'>
-                <PostList />
+                <PostList navigation={this.props.navigation} />
               </Tab>
               <Tab heading='New'>
                 <Text>New</Text>

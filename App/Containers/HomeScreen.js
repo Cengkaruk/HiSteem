@@ -58,7 +58,7 @@ class HomeScreen extends Component {
                   <PostCarousel navigation={this.props.navigation} />
                 </Row>
                 <Row>
-                  <PostList />
+                  <PostList navigation={this.props.navigation} />
                 </Row>
               </Grid>
             </Content>

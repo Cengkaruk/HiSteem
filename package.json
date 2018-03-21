@@ -39,6 +39,7 @@
     "react-native-config": "^0.10.0",
     "react-native-i18n": "1.0.0",
     "react-native-markdown-editor": "^1.0.1",
+    "react-native-showdown": "/Users/cengkaruk/Projects/OpenSource/react-native-showdown",
     "react-native-vector-icons": "4.3.0",
     "react-navigation": "v1.0.0-beta.26",
     "react-redux": "^5.0.6",
