@@ -1,16 +1,12 @@
 import React, { Component } from 'react'
 import {
   StyleProvider,
-  Drawer,
   Container,
-  Content,
   Header,
   Left,
   Body,
   Right,
   Title,
-  List,
-  ListItem,
   Button,
   Icon,
   Text
@@ -36,10 +32,10 @@ class NewPostScreen extends Component {
         title: 'U',
         wrapper: '__',
         onPress: applyWrapFormat,
-        style: { textDecorationLine: 'underline' },
+        style: { textDecorationLine: 'underline' }
       },
       { key: 'L', title: 'L', prefix: '-', onPress: applyListFormat },
-      { key: 'WEB', title: 'WEB', onPress: applyWebLinkFormat },
+      { key: 'WEB', title: 'WEB', onPress: applyWebLinkFormat }
     ]
 
     return (

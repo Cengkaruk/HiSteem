@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Dimensions } from 'react-native'
 import {
   StyleProvider,
   Container,
@@ -25,8 +24,6 @@ import { connect } from 'react-redux'
 import getTheme from '../Themes/NativeBase/components'
 // import styles from './Styles/SinglePostScreenStyle'
 import Images from '../Themes/Images'
-
-const { width, height } = Dimensions.get('window')
 
 class SinglePostScreen extends Component {
   render () {

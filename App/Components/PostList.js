@@ -57,6 +57,7 @@ export default class PostList extends Component {
   }
 
   renderPostItem = () => {
+    const { navigate } = this.props.navigation
     return (
       <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }}>
         <Row style={{ alignItems: 'center' }}>

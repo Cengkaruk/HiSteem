@@ -11,8 +11,7 @@ import {
   Tabs,
   Tab,
   Button,
-  Icon,
-  Text
+  Icon
 } from 'native-base'
 import Sidebar from '../Components/Sidebar'
 import WalletBalanceTab from '../Components/WalletBalanceTab'
@@ -24,7 +23,7 @@ import { connect } from 'react-redux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
-import styles from './Styles/WalletScreenStyle'
+// import styles from './Styles/WalletScreenStyle'
 
 class WalletScreen extends Component {
   closeDrawer = () => {

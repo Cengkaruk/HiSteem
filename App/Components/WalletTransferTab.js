@@ -11,8 +11,7 @@ import {
   Button,
   Text
 } from 'native-base'
-import { Col, Row, Grid } from 'react-native-easy-grid'
-import styles from './Styles/WalletTransferTabStyle'
+// import styles from './Styles/WalletTransferTabStyle'
 
 const PickerItem = Picker.Item
 
@@ -35,7 +34,7 @@ export default class WalletTransferTab extends Component {
     }
   }
 
-  onValueChange(value) {
+  onValueChange (value) {
     this.setState({
       currency: value
     })
@@ -53,14 +52,14 @@ export default class WalletTransferTab extends Component {
             <Item stackedLabel last>
               <Label style={{ color: 'red' }}>Currency (BUG)</Label>
               <Picker
-                iosHeader="Select Asset"
-                mode="dropdown"
+                iosHeader='Select Asset'
+                mode='dropdown'
                 selectedValue={this.state.currency}
                 onValueChange={this.onValueChange.bind(this)}
               >
-                <PickerItem label="Steem" value="key0" />
-                <PickerItem label="Steem Dollar" value="key1" />
-                <PickerItem label="Steem Power" value="key2" />
+                <PickerItem label='Steem' value='key0' />
+                <PickerItem label='Steem Dollar' value='key1' />
+                <PickerItem label='Steem Power' value='key2' />
               </Picker>
             </Item>
             <Item stackedLabel>

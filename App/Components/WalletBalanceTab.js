@@ -10,7 +10,7 @@ import {
   Text
 } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
-import styles from './Styles/WalletBalanceTabStyle'
+// import styles from './Styles/WalletBalanceTabStyle'
 
 export default class WalletBalanceTab extends Component {
   // // Prop type warnings
@@ -83,7 +83,7 @@ export default class WalletBalanceTab extends Component {
                 <ListItem style={{ marginLeft: 0 }}>
                   <Body>
                     <Text style={{ marginLeft: 0 }}>Claim rewards: 0.022 STEEM POWER</Text>
-                    <Text note style={{ marginLeft: 0 }}></Text>
+                    <Text note style={{ marginLeft: 0 }} />
                   </Body>
                   <Right>
                     <Text note>7 hours ago</Text>

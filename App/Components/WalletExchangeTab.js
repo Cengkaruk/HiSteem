@@ -5,7 +5,7 @@ import {
   Content,
   Text
 } from 'native-base'
-import styles from './Styles/WalletExchangeTabStyle'
+// import styles from './Styles/WalletExchangeTabStyle'
 
 export default class WalletExchangeTab extends Component {
   // // Prop type warnings
