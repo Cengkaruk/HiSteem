@@ -1,5 +1,6 @@
 import { put, select } from 'redux-saga/effects'
 import GithubActions, { GithubSelectors } from '../Redux/GithubRedux'
+import AccountActions from '../Redux/AccountRedux'
 import { is } from 'ramda'
 
 // exported to make available for tests
@@ -16,4 +17,6 @@ export function * startup (action) {
   if (!is(String, avatar)) {
     yield put(GithubActions.userRequest('GantMan'))
   }
+
+  yield put(AccountActions.accountRequest('cengkaruk'))
 }
