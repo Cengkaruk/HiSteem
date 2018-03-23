@@ -29,3 +29,7 @@ export function * login (action) {
     yield put(LoginActions.loginFailure())
   }
 }
+
+export function * logout () {
+  yield put(NavigationActions.navigate({ routeName: 'LoginScreen' }))
+}

@@ -17,8 +17,7 @@ import Sidebar from '../Components/Sidebar'
 import PostCarousel from '../Components/PostCarousel'
 import PostList from '../Components/PostList'
 import { connect } from 'react-redux'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import LoginActions from '../Redux/LoginRedux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
@@ -38,7 +37,11 @@ class HomeScreen extends Component {
       <StyleProvider style={getTheme()}>
         <Drawer
           ref={(ref) => { this.drawer = ref }}
-          content={<Sidebar navigation={this.props.navigation} account={this.props.account} />}
+          content={<Sidebar
+            navigation={this.props.navigation}
+            account={this.props.account}
+            logout={this.props.logout}
+          />}
           onClose={() => this.closeDrawer()} >
           <Container style={{ backgroundColor: '#EEEEEE' }}>
             <Header>
@@ -77,6 +80,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    logout: () => dispatch(LoginActions.logoutRequest())
   }
 }
 

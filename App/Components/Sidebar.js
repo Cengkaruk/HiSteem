@@ -28,6 +28,7 @@ export default class Sidebar extends Component {
 
   render () {
     const { navigate } = this.props.navigation
+    const logout = this.props.logout
     let jsonMetadata = JSON.parse(this.props.account.json_metadata)
     const account = {
       name: jsonMetadata.profile.name
@@ -65,7 +66,7 @@ export default class Sidebar extends Component {
           <Row size={0.5} style={{ alignItems: 'center', paddingLeft: 35 }}>
             <Thumbnail small source={Images.logoIcon} />
             <Text note style={{ marginHorizontal: 15, padding: 5 }}>Settings</Text>
-            <Text note style={{ marginHorizontal: 15, padding: 5 }}>Sign out</Text>
+            <Text note style={{ marginHorizontal: 15, padding: 5 }} onPress={() => this.props.logout()}>Sign out</Text>
           </Row>
         </Grid>
       </Container>

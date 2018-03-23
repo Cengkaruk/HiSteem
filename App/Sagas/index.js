@@ -13,7 +13,7 @@ import { LoginTypes } from '../Redux/LoginRedux'
 
 import { startup } from './StartupSagas'
 import { getAccount } from './AccountSagas'
-import { login } from './LoginSagas'
+import { login, logout } from './LoginSagas'
 
 /* ------------- API ------------- */
 
@@ -30,6 +30,7 @@ export default function * root () {
 
     // some sagas receive extra parameters in addition to an action
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount),
-    takeLatest(LoginTypes.LOGIN_REQUEST, login)
+    takeLatest(LoginTypes.LOGIN_REQUEST, login),
+    takeLatest(LoginTypes.LOGOUT_REQUEST, logout)
   ])
 }
