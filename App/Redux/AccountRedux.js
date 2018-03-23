@@ -23,7 +23,8 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Selectors ------------- */
 
 export const AccountSelectors = {
-  getAccount: state => state.account.account
+  getAccount: state => state.account.account,
+  getActivePublicKey: state => state.account.account.active.key_auths[0][0]
 }
 
 /* ------------- Reducers ------------- */

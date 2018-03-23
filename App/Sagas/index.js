@@ -7,11 +7,13 @@ import { takeLatest, all } from 'redux-saga/effects'
 
 import { StartupTypes } from '../Redux/StartupRedux'
 import { AccountTypes } from '../Redux/AccountRedux'
+import { LoginTypes } from '../Redux/LoginRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
 import { getAccount } from './AccountSagas'
+import { login } from './LoginSagas'
 
 /* ------------- API ------------- */
 
@@ -27,6 +29,7 @@ export default function * root () {
     takeLatest(StartupTypes.STARTUP, startup),
 
     // some sagas receive extra parameters in addition to an action
-    takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount)
+    takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount),
+    takeLatest(LoginTypes.LOGIN_REQUEST, login)
   ])
 }

@@ -8,7 +8,8 @@ import ReduxPersist from '../Config/ReduxPersist'
 export const reducers = combineReducers({
   nav: require('./NavigationRedux').reducer,
   search: require('./SearchRedux').reducer,
-  account: require('./AccountRedux').reducer
+  account: require('./AccountRedux').reducer,
+  login: require('./LoginRedux').reducer
 })
 
 export default () => {
