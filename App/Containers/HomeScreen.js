@@ -38,7 +38,7 @@ class HomeScreen extends Component {
       <StyleProvider style={getTheme()}>
         <Drawer
           ref={(ref) => { this.drawer = ref }}
-          content={<Sidebar navigation={this.props.navigation} />}
+          content={<Sidebar navigation={this.props.navigation} account={this.props.account} />}
           onClose={() => this.closeDrawer()} >
           <Container style={{ backgroundColor: '#EEEEEE' }}>
             <Header>
@@ -71,6 +71,7 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    account: state.account.account
   }
 }
 

@@ -28,12 +28,16 @@ export default class Sidebar extends Component {
 
   render () {
     const { navigate } = this.props.navigation
+    let jsonMetadata = JSON.parse(this.props.account.json_metadata)
+    const account = {
+      name: jsonMetadata.profile.name
+    }
     return (
       <Container style={{ backgroundColor: '#EEEEEE' }}>
         <Grid>
           <Row size={1.5} style={{ flexDirection: 'column', justifyContent: 'center', backgroundColor: '#FFFFFF', paddingHorizontal: 35 }}>
             <Thumbnail large source={Images.avatar} />
-            <Text style={{ marginTop: 20 }}>Aji Kisworo Mukti</Text>
+            <Text style={{ marginTop: 20 }}>{account.name}</Text>
             <Text note style={{ marginTop: 15 }} onPress={() => navigate('ProfileScreen')}>See profile</Text>
           </Row>
           <Row size={2.5}>
