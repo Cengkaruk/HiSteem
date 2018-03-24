@@ -10,11 +10,13 @@ import {
   Thumbnail
 } from 'native-base'
 import { Row, Grid } from 'react-native-easy-grid'
+import { connect } from 'react-redux'
+import LoginActions from '../Redux/LoginRedux'
 // import styles from './Styles/SidebarStyle'
 
 import Images from '../Themes/Images'
 
-export default class Sidebar extends Component {
+class Sidebar extends Component {
   // // Prop type warnings
   // static propTypes = {
   //   someProperty: PropTypes.object,
@@ -73,3 +75,17 @@ export default class Sidebar extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    account: state.account.account
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(LoginActions.logoutRequest())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)
