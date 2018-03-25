@@ -19,6 +19,10 @@ export function * login (action) {
     }
   }
 
+  // FIXME: This accountReset should in logout
+  // Got state.account null at Sidebar when we move to there
+  yield put(AccountActions.accountReset())
+
   yield call(getAccount, { username })
   let pubWif = yield select(AccountSelectors.getActivePublicKey)
 

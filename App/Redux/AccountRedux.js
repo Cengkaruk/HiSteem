@@ -7,6 +7,7 @@ const { Types, Creators } = createActions({
   accountRequest: ['username'],
   accountSuccess: ['account'],
   accountFailure: null,
+  accountReset: null,
   followListRequest: ['username'],
   followListSuccess: ['followers', 'following'],
   followListFailure: null
@@ -48,6 +49,9 @@ export const success = (state, { account }) =>
 export const failure = state =>
   state.merge({ fetching: false, error: true, account: null })
 
+export const reset = state =>
+  state.merge({ fetching: false, account: null, followList: { followers: [], following: [] } })
+
 export const followListRequest = state =>
   state.merge({ fetching: true })
 
@@ -63,6 +67,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.ACCOUNT_REQUEST]: request,
   [Types.ACCOUNT_SUCCESS]: success,
   [Types.ACCOUNT_FAILURE]: failure,
+  [Types.ACCOUNT_RESET]: reset,
   [Types.FOLLOW_LIST_REQUEST]: followListRequest,
   [Types.FOLLOW_LIST_SUCCESS]: followListSuccess,
   [Types.FOLLOW_LIST_FAILURE]: followListFailure

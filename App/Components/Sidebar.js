@@ -31,8 +31,10 @@ class Sidebar extends Component {
   render () {
     const { navigate } = this.props.navigation
     const logout = this.props.logout
-    let jsonMetadata = JSON.parse(this.props.account.json_metadata)
-    const account = {
+    const { json_metadata } = this.props.account
+
+    let jsonMetadata = JSON.parse(json_metadata)
+    let account = {
       name: jsonMetadata.profile.name,
       profileImage: jsonMetadata.profile.profile_image
     }
