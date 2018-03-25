@@ -33,13 +33,14 @@ class Sidebar extends Component {
     const logout = this.props.logout
     let jsonMetadata = JSON.parse(this.props.account.json_metadata)
     const account = {
-      name: jsonMetadata.profile.name
+      name: jsonMetadata.profile.name,
+      profileImage: jsonMetadata.profile.profile_image
     }
     return (
       <Container style={{ backgroundColor: '#EEEEEE' }}>
         <Grid>
           <Row size={1.5} style={{ flexDirection: 'column', justifyContent: 'center', backgroundColor: '#FFFFFF', paddingHorizontal: 35 }}>
-            <Thumbnail large source={Images.avatar} />
+            <Thumbnail large source={{ uri: account.profileImage }} />
             <Text style={{ marginTop: 20 }}>{account.name}</Text>
             <Text note style={{ marginTop: 15 }} onPress={() => navigate('ProfileScreen')}>See profile</Text>
           </Row>

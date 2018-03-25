@@ -17,8 +17,7 @@ import {
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import PostList from '../Components/PostList'
 import { connect } from 'react-redux'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import AccountActions from '../Redux/AccountRedux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
@@ -27,8 +26,19 @@ import getTheme from '../Themes/NativeBase/components'
 import Images from '../Themes/Images'
 
 class ProfileScreen extends Component {
+  componentWillMount () {
+    this.props.getFollowList(this.props.account.name)
+  }
+
   render () {
     const { goBack } = this.props.navigation
+    let jsonMetadata = JSON.parse(this.props.account.json_metadata)
+    const account = {
+      name: jsonMetadata.profile.name,
+      about: jsonMetadata.profile.about,
+      profileImage: jsonMetadata.profile.profile_image,
+      followList: this.props.followList
+    }
     return (
       <StyleProvider style={getTheme()}>
         <Container style={{ backgroundColor: '#EEEEEE' }}>
@@ -51,18 +61,18 @@ class ProfileScreen extends Component {
           <Content>
             <Grid style={{ backgroundColor: '#FFF' }}>
               <Row style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <Thumbnail large source={Images.avatar} />
+                <Thumbnail large source={{ uri: account.profileImage }} />
               </Row>
               <Row style={{ flexDirection: 'column', padding: 20, borderBottomWidth: 1, borderBottomColor: '#F8F8F8' }}>
-                <Text style={{ fontSize: 24 }}>Aji Kisworo Mukti</Text>
-                <Text>Man behind the machine.</Text>
+                <Text style={{ fontSize: 24 }}>{ account.name }</Text>
+                <Text>{ account.about }</Text>
               </Row>
               <Row style={{ padding: 20 }}>
                 <Col>
-                  <Text note>101 Following</Text>
+                  <Text note>{ account.followList.followers.length } Following</Text>
                 </Col>
                 <Col>
-                  <Text note>135 Followers</Text>
+                  <Text note>{ account.followList.following.length } Followers</Text>
                 </Col>
               </Row>
               <Row>
@@ -100,11 +110,14 @@ class ProfileScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    account: state.account.account,
+    followList: state.account.followList
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getFollowList: (username) => dispatch(AccountActions.followListRequest(username))
   }
 }
 

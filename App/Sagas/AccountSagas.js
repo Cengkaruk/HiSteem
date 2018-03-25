@@ -17,3 +17,33 @@ export function * getAccount (action) {
   }
   yield put(AccountActions.accountSuccess(account))
 }
+
+export function * getFollowers (username) {
+  let followers = []
+  try {
+    followers = yield call(api.getFollowersAsync, username, null, null, 100)
+  } catch (error) {
+    yield put(AccountActions.followListFailure())
+  }
+
+  return followers
+}
+
+export function * getFollowing (username) {
+  let following = []
+  try {
+    following = yield call(api.getFollowingAsync, username, null, null, 100)
+  } catch (error) {
+    yield put(AccountActions.followListFailure())
+  }
+
+  return following
+}
+
+export function * getFollowList (action) {
+  const { username } = action
+  let followers = yield call(getFollowers, username)
+  let following = yield call(getFollowing, username)
+
+  yield put(AccountActions.followListSuccess(followers, following))
+}
