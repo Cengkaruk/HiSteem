@@ -26,10 +26,10 @@ export default class PostList extends Component {
   //   someSetting: false
   // }
 
-  renderFirstPostItem = (post) => {
+  renderFirstPostItem = (post, index) => {
     const { navigate } = this.props.navigation
     return (
-      <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }}>
+      <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }} key={index}>
         <Row style={{ alignItems: 'center' }}>
           <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
           <Text note style={{ marginLeft: 10 }}>{ post.active_votes[0].voter } and { post.active_votes.length - 1 } others</Text>
@@ -56,10 +56,10 @@ export default class PostList extends Component {
     )
   }
 
-  renderPostItem = (post) => {
+  renderPostItem = (post, index) => {
     const { navigate } = this.props.navigation
     return (
-      <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }}>
+      <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }} key={index}>
         <Row style={{ alignItems: 'center' }}>
           <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
           <Text note style={{ marginLeft: 10 }}>{ post.active_votes[0].voter } and { post.active_votes.length - 1 } others</Text>
@@ -100,7 +100,7 @@ export default class PostList extends Component {
         <Row>
           <List dataArray={posts}
             renderRow={(post, section, index) =>
-              (index === '0') ? this.renderFirstPostItem(post) : this.renderPostItem(post)
+              (index === '0') ? this.renderFirstPostItem(post, index) : this.renderPostItem(post, index)
             } />
         </Row>
       </Grid>
