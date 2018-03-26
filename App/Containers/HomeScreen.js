@@ -24,7 +24,7 @@ import getTheme from '../Themes/NativeBase/components'
 // import styles from './Styles/HomeScreenStyle'
 
 class HomeScreen extends Component {
-  componentWillMount () {
+  componentDidMount () {
     this.props.getPostTrending()
     this.props.getPostFeed()
   }
