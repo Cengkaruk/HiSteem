@@ -31,3 +31,10 @@ export function * getPostHome (action) {
   yield call(getPost, 'trending')
   yield call(getPost, 'feed')
 }
+
+export function * getPostHighlight (action) {
+  yield call(getPost, 'trending')
+  yield call(getPost, 'created')
+  yield call(getPost, 'hot')
+  yield call(getPost, 'promoted')
+}

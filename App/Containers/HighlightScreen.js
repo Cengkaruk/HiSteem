@@ -12,19 +12,23 @@ import {
   Tab,
   Button,
   Icon,
-  Text
+  Text,
+  Spinner
 } from 'native-base'
 import Sidebar from '../Components/Sidebar'
 import PostList from '../Components/PostList'
 import { connect } from 'react-redux'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import PostActions from '../Redux/PostRedux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
 // import styles from './Styles/HighlightScreenStyle'
 
 class HighlightScreen extends Component {
+  componentDidMount () {
+    this.props.getPostHighlight()
+  }
+
   closeDrawer = () => {
     this.drawer._root.close()
   }
@@ -52,20 +56,24 @@ class HighlightScreen extends Component {
               </Body>
               <Right />
             </Header>
-            <Tabs>
-              <Tab heading='Trending'>
-                <PostList navigation={this.props.navigation} />
-              </Tab>
-              <Tab heading='New'>
-                <Text>New</Text>
-              </Tab>
-              <Tab heading='Hot'>
-                <Text>Hot</Text>
-              </Tab>
-              <Tab heading='Promoted'>
-                <Text>Promoted</Text>
-              </Tab>
-            </Tabs>
+            { this.props.posts.fetching ? (
+              <Spinner />
+            ) : (
+              <Tabs>
+                <Tab heading='Trending'>
+                  <PostList navigation={this.props.navigation} posts={this.props.posts.trending} />
+                </Tab>
+                <Tab heading='New'>
+                  <PostList navigation={this.props.navigation} posts={this.props.posts.created} />
+                </Tab>
+                <Tab heading='Hot'>
+                  <PostList navigation={this.props.navigation} posts={this.props.posts.hot} />
+                </Tab>
+                <Tab heading='Promoted'>
+                  <PostList navigation={this.props.navigation} posts={this.props.posts.promoted} />
+                </Tab>
+              </Tabs>
+            )}
           </Container>
         </Drawer>
       </StyleProvider>
@@ -75,11 +83,13 @@ class HighlightScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    posts: state.posts
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getPostHighlight: () => dispatch(PostActions.postHighlightRequest())
   }
 }
 

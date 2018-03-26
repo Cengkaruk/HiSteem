@@ -7,7 +7,8 @@ const { Types, Creators } = createActions({
   postRequest: ['by'],
   postSuccess: ['by', 'posts'],
   postFailure: null,
-  postHomeRequest: null
+  postHomeRequest: null,
+  postHighlightRequest: null
 })
 
 export const PostTypes = Types
@@ -53,5 +54,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.POST_REQUEST]: request,
   [Types.POST_SUCCESS]: success,
   [Types.POST_FAILURE]: failure,
-  [Types.POST_HOME_REQUEST]: request
+  [Types.POST_HOME_REQUEST]: request,
+  [Types.POST_HIGHLIGHT_REQUEST]: request
 })

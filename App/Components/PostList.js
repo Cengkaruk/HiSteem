@@ -32,7 +32,7 @@ export default class PostList extends Component {
       <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }} key={index}>
         <Row style={{ alignItems: 'center' }}>
           <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
-          <Text note style={{ marginLeft: 10 }}>{ post.active_votes[0].voter } and { post.active_votes.length - 1 } others</Text>
+          { post.active_votes.length > 0 && <Text note style={{ marginLeft: 10 }}>{ post.active_votes[0].voter } and { post.active_votes.length - 1 } others</Text> }
         </Row>
         <Row style={{ marginTop: 10 }} onPress={() => navigate('SinglePostScreen')}>
           <Image source={Images.imagePlaceholder} resizeMode='cover' style={{ width: width - 30, height: 240, borderRadius: 5 }} />
@@ -62,7 +62,7 @@ export default class PostList extends Component {
       <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }} key={index}>
         <Row style={{ alignItems: 'center' }}>
           <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
-          <Text note style={{ marginLeft: 10 }}>{ post.active_votes[0].voter } and { post.active_votes.length - 1 } others</Text>
+          { post.active_votes.length > 0 && <Text note style={{ marginLeft: 10 }}>{ post.active_votes[0].voter } and { post.active_votes.length - 1 } others</Text> }
         </Row>
         <Row style={{ marginTop: 10 }} onPress={() => navigate('SinglePostScreen')}>
           <Grid>
