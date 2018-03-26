@@ -27,8 +27,7 @@ import getTheme from '../Themes/NativeBase/components'
 
 class HomeScreen extends Component {
   componentDidMount () {
-    this.props.getPostTrending()
-    this.props.getPostFeed()
+    this.props.getPostHome()
   }
 
   closeDrawer = () => {
@@ -92,8 +91,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostTrending: () => dispatch(PostActions.postRequest('trending')),
-    getPostFeed: () => dispatch(PostActions.postRequest('feed'))
+    getPostHome: () => dispatch(PostActions.postHomeRequest())
   }
 }
 

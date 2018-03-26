@@ -6,9 +6,7 @@ import { api } from 'steem'
 
 api.setOptions({ url: 'https://api.steemit.com' })
 
-export function * getPost (action) {
-  const { by } = action
-
+export function * getPost (by) {
   let apiMethod = `getDiscussionsBy${Utils.ucFirst(by)}Async`
   let account = yield select(AccountSelectors.getAccount)
 
@@ -27,4 +25,9 @@ export function * getPost (action) {
   }
 
   yield put(PostActions.postSuccess(by, posts))
+}
+
+export function * getPostHome (action) {
+  yield call(getPost, 'trending')
+  yield call(getPost, 'feed')
 }
