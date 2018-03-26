@@ -1,4 +1,4 @@
-import { takeLatest, takeEvery, all } from 'redux-saga/effects'
+import { takeLatest, all } from 'redux-saga/effects'
 // import API from '../Services/Api'
 // import FixtureAPI from '../Services/FixtureApi'
 // import DebugConfig from '../Config/DebugConfig'
@@ -33,6 +33,6 @@ export default function * root () {
     takeLatest(AccountTypes.FOLLOW_LIST_REQUEST, getFollowList),
     takeLatest(LoginTypes.LOGIN_REQUEST, login),
     takeLatest(LoginTypes.LOGOUT_REQUEST, logout),
-    takeEvery(PostTypes.POST_REQUEST, getPost)
+    takeLatest(PostTypes.POST_REQUEST, getPost)
   ])
 }
