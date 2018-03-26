@@ -8,12 +8,14 @@ import { takeLatest, all } from 'redux-saga/effects'
 import { StartupTypes } from '../Redux/StartupRedux'
 import { AccountTypes } from '../Redux/AccountRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
+import { PostTypes } from '../Redux/PostRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
 import { getAccount, getFollowList } from './AccountSagas'
 import { login, logout } from './LoginSagas'
+import { getPost } from './PostSagas'
 
 /* ------------- API ------------- */
 
@@ -31,5 +33,6 @@ export default function * root () {
     takeLatest(AccountTypes.FOLLOW_LIST_REQUEST, getFollowList),
     takeLatest(LoginTypes.LOGIN_REQUEST, login),
     takeLatest(LoginTypes.LOGOUT_REQUEST, logout),
+    takeLatest(PostTypes.POST_REQUEST, getPost)
   ])
 }

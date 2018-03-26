@@ -17,12 +17,18 @@ import Sidebar from '../Components/Sidebar'
 import PostCarousel from '../Components/PostCarousel'
 import PostList from '../Components/PostList'
 import { connect } from 'react-redux'
+import PostActions from '../Redux/PostRedux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
 // import styles from './Styles/HomeScreenStyle'
 
 class HomeScreen extends Component {
+  componentWillMount () {
+    this.props.getPostTrending()
+    this.props.getPostFeed()
+  }
+
   closeDrawer = () => {
     this.drawer._root.close()
   }
@@ -53,10 +59,10 @@ class HomeScreen extends Component {
             <Content>
               <Grid>
                 <Row>
-                  <PostCarousel navigation={this.props.navigation} />
+                  <PostCarousel navigation={this.props.navigation} posts={this.props.posts} />
                 </Row>
                 <Row>
-                  <PostList navigation={this.props.navigation} />
+                  <PostList navigation={this.props.navigation} posts={this.props.posts.feed} />
                 </Row>
               </Grid>
             </Content>
@@ -69,12 +75,15 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    account: state.account.account
+    account: state.account.account,
+    posts: state.posts
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getPostTrending: () => dispatch(PostActions.postRequest('trending')),
+    getPostFeed: () => dispatch(PostActions.postRequest('feed'))
   }
 }
 

@@ -26,29 +26,29 @@ export default class PostList extends Component {
   //   someSetting: false
   // }
 
-  renderFirstPostItem = () => {
+  renderFirstPostItem = (post) => {
     const { navigate } = this.props.navigation
     return (
       <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }}>
         <Row style={{ alignItems: 'center' }}>
           <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
-          <Text note style={{ marginLeft: 10 }}>Wiku Baskoro and 35 others</Text>
+          <Text note style={{ marginLeft: 10 }}>{ post.active_votes[0].voter } and { post.active_votes.length - 1 } others</Text>
         </Row>
         <Row style={{ marginTop: 10 }} onPress={() => navigate('SinglePostScreen')}>
           <Image source={Images.imagePlaceholder} resizeMode='cover' style={{ width: width - 30, height: 240, borderRadius: 5 }} />
         </Row>
         <Row style={{ marginTop: 10 }} onPress={() => navigate('SinglePostScreen')}>
-          <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>
+          <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>{ post.title }</Text>
         </Row>
         <Row style={{ alignItems: 'center', marginTop: 15 }}>
           <Thumbnail small source={Images.avatar} />
           <Grid style={{ marginLeft: 10 }}>
             <Col>
-              <Text note>Aji Kisworo Mukti</Text>
-              <Text note>11/09/2017</Text>
+              <Text note>{ post.author }</Text>
+              <Text note>{ post.created }</Text>
             </Col>
             <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-              <Text note>$324</Text>
+              <Text note>${ post.total_payout_value }</Text>
             </Col>
           </Grid>
         </Row>
@@ -56,18 +56,18 @@ export default class PostList extends Component {
     )
   }
 
-  renderPostItem = () => {
+  renderPostItem = (post) => {
     const { navigate } = this.props.navigation
     return (
       <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }}>
         <Row style={{ alignItems: 'center' }}>
           <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
-          <Text note style={{ marginLeft: 10 }}>Wiku Baskoro and 35 others</Text>
+          <Text note style={{ marginLeft: 10 }}>{ post.active_votes[0].voter } and { post.active_votes.length - 1 } others</Text>
         </Row>
         <Row style={{ marginTop: 10 }} onPress={() => navigate('SinglePostScreen')}>
           <Grid>
-            <Col style={{ justifyContent: 'center' }}>
-              <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>
+            <Col style={{ justifyContent: 'center', paddingRight: 5 }}>
+              <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>{ post.title }</Text>
             </Col>
             <Col>
               <Image source={Images.imagePlaceholder} resizeMode='cover' style={{ width: (width / 2) - 15, height: 100, borderRadius: 5 }} />
@@ -78,11 +78,11 @@ export default class PostList extends Component {
           <Thumbnail small source={Images.avatar} />
           <Grid style={{ marginLeft: 10 }}>
             <Col>
-              <Text note>Aji Kisworo Mukti</Text>
-              <Text note>11/09/2017</Text>
+              <Text note>{ post.author }</Text>
+              <Text note>{ post.created }</Text>
             </Col>
             <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-              <Text note>$324</Text>
+              <Text note>${ post.total_payout_value }</Text>
             </Col>
           </Grid>
         </Row>
@@ -91,16 +91,16 @@ export default class PostList extends Component {
   }
 
   render () {
-    let items = [1, 2, 3, 4, 5]
+    const posts = this.props.posts
     return (
       <Grid>
         <Row style={{ padding: 15, height: 50 }}>
           <Text style={{ fontFamily: 'Cabin-Bold' }}>People you follow</Text>
         </Row>
         <Row>
-          <List dataArray={items}
-            renderRow={(item, section, index) =>
-              (index === '0') ? this.renderFirstPostItem() : this.renderPostItem()
+          <List dataArray={posts}
+            renderRow={(post, section, index) =>
+              (index === '0') ? this.renderFirstPostItem(post) : this.renderPostItem(post)
             } />
         </Row>
       </Grid>

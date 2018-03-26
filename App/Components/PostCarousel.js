@@ -26,15 +26,12 @@ export default class PostCarousel extends Component {
 
   render () {
     const { navigate } = this.props.navigation
+    const { trending } = this.props.posts
     return (
       <Grid>
         <Row style={{ paddingTop: 15 }}>
           <Carousel pageWidth={width - 30}>
-            <CarouselItem navigation={this.props.navigation} />
-            <CarouselItem navigation={this.props.navigation} />
-            <CarouselItem navigation={this.props.navigation} />
-            <CarouselItem navigation={this.props.navigation} />
-            <CarouselItem navigation={this.props.navigation} />
+            { trending && trending.map((post, key) => <CarouselItem navigation={this.props.navigation} post={post} key={key} />) }
           </Carousel>
         </Row>
         <Row style={{ paddingHorizontal: 10, paddingTop: 5, alignItems: 'center', justifyContent: 'space-between' }} onPress={() => navigate('HighlightScreen')}>

@@ -25,21 +25,22 @@ export default class CarouselItem extends Component {
 
   render () {
     const { navigate } = this.props.navigation
+    const post = this.props.post
     return (
       <Container style={{ backgroundColor: '#FFF', height: 240, marginRight: 15, borderRadius: 5 }}>
         <Grid>
           <Row onPress={() => navigate('SinglePostScreen')}>
             <Image source={Images.imagePlaceholder} resizeMode='cover' style={{ height: 110, width: width - 30 }} />
           </Row>
-          <Row size={1} style={{ flexDirection: 'column', padding: 10 }} onPress={() => navigate('SinglePostScreen')}>
-            <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>I tried 7 different morning routines and i tried 7 different morning routines again</Text>
+          <Row size={1} style={{ flexDirection: 'column', paddingHorizontal: 10 }} onPress={() => navigate('SinglePostScreen')}>
+            <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 16 }}>{ post.title }</Text>
             <Grid style={{ marginTop: 20 }}>
               <Col>
-                <Text note>Aji Kisworo Mukti</Text>
-                <Text note>11/09/2017</Text>
+                <Text note>@{ post.author }</Text>
+                <Text note>{ post.created }</Text>
               </Col>
               <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-                <Text note>$324</Text>
+                <Text note>${ post.total_payout_value }</Text>
               </Col>
             </Grid>
           </Row>
