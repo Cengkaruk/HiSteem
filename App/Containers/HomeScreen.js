@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { View } from 'react-native'
 import {
   StyleProvider,
   Drawer,
@@ -10,7 +11,8 @@ import {
   Right,
   Title,
   Button,
-  Icon
+  Icon,
+  Spinner
 } from 'native-base'
 import { Row, Grid } from 'react-native-easy-grid'
 import Sidebar from '../Components/Sidebar'
@@ -57,14 +59,22 @@ class HomeScreen extends Component {
               <Right />
             </Header>
             <Content>
-              <Grid>
-                <Row>
-                  <PostCarousel navigation={this.props.navigation} posts={this.props.posts} />
-                </Row>
-                <Row>
-                  <PostList navigation={this.props.navigation} posts={this.props.posts.feed} />
-                </Row>
-              </Grid>
+              { this.props.posts.fetching ? (
+                <Grid>
+                  <Row style={{ alignItems: 'center', justifyContent: 'center' }}>
+                    <Spinner />
+                  </Row>
+                </Grid>
+              ) : (
+                <Grid>
+                  <Row>
+                    <PostCarousel navigation={this.props.navigation} posts={this.props.posts} />
+                  </Row>
+                  <Row>
+                    <PostList navigation={this.props.navigation} posts={this.props.posts.feed} />
+                  </Row>
+                </Grid>
+              )}
             </Content>
           </Container>
         </Drawer>
