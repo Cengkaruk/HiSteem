@@ -33,7 +33,7 @@ export default class CarouselItem extends Component {
             <Image source={Images.imagePlaceholder} resizeMode='cover' style={{ height: 110, width: width - 30 }} />
           </Row>
           <Row size={1} style={{ flexDirection: 'column', paddingHorizontal: 10 }} onPress={() => navigate('SinglePostScreen')}>
-            <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 16 }}>{ post.title }</Text>
+            <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>{ post.title }</Text>
             <Grid style={{ marginTop: 20 }}>
               <Col>
                 <Text note>@{ post.author }</Text>
