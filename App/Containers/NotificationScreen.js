@@ -1,20 +1,46 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import {
+  StyleProvider,
+  Container,
+  Header,
+  Left,
+  Button,
+  Icon,
+  Body,
+  Title,
+  Right,
+  Content,
+  Text
+} from 'native-base'
 import { connect } from 'react-redux'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
+import CommentList from '../Components/CommentList'
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
-import styles from './Styles/NotificationScreenStyle'
+import getTheme from '../Themes/NativeBase/components'
+// import styles from './Styles/NotificationScreenStyle'
 
 class NotificationScreen extends Component {
   render () {
     return (
-      <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
-          <Text>NotificationScreen</Text>
-        </KeyboardAvoidingView>
-      </ScrollView>
+      <StyleProvider style={getTheme()}>
+        <Container style={{ backgroundColor: '#EEEEEE' }}>
+          <Header>
+            <Left>
+              <Button transparent onPress={() => goBack()}>
+                <Icon name='ios-arrow-back' />
+              </Button>
+            </Left>
+            <Body>
+              <Title>Notifications</Title>
+            </Body>
+            <Right />
+          </Header>
+          <Content>
+            <CommentList />
+          </Content>
+        </Container>
+      </StyleProvider>
     )
   }
 }
