@@ -55,7 +55,11 @@ class HomeScreen extends Component {
               <Body>
                 <Title>Home</Title>
               </Body>
-              <Right />
+              <Right>
+                <Button transparent onPress={() => this.props.navigation.navigate('NotificationScreen')}>
+                  <Icon name='notifications' />
+                </Button>
+              </Right>
             </Header>
             <Content>
               { this.props.posts.fetching ? (

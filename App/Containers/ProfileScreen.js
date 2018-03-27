@@ -94,13 +94,6 @@ class ProfileScreen extends Component {
                     heading='Comments'>
                     <CommentList navigation={this.props.navigation} comments={this.props.posts.comments} />
                   </Tab>
-                  <Tab
-                    tabStyle={{ backgroundColor: '#FFF' }}
-                    activeTabStyle={{ backgroundColor: '#FFF' }}
-                    activeTextStyle={{ color: '#000' }}
-                    heading='Replies'>
-                    <Text>Replies</Text>
-                  </Tab>
                 </Tabs>
               </Row>
             </Grid>

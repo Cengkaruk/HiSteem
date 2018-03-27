@@ -27,13 +27,15 @@ export const INITIAL_STATE = Immutable({
   hot: [],
   promoted: [],
   blog: [],
-  comments: []
+  comments: [],
+  replies: []
 })
 
 /* ------------- Selectors ------------- */
 
 export const PostSelectors = {
-  getFeed: state => state.feed
+  getFeed: state => state.feed,
+  getBlogLastPost: state => state.blog
 }
 
 /* ------------- Reducers ------------- */

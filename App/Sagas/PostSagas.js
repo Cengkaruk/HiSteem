@@ -1,5 +1,5 @@
 import { call, put, select } from 'redux-saga/effects'
-import PostActions from '../Redux/PostRedux'
+import PostActions, { PostSelectors } from '../Redux/PostRedux'
 import { AccountSelectors } from '../Redux/AccountRedux'
 import Utils from '../Transforms/Utils'
 import { api } from 'steem'
@@ -27,6 +27,20 @@ export function * getPost (by) {
   }
 
   yield put(PostActions.postSuccess(by, posts))
+}
+
+export function * getReplies () {
+  let account = yield select(AccountSelectors.getAccount)
+  let lastPost = yield select(PostSelectors.getBlogLastPost)
+
+  let replies = []
+  try {
+    replies = yield call(api.getRepliesByLastUpdateAsync, account.name, lastPost.permlink, 100)
+  } catch (error) {
+    yield put(PostActions.postFailure())
+  }
+
+  yield put(PostActions.postSuccess('replies', replies))
 }
 
 export function * getPostHome (action) {
