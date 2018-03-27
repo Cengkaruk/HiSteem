@@ -12,7 +12,8 @@ import {
   Text,
   Thumbnail,
   Tabs,
-  Tab
+  Tab,
+  Spinner
 } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import PostList from '../Components/PostList'
@@ -79,22 +80,30 @@ class ProfileScreen extends Component {
                 </Col>
               </Row>
               <Row>
-                <Tabs tabBarUnderlineStyle={{ backgroundColor: '#808080' }}>
-                  <Tab
-                    tabStyle={{ backgroundColor: '#FFF' }}
-                    activeTabStyle={{ backgroundColor: '#FFF' }}
-                    activeTextStyle={{ color: '#000' }}
-                    heading='Latest'>
-                    <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.blog} />
-                  </Tab>
-                  <Tab
-                    tabStyle={{ backgroundColor: '#FFF' }}
-                    activeTabStyle={{ backgroundColor: '#FFF' }}
-                    activeTextStyle={{ color: '#000' }}
-                    heading='Comments'>
-                    <CommentList navigation={this.props.navigation} comments={this.props.posts.comments} />
-                  </Tab>
-                </Tabs>
+                { this.props.posts.fetching ? (
+                  <Grid>
+                    <Row style={{ justifyContent: 'center' }}>
+                      <Spinner />
+                    </Row>
+                  </Grid>
+                ) : (
+                  <Tabs tabBarUnderlineStyle={{ backgroundColor: '#808080' }}>
+                    <Tab
+                      tabStyle={{ backgroundColor: '#FFF' }}
+                      activeTabStyle={{ backgroundColor: '#FFF' }}
+                      activeTextStyle={{ color: '#000' }}
+                      heading='Latest'>
+                      <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.blog} />
+                    </Tab>
+                    <Tab
+                      tabStyle={{ backgroundColor: '#FFF' }}
+                      activeTabStyle={{ backgroundColor: '#FFF' }}
+                      activeTextStyle={{ color: '#000' }}
+                      heading='Comments'>
+                      <CommentList navigation={this.props.navigation} comments={this.props.posts.comments} />
+                    </Tab>
+                  </Tabs>
+                )}
               </Row>
             </Grid>
           </Content>
