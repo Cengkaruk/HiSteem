@@ -30,6 +30,8 @@ export function * getPost (by) {
 export function * getPostHome (action) {
   yield call(getPost, 'trending')
   yield call(getPost, 'feed')
+
+  yield put(PostActions.postDone())
 }
 
 export function * getPostHighlight (action) {
@@ -37,4 +39,6 @@ export function * getPostHighlight (action) {
   yield call(getPost, 'created')
   yield call(getPost, 'hot')
   yield call(getPost, 'promoted')
+
+  yield put(PostActions.postDone())
 }
