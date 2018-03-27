@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import { Dimensions, Image } from 'react-native'
 import {
   Icon,
@@ -15,16 +15,15 @@ import Images from '../Themes/Images'
 const { width } = Dimensions.get('window')
 
 export default class PostList extends Component {
-  // // Prop type warnings
-  // static propTypes = {
-  //   someProperty: PropTypes.object,
-  //   someSetting: PropTypes.bool.isRequired,
-  // }
-  //
-  // // Defaults for props
-  // static defaultProps = {
-  //   someSetting: false
-  // }
+  // Prop type warnings
+  static propTypes = {
+    title: PropTypes.bool.isRequired
+  }
+  
+  // Defaults for props
+  static defaultProps = {
+    title: true
+  }
 
   renderFirstPostItem = (post, index) => {
     const { navigate } = this.props.navigation
@@ -94,9 +93,11 @@ export default class PostList extends Component {
     const posts = this.props.posts
     return (
       <Grid>
-        <Row style={{ padding: 15, height: 50 }}>
-          <Text style={{ fontFamily: 'Cabin-Bold' }}>People you follow</Text>
-        </Row>
+        { this.props.title && (
+          <Row style={{ padding: 15, height: 50 }}>
+            <Text style={{ fontFamily: 'Cabin-Bold' }}>People you follow</Text>
+          </Row>
+        )}
         <Row>
           <List dataArray={posts}
             renderRow={(post, section, index) =>

@@ -85,7 +85,7 @@ class ProfileScreen extends Component {
                     activeTabStyle={{ backgroundColor: '#FFF' }}
                     activeTextStyle={{ color: '#000' }}
                     heading='Latest'>
-                    <PostList navigation={this.props.navigation} posts={this.props.posts.blog} />
+                    <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.blog} />
                   </Tab>
                   <Tab
                     tabStyle={{ backgroundColor: '#FFF' }}
