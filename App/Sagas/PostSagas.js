@@ -17,6 +17,8 @@ export function * getPost (by) {
     }
     if (by === 'feed' || by === 'blog') {
       query.tag = account.name
+    } else if (by === 'comments') {
+      query.start_author = account.name
     }
 
     posts = yield call(api[apiMethod], query)
@@ -45,6 +47,7 @@ export function * getPostHighlight (action) {
 
 export function * getPostProfile (action) {
   yield call(getPost, 'blog')
+  yield call(getPost, 'comments')
 
   yield put(PostActions.postDone())
 }

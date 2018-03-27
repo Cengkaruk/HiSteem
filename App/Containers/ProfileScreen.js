@@ -16,6 +16,7 @@ import {
 } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import PostList from '../Components/PostList'
+import CommentList from '../Components/CommentList'
 import { connect } from 'react-redux'
 import AccountActions from '../Redux/AccountRedux'
 import PostActions from '../Redux/PostRedux'
@@ -27,7 +28,7 @@ import getTheme from '../Themes/NativeBase/components'
 import Images from '../Themes/Images'
 
 class ProfileScreen extends Component {
-  componentWillMount () {
+  componentDidMount () {
     this.props.getFollowList(this.props.account.name)
     this.props.getPostProfile()
   }
@@ -91,7 +92,7 @@ class ProfileScreen extends Component {
                     activeTabStyle={{ backgroundColor: '#FFF' }}
                     activeTextStyle={{ color: '#000' }}
                     heading='Comments'>
-                    <Text>Comments</Text>
+                    <CommentList navigation={this.props.navigation} comments={this.props.posts.comments} />
                   </Tab>
                   <Tab
                     tabStyle={{ backgroundColor: '#FFF' }}

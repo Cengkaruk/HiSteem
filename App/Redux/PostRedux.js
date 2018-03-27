@@ -26,7 +26,8 @@ export const INITIAL_STATE = Immutable({
   created: [],
   hot: [],
   promoted: [],
-  blog: []
+  blog: [],
+  comments: []
 })
 
 /* ------------- Selectors ------------- */

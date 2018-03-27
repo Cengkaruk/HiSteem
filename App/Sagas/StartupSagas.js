@@ -12,7 +12,7 @@ export function * startup (action) {
   
   const isLoggedIn = yield select(LoginSelectors.isLoggedIn)
   if (isLoggedIn) {
-    yield put(NavigationActions.navigate({ routeName: 'HomeScreen' }))
+    yield put(NavigationActions.navigate({ routeName: 'ProfileScreen' }))
   } else {
     yield put(NavigationActions.navigate({ routeName: 'LoginScreen' }))
   }
