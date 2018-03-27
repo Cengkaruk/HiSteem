@@ -15,7 +15,7 @@ export function * getPost (by) {
     let query = {
       limit: 10,
     }
-    if (by === 'feed') {
+    if (by === 'feed' || by === 'blog') {
       query.tag = account.name
     }
 
@@ -39,6 +39,12 @@ export function * getPostHighlight (action) {
   yield call(getPost, 'created')
   yield call(getPost, 'hot')
   yield call(getPost, 'promoted')
+
+  yield put(PostActions.postDone())
+}
+
+export function * getPostProfile (action) {
+  yield call(getPost, 'blog')
 
   yield put(PostActions.postDone())
 }

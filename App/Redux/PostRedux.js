@@ -9,7 +9,8 @@ const { Types, Creators } = createActions({
   postFailure: null,
   postDone: null,
   postHomeRequest: null,
-  postHighlightRequest: null
+  postHighlightRequest: null,
+  postProfileRequest: null
 })
 
 export const PostTypes = Types
@@ -24,7 +25,8 @@ export const INITIAL_STATE = Immutable({
   trending: [],
   created: [],
   hot: [],
-  promoted: []
+  promoted: [],
+  blog: []
 })
 
 /* ------------- Selectors ------------- */
@@ -60,5 +62,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.POST_FAILURE]: failure,
   [Types.POST_DONE]: done,
   [Types.POST_HOME_REQUEST]: request,
-  [Types.POST_HIGHLIGHT_REQUEST]: request
+  [Types.POST_HIGHLIGHT_REQUEST]: request,
+  [Types.POST_PROFILE_REQUEST]: request
 })

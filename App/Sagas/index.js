@@ -15,7 +15,7 @@ import { PostTypes } from '../Redux/PostRedux'
 import { startup } from './StartupSagas'
 import { getAccount, getFollowList } from './AccountSagas'
 import { login, logout } from './LoginSagas'
-import { getPost, getPostHome, getPostHighlight } from './PostSagas'
+import { getPost, getPostHome, getPostHighlight, getPostProfile } from './PostSagas'
 
 /* ------------- API ------------- */
 
@@ -35,6 +35,7 @@ export default function * root () {
     takeLatest(LoginTypes.LOGOUT_REQUEST, logout),
     takeLatest(PostTypes.POST_REQUEST, getPost),
     takeLatest(PostTypes.POST_HOME_REQUEST, getPostHome),
-    takeLatest(PostTypes.POST_HIGHLIGHT_REQUEST, getPostHighlight)
+    takeLatest(PostTypes.POST_HIGHLIGHT_REQUEST, getPostHighlight),
+    takeLatest(PostTypes.POST_PROFILE_REQUEST, getPostProfile)
   ])
 }

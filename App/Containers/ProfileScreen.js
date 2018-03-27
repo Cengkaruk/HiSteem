@@ -18,6 +18,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid'
 import PostList from '../Components/PostList'
 import { connect } from 'react-redux'
 import AccountActions from '../Redux/AccountRedux'
+import PostActions from '../Redux/PostRedux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
@@ -28,6 +29,7 @@ import Images from '../Themes/Images'
 class ProfileScreen extends Component {
   componentWillMount () {
     this.props.getFollowList(this.props.account.name)
+    this.props.getPostProfile()
   }
 
   render () {
@@ -82,7 +84,7 @@ class ProfileScreen extends Component {
                     activeTabStyle={{ backgroundColor: '#FFF' }}
                     activeTextStyle={{ color: '#000' }}
                     heading='Latest'>
-                    <PostList navigation={this.props.navigation} />
+                    <PostList navigation={this.props.navigation} posts={this.props.posts.blog} />
                   </Tab>
                   <Tab
                     tabStyle={{ backgroundColor: '#FFF' }}
@@ -111,13 +113,15 @@ class ProfileScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     account: state.account.account,
-    followList: state.account.followList
+    followList: state.account.followList,
+    posts: state.posts
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getFollowList: (username) => dispatch(AccountActions.followListRequest(username))
+    getFollowList: (username) => dispatch(AccountActions.followListRequest(username)),
+    getPostProfile: () => dispatch(PostActions.postProfileRequest())
   }
 }
 
