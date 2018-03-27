@@ -29,10 +29,10 @@ export default class CarouselItem extends Component {
     return (
       <Container style={{ backgroundColor: '#FFF', height: 240, marginRight: 15, borderRadius: 5 }}>
         <Grid>
-          <Row onPress={() => navigate('SinglePostScreen')}>
+          <Row onPress={() => navigate('SinglePostScreen', { post: post })}>
             <Image source={Images.imagePlaceholder} resizeMode='cover' style={{ height: 110, width: width - 30 }} />
           </Row>
-          <Row size={1} style={{ flexDirection: 'column', paddingHorizontal: 10 }} onPress={() => navigate('SinglePostScreen')}>
+          <Row size={1} style={{ flexDirection: 'column', paddingHorizontal: 10 }} onPress={() => navigate('SinglePostScreen', { post: post })}>
             <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>{ post.title }</Text>
             <Grid style={{ marginTop: 20 }}>
               <Col>
