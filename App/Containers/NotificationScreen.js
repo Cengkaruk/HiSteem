@@ -22,6 +22,7 @@ import getTheme from '../Themes/NativeBase/components'
 
 class NotificationScreen extends Component {
   render () {
+    const { goBack } = this.props.navigation
     return (
       <StyleProvider style={getTheme()}>
         <Container style={{ backgroundColor: '#EEEEEE' }}>
