@@ -8,16 +8,10 @@ api.setOptions({ url: 'https://api.steemit.com' })
 
 export function * getPost (by, query = {}, savedTo = null) {
   let apiMethod = `getDiscussionsBy${Utils.ucFirst(by)}Async`
-  let account = yield select(AccountSelectors.getAccount)
 
   let posts = []
   try {
     query.limit = 10
-    if (by === 'feed' || by === 'blog') {
-      query.tag = account.name
-    } else if (by === 'comments') {
-      query.start_author = account.name
-    }
 
     posts = yield call(api[apiMethod], query)
   } catch (error) {
@@ -46,8 +40,10 @@ export function * getReplies () {
 }
 
 export function * getPostHome (action) {
+  let account = yield select(AccountSelectors.getAccount)
+
   yield call(getPost, 'trending')
-  yield call(getPost, 'feed')
+  yield call(getPost, 'feed', { tag: account.name })
 
   yield put(PostActions.postDone())
 }
@@ -62,8 +58,10 @@ export function * getPostHighlight (action) {
 }
 
 export function * getPostProfile (action) {
-  yield call(getPost, 'blog')
-  yield call(getPost, 'comments')
+  let account = yield select(AccountSelectors.getAccount)
+
+  yield call(getPost, 'blog', { tag: account.name })
+  yield call(getPost, 'comments', { start_author: account.name })
 
   yield put(PostActions.postDone())
 }
