@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   accountRequest: ['username'],
-  accountSuccess: ['account'],
+  accountSuccess: ['profile'],
   accountFailure: null,
   accountReset: null,
   followListRequest: ['username'],
@@ -21,7 +21,7 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   fetching: null,
   error: null,
-  account: null,
+  profile: null,
   followList: {
     followers: [],
     following: []
@@ -31,8 +31,8 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Selectors ------------- */
 
 export const AccountSelectors = {
-  getAccount: state => state.account.account,
-  getActivePublicKey: state => state.account.account.active.key_auths[0][0]
+  getProfile: state => state.account.profile,
+  getActivePublicKey: state => state.account.profile.active.key_auths[0][0]
 }
 
 /* ------------- Reducers ------------- */
@@ -42,15 +42,15 @@ export const request = state =>
   state.merge({ fetching: true })
 
 // successful api lookup
-export const success = (state, { account }) =>
-  state.merge({ fetching: false, error: null, account })
+export const success = (state, { profile }) =>
+  state.merge({ fetching: false, error: null, profile })
 
 // Something went wrong somewhere.
 export const failure = state =>
-  state.merge({ fetching: false, error: true, account: null })
+  state.merge({ fetching: false, error: true, profile: null })
 
 export const reset = state =>
-  state.merge({ fetching: false, account: null, followList: { followers: [], following: [] } })
+  state.merge({ fetching: false, profile: null, followList: { followers: [], following: [] } })
 
 export const followListRequest = state =>
   state.merge({ fetching: true })

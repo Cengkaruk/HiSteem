@@ -88,7 +88,6 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    account: state.account.account,
     posts: state.posts
   }
 }

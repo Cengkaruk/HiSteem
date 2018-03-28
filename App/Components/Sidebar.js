@@ -31,19 +31,19 @@ class Sidebar extends Component {
   render () {
     const { navigate } = this.props.navigation
     const logout = this.props.logout
-    const { json_metadata } = this.props.account
+    const { json_metadata } = this.props.profile
 
     let jsonMetadata = JSON.parse(json_metadata)
-    let account = {
+    let profile = {
       name: jsonMetadata.profile.name,
-      profileImage: jsonMetadata.profile.profile_image
+      image: jsonMetadata.profile.profile_image
     }
     return (
       <Container style={{ backgroundColor: '#EEEEEE' }}>
         <Grid>
           <Row size={1.5} style={{ flexDirection: 'column', justifyContent: 'center', backgroundColor: '#FFFFFF', paddingHorizontal: 35 }}>
-            <Thumbnail large source={{ uri: account.profileImage }} />
-            <Text style={{ marginTop: 20 }}>{account.name}</Text>
+            <Thumbnail large source={{ uri: profile.image }} />
+            <Text style={{ marginTop: 20 }}>{profile.name}</Text>
             <Text note style={{ marginTop: 15 }} onPress={() => navigate('ProfileScreen')}>See profile</Text>
           </Row>
           <Row size={2.5}>
@@ -81,7 +81,7 @@ class Sidebar extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    account: state.account.account
+    profile: state.account.profile
   }
 }
 

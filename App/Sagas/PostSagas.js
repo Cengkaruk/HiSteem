@@ -26,12 +26,12 @@ export function * getPost (by, query = {}, savedTo = null) {
 }
 
 export function * getReplies () {
-  let account = yield select(AccountSelectors.getAccount)
+  let profile = yield select(AccountSelectors.getProfile)
   let lastPost = yield select(PostSelectors.getBlogLastPost)
 
   let replies = []
   try {
-    replies = yield call(api.getRepliesByLastUpdateAsync, account.name, lastPost.permlink, 100)
+    replies = yield call(api.getRepliesByLastUpdateAsync, profile.name, lastPost.permlink, 100)
   } catch (error) {
     yield put(PostActions.postFailure())
   }
@@ -40,10 +40,10 @@ export function * getReplies () {
 }
 
 export function * getPostHome (action) {
-  let account = yield select(AccountSelectors.getAccount)
+  let profile = yield select(AccountSelectors.getProfile)
 
   yield call(getPost, 'trending')
-  yield call(getPost, 'feed', { tag: account.name })
+  yield call(getPost, 'feed', { tag: profile.name })
 
   yield put(PostActions.postDone())
 }
@@ -58,10 +58,10 @@ export function * getPostHighlight (action) {
 }
 
 export function * getPostProfile (action) {
-  let account = yield select(AccountSelectors.getAccount)
+  let profile = yield select(AccountSelectors.getProfile)
 
-  yield call(getPost, 'blog', { tag: account.name })
-  yield call(getPost, 'comments', { start_author: account.name })
+  yield call(getPost, 'blog', { tag: profile.name })
+  yield call(getPost, 'comments', { start_author: profile.name })
 
   yield put(PostActions.postDone())
 }

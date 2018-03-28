@@ -30,17 +30,17 @@ import Images from '../Themes/Images'
 
 class ProfileScreen extends Component {
   componentDidMount () {
-    this.props.getFollowList(this.props.account.name)
+    this.props.getFollowList(this.props.profile.name)
     this.props.getPostProfile()
   }
 
   render () {
     const { goBack } = this.props.navigation
-    let jsonMetadata = JSON.parse(this.props.account.json_metadata)
-    const account = {
+    let jsonMetadata = JSON.parse(this.props.profile.json_metadata)
+    const profile = {
       name: jsonMetadata.profile.name,
       about: jsonMetadata.profile.about,
-      profileImage: jsonMetadata.profile.profile_image,
+      image: jsonMetadata.profile.profile_image,
       followList: this.props.followList
     }
     return (
@@ -65,18 +65,18 @@ class ProfileScreen extends Component {
           <Content>
             <Grid style={{ backgroundColor: '#FFF' }}>
               <Row style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <Thumbnail large source={{ uri: account.profileImage }} />
+                <Thumbnail large source={{ uri: profile.profile }} />
               </Row>
               <Row style={{ flexDirection: 'column', padding: 20, borderBottomWidth: 1, borderBottomColor: '#F8F8F8' }}>
-                <Text style={{ fontSize: 24 }}>{ account.name }</Text>
-                <Text>{ account.about }</Text>
+                <Text style={{ fontSize: 24 }}>{ profile.name }</Text>
+                <Text>{ profile.about }</Text>
               </Row>
               <Row style={{ padding: 20 }}>
                 <Col>
-                  <Text note>{ account.followList.followers.length } Following</Text>
+                  <Text note>{ profile.followList.followers.length } Following</Text>
                 </Col>
                 <Col>
-                  <Text note>{ account.followList.following.length } Followers</Text>
+                  <Text note>{ profile.followList.following.length } Followers</Text>
                 </Col>
               </Row>
               <Row>
@@ -115,7 +115,7 @@ class ProfileScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    account: state.account.account,
+    profile: state.account.profile,
     followList: state.account.followList,
     posts: state.posts
   }

@@ -6,16 +6,16 @@ api.setOptions({ url: 'https://api.steemit.com' })
 
 export function * getAccount (action) {
   const { username } = action
-  let account = yield select(AccountSelectors.getAccount)
+  let profile = yield select(AccountSelectors.getProfile)
 
-  if (!account) {
+  if (!profile) {
     try {
-      [account] = yield call([api, api.getAccountsAsync], [username])
+      [profile] = yield call([api, api.getAccountsAsync], [username])
     } catch (error) {
       yield put(AccountActions.accountFailure())
     }
   }
-  yield put(AccountActions.accountSuccess(account))
+  yield put(AccountActions.accountSuccess(profile))
 }
 
 export function * getFollowers (username) {
