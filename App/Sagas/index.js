@@ -9,6 +9,7 @@ import { StartupTypes } from '../Redux/StartupRedux'
 import { AccountTypes } from '../Redux/AccountRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { PostTypes } from '../Redux/PostRedux'
+import { TagTypes } from '../Redux/TagRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -16,6 +17,7 @@ import { startup } from './StartupSagas'
 import { getAccount, getFollowList } from './AccountSagas'
 import { login, logout } from './LoginSagas'
 import { getPost, getPostHome, getPostHighlight, getPostProfile } from './PostSagas'
+import { getTag } from './TagSagas'
 
 /* ------------- API ------------- */
 
@@ -36,6 +38,7 @@ export default function * root () {
     takeLatest(PostTypes.POST_REQUEST, getPost),
     takeLatest(PostTypes.POST_HOME_REQUEST, getPostHome),
     takeLatest(PostTypes.POST_HIGHLIGHT_REQUEST, getPostHighlight),
-    takeLatest(PostTypes.POST_PROFILE_REQUEST, getPostProfile)
+    takeLatest(PostTypes.POST_PROFILE_REQUEST, getPostProfile),
+    takeLatest(TagTypes.TAG_REQUEST, getTag)
   ])
 }

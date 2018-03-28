@@ -13,18 +13,22 @@ import {
   ListItem,
   Button,
   Icon,
-  Text
+  Text,
+  Spinner
 } from 'native-base'
 import Sidebar from '../Components/Sidebar'
 import { connect } from 'react-redux'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import TagActions from '../Redux/TagRedux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
 // import styles from './Styles/TagScreenStyle'
 
 class TagScreen extends Component {
+  componentDidMount () {
+    this.props.getTags()
+  }
+
   closeDrawer = () => {
     this.drawer._root.close()
   }
@@ -57,32 +61,16 @@ class TagScreen extends Component {
               </Right>
             </Header>
             <Content>
-              <List>
-                <ListItem itemHeader>
-                  <Text>A</Text>
-                </ListItem>
-                <ListItem >
-                  <Text>A Sort</Text>
-                </ListItem>
-                <ListItem>
-                  <Text>A The Tags</Text>
-                </ListItem>
-                <ListItem>
-                  <Text>A Wow</Text>
-                </ListItem>
-                <ListItem itemHeader>
-                  <Text>B</Text>
-                </ListItem>
-                <ListItem>
-                  <Text>B Should</Text>
-                </ListItem>
-                <ListItem>
-                  <Text>B Filter This</Text>
-                </ListItem>
-                <ListItem>
-                  <Text>By Popularity</Text>
-                </ListItem>
-              </List>
+              { this.props.tags.fetching ? (
+                <Spinner style={{ alignSelf: 'center' }} />
+              ) : (
+                <List dataArray={this.props.tags.tags}
+                  renderRow={(tag, section, index) =>
+                    <ListItem >
+                      <Text>{ tag.name }</Text>
+                    </ListItem>
+                  } />
+              )}
             </Content>
           </Container>
         </Drawer>
@@ -93,11 +81,13 @@ class TagScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    tags: state.tags
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getTags: () => dispatch(TagActions.tagRequest())
   }
 }
 
