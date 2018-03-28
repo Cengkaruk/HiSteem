@@ -1,4 +1,5 @@
 import { StackNavigator } from 'react-navigation'
+import TagPostScreen from '../Containers/TagPostScreen'
 import NotificationScreen from '../Containers/NotificationScreen'
 import SinglePostScreen from '../Containers/SinglePostScreen'
 import WalletScreen from '../Containers/WalletScreen'
@@ -14,6 +15,7 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
+  TagPostScreen: { screen: TagPostScreen },
   NotificationScreen: { screen: NotificationScreen },
   SinglePostScreen: { screen: SinglePostScreen },
   WalletScreen: { screen: WalletScreen },

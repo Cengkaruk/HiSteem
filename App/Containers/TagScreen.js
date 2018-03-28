@@ -38,6 +38,7 @@ class TagScreen extends Component {
   }
 
   render () {
+    const { navigate } = this.props.navigation
     return (
       <StyleProvider style={getTheme()}>
         <Drawer
@@ -66,7 +67,7 @@ class TagScreen extends Component {
               ) : (
                 <List dataArray={this.props.tags.tags}
                   renderRow={(tag, section, index) =>
-                    <ListItem >
+                    <ListItem onPress={() => navigate('TagPostScreen', { name: tag.name })}>
                       <Text>{ tag.name }</Text>
                     </ListItem>
                   } />

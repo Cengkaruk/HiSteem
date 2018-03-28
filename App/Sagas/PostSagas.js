@@ -6,15 +6,13 @@ import { api } from 'steem'
 
 api.setOptions({ url: 'https://api.steemit.com' })
 
-export function * getPost (by) {
+export function * getPost (by, query = {}, savedTo = null) {
   let apiMethod = `getDiscussionsBy${Utils.ucFirst(by)}Async`
   let account = yield select(AccountSelectors.getAccount)
 
   let posts = []
   try {
-    let query = {
-      limit: 10,
-    }
+    query.limit = 10
     if (by === 'feed' || by === 'blog') {
       query.tag = account.name
     } else if (by === 'comments') {
@@ -26,7 +24,11 @@ export function * getPost (by) {
     yield put(PostActions.postFailure())
   }
 
-  yield put(PostActions.postSuccess(by, posts))
+  if (savedTo) {
+    yield put(PostActions.postSuccess(savedTo, posts))
+  } else {
+    yield put(PostActions.postSuccess(by, posts))
+  }
 }
 
 export function * getReplies () {
@@ -62,6 +64,13 @@ export function * getPostHighlight (action) {
 export function * getPostProfile (action) {
   yield call(getPost, 'blog')
   yield call(getPost, 'comments')
+
+  yield put(PostActions.postDone())
+}
+
+export function * getPostTag (action) {
+  const { tag } = action
+  yield call(getPost, 'trending', { tag: tag }, 'tags')
 
   yield put(PostActions.postDone())
 }
