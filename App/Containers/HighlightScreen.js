@@ -61,16 +61,16 @@ class HighlightScreen extends Component {
             ) : (
               <Tabs>
                 <Tab heading='Trending'>
-                  <PostList navigation={this.props.navigation} posts={this.props.posts.trending} />
+                  <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.trending} />
                 </Tab>
                 <Tab heading='New'>
-                  <PostList navigation={this.props.navigation} posts={this.props.posts.created} />
+                  <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.created} />
                 </Tab>
                 <Tab heading='Hot'>
-                  <PostList navigation={this.props.navigation} posts={this.props.posts.hot} />
+                  <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.hot} />
                 </Tab>
                 <Tab heading='Promoted'>
-                  <PostList navigation={this.props.navigation} posts={this.props.posts.promoted} />
+                  <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.promoted} />
                 </Tab>
               </Tabs>
             )}
