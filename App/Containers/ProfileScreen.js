@@ -66,7 +66,7 @@ class ProfileScreen extends Component {
           <Content>
             <Grid style={{ backgroundColor: '#FFF' }}>
               <Row style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <Thumbnail large source={{ uri: profile.profile }} />
+                <Thumbnail large source={{ uri: profile.image }} />
               </Row>
               <Row style={{ flexDirection: 'column', padding: 20, borderBottomWidth: 1, borderBottomColor: '#F8F8F8' }}>
                 <Text style={{ fontSize: 24 }}>{ profile.name }</Text>
