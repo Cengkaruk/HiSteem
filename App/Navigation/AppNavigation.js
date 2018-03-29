@@ -1,4 +1,5 @@
 import { StackNavigator } from 'react-navigation'
+import FollowScreen from '../Containers/FollowScreen'
 import TagPostScreen from '../Containers/TagPostScreen'
 import NotificationScreen from '../Containers/NotificationScreen'
 import SinglePostScreen from '../Containers/SinglePostScreen'
@@ -15,6 +16,7 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
+  FollowScreen: { screen: FollowScreen },
   TagPostScreen: { screen: TagPostScreen },
   NotificationScreen: { screen: NotificationScreen },
   SinglePostScreen: { screen: SinglePostScreen },
