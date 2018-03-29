@@ -22,17 +22,17 @@ export const INITIAL_STATE = Immutable({
   fetching: null,
   error: null,
   profile: null,
-  followList: {
-    followers: [],
-    following: []
-  }
+  followers: [],
+  following: []
 })
 
 /* ------------- Selectors ------------- */
 
 export const AccountSelectors = {
   getProfile: state => state.account.profile,
-  getActivePublicKey: state => state.account.profile.active.key_auths[0][0]
+  getActivePublicKey: state => state.account.profile.active.key_auths[0][0],
+  getFollowers: state => state.account.followers,
+  getFollowing: state => state.account.following
 }
 
 /* ------------- Reducers ------------- */
@@ -50,13 +50,13 @@ export const failure = state =>
   state.merge({ fetching: false, error: true, profile: null })
 
 export const reset = state =>
-  state.merge({ fetching: false, profile: null, followList: { followers: [], following: [] } })
+  state.merge({ fetching: false, profile: null, followers: [], following: [] })
 
 export const followListRequest = state =>
   state.merge({ fetching: true })
 
 export const followListSuccess = (state, { followers, following }) =>
-  state.merge({ fetching: false, followList: { followers: followers, following: following } })
+  state.merge({ fetching: false, followers, following })
 
 export const followListFailure = state =>
   state.merge({ fetching: false, error: true })

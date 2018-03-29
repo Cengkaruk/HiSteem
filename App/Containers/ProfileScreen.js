@@ -35,13 +35,14 @@ class ProfileScreen extends Component {
   }
 
   render () {
-    const { goBack } = this.props.navigation
+    const { goBack, navigate } = this.props.navigation
     let jsonMetadata = JSON.parse(this.props.profile.json_metadata)
     const profile = {
       name: jsonMetadata.profile.name,
       about: jsonMetadata.profile.about,
       image: jsonMetadata.profile.profile_image,
-      followList: this.props.followList
+      followers: this.props.followers,
+      following: this.props.following
     }
     return (
       <StyleProvider style={getTheme()}>
@@ -73,10 +74,10 @@ class ProfileScreen extends Component {
               </Row>
               <Row style={{ padding: 20 }}>
                 <Col>
-                  <Text note>{ profile.followList.followers.length } Following</Text>
+                  <Text note onPress={() => navigate('FollowScreen', { title: 'Followers', items: profile.followers })}>{ profile.followers.length } Followers</Text>
                 </Col>
                 <Col>
-                  <Text note>{ profile.followList.following.length } Followers</Text>
+                  <Text note onPress={() => navigate('FollowScreen', { title: 'Following', items: profile.following })}>{ profile.following.length } Following</Text>
                 </Col>
               </Row>
               <Row>
@@ -116,7 +117,8 @@ class ProfileScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     profile: state.account.profile,
-    followList: state.account.followList,
+    followers: state.account.followers,
+    following: state.account.following,
     posts: state.posts
   }
 }
