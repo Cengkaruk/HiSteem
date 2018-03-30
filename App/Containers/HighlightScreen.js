@@ -12,23 +12,20 @@ import {
   Tab,
   Button,
   Icon,
-  Text,
-  Spinner
+  Text
 } from 'native-base'
 import Sidebar from '../Components/Sidebar'
-import PostList from '../Components/PostList'
+import TrendingTab from '../Components/TrendingTab'
+import HotTab from '../Components/HotTab'
+import NewTab from '../Components/NewTab'
+import PromotedTab from '../Components/PromotedTab'
 import { connect } from 'react-redux'
-import PostActions from '../Redux/PostRedux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
 // import styles from './Styles/HighlightScreenStyle'
 
 class HighlightScreen extends Component {
-  componentDidMount () {
-    this.props.getPostHighlight()
-  }
-
   closeDrawer = () => {
     this.drawer._root.close()
   }
@@ -56,24 +53,20 @@ class HighlightScreen extends Component {
               </Body>
               <Right />
             </Header>
-            { this.props.posts.fetching ? (
-              <Spinner />
-            ) : (
-              <Tabs>
-                <Tab heading='Trending'>
-                  <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.trending} />
-                </Tab>
-                <Tab heading='New'>
-                  <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.created} />
-                </Tab>
-                <Tab heading='Hot'>
-                  <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.hot} />
-                </Tab>
-                <Tab heading='Promoted'>
-                  <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.promoted} />
-                </Tab>
-              </Tabs>
-            )}
+            <Tabs>
+              <Tab heading='Trending'>
+                <TrendingTab />
+              </Tab>
+              <Tab heading='New'>
+                <NewTab />
+              </Tab>
+              <Tab heading='Hot'>
+                <HotTab />
+              </Tab>
+              <Tab heading='Promoted'>
+                <PromotedTab />
+              </Tab>
+            </Tabs>
           </Container>
         </Drawer>
       </StyleProvider>
@@ -89,7 +82,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostHighlight: () => dispatch(PostActions.postHighlightRequest())
   }
 }
 

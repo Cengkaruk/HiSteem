@@ -27,10 +27,15 @@ export default class PostList extends Component {
 
   renderFirstPostItem = (post, index) => {
     const { navigate } = this.props.navigation
-    let jsonMetadata = JSON.parse(post.profile.json_metadata)
-    let profile = {
-      name: jsonMetadata.profile.name,
-      image: jsonMetadata.profile.profile_image
+    let profile = {}
+    if (post.profile.json_metadata) {
+      let jsonMetadata = JSON.parse(post.profile.json_metadata)
+      if (jsonMetadata.profile) {
+        profile = {
+          name: jsonMetadata.profile.name,
+          image: jsonMetadata.profile.profile_image
+        }
+      }
     }
     let postMetadata = JSON.parse(post.json_metadata)
     return (
@@ -65,10 +70,15 @@ export default class PostList extends Component {
 
   renderPostItem = (post, index) => {
     const { navigate } = this.props.navigation
-    let jsonMetadata = JSON.parse(post.profile.json_metadata)
-    let profile = {
-      name: jsonMetadata.profile.name,
-      image: jsonMetadata.profile.profile_image
+    let profile = {}
+    if (post.profile.json_metadata) {
+      let jsonMetadata = JSON.parse(post.profile.json_metadata)
+      if (jsonMetadata.profile) {
+        profile = {
+          name: jsonMetadata.profile.name,
+          image: jsonMetadata.profile.profile_image
+        }
+      }
     }
     let postMetadata = JSON.parse(post.json_metadata)
     return (

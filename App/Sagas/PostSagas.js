@@ -101,3 +101,27 @@ export function * getPostTag (action) {
 
   yield put(PostActions.postDone())
 }
+
+export function * getPostTrending (action) {
+  yield call(getPost, 'trending')
+
+  yield put(PostActions.postDone())
+}
+
+export function * getPostNew (action) {
+  yield call(getPost, 'created')
+
+  yield put(PostActions.postDone())
+}
+
+export function * getPostHot (action) {
+  yield call(getPost, 'hot')
+
+  yield put(PostActions.postDone())
+}
+
+export function * getPostPromoted (action) {
+  yield call(getPost, 'promoted')
+
+  yield put(PostActions.postDone())
+}

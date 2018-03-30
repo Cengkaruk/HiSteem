@@ -11,7 +11,11 @@ const { Types, Creators } = createActions({
   postHomeRequest: null,
   postHighlightRequest: null,
   postProfileRequest: null,
-  postTagRequest: ['tag']
+  postTagRequest: ['tag'],
+  postTrendingRequest: null,
+  postNewRequest: null,
+  postHotRequest: null,
+  postPromotedRequest: null
 })
 
 export const PostTypes = Types
@@ -69,5 +73,9 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.POST_HOME_REQUEST]: request,
   [Types.POST_HIGHLIGHT_REQUEST]: request,
   [Types.POST_PROFILE_REQUEST]: request,
-  [Types.POST_TAG_REQUEST]: request
+  [Types.POST_TAG_REQUEST]: request,
+  [Types.POST_TRENDING_REQUEST]: request,
+  [Types.POST_NEW_REQUEST]: request,
+  [Types.POST_HOT_REQUEST]: request,
+  [Types.POST_PROMOTED_REQUEST]: request
 })

@@ -16,7 +16,17 @@ import { TagTypes } from '../Redux/TagRedux'
 import { startup } from './StartupSagas'
 import { getAccount, getFollowList } from './AccountSagas'
 import { login, logout } from './LoginSagas'
-import { getPost, getPostHome, getPostHighlight, getPostProfile, getPostTag } from './PostSagas'
+import {
+  getPost,
+  getPostHome,
+  getPostHighlight,
+  getPostProfile,
+  getPostTag,
+  getPostTrending,
+  getPostNew,
+  getPostHot,
+  getPostPromoted
+} from './PostSagas'
 import { getTag } from './TagSagas'
 
 /* ------------- API ------------- */
@@ -40,6 +50,10 @@ export default function * root () {
     takeLatest(PostTypes.POST_HIGHLIGHT_REQUEST, getPostHighlight),
     takeLatest(PostTypes.POST_PROFILE_REQUEST, getPostProfile),
     takeLatest(PostTypes.POST_TAG_REQUEST, getPostTag),
+    takeLatest(PostTypes.POST_TRENDING_REQUEST, getPostTrending),
+    takeLatest(PostTypes.POST_NEW_REQUEST, getPostNew),
+    takeLatest(PostTypes.POST_HOT_REQUEST, getPostHot),
+    takeLatest(PostTypes.POST_PROMOTED_REQUEST, getPostPromoted),
     takeLatest(TagTypes.TAG_REQUEST, getTag)
   ])
 }
