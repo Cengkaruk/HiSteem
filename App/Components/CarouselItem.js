@@ -31,12 +31,15 @@ export default class CarouselItem extends Component {
       name: jsonMetadata.profile.name,
       image: jsonMetadata.profile.profile_image
     }
+    let postMetadata = JSON.parse(post.json_metadata)
     return (
       <Container style={{ backgroundColor: '#FFF', height: 240, marginRight: 15, borderRadius: 5 }}>
         <Grid>
-          <Row onPress={() => navigate('SinglePostScreen', { post: post })}>
-            <Image source={Images.imagePlaceholder} resizeMode='cover' style={{ height: 110, width: width - 30 }} />
-          </Row>
+          {(typeof postMetadata.image !== 'undefined') && (
+            <Row onPress={() => navigate('SinglePostScreen', { post: post })}>
+              <Image source={{ uri: postMetadata.image[0] }} resizeMode='cover' style={{ height: 110, width: width - 30 }} />
+            </Row>
+          )}
           <Row size={1} style={{ flexDirection: 'column', paddingHorizontal: 10 }} onPress={() => navigate('SinglePostScreen', { post: post })}>
             <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>{ post.title }</Text>
             <Grid style={{ marginTop: 20 }}>

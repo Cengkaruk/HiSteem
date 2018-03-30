@@ -32,15 +32,18 @@ export default class PostList extends Component {
       name: jsonMetadata.profile.name,
       image: jsonMetadata.profile.profile_image
     }
+    let postMetadata = JSON.parse(post.json_metadata)
     return (
       <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }} key={index}>
         <Row style={{ alignItems: 'center' }}>
           <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
           { post.active_votes.length > 0 && <Text note style={{ marginLeft: 10 }}>{ post.active_votes[0].voter } and { post.active_votes.length - 1 } others</Text> }
         </Row>
-        <Row style={{ marginTop: 10 }} onPress={() => navigate('SinglePostScreen', { post: post })}>
-          <Image source={Images.imagePlaceholder} resizeMode='cover' style={{ width: width - 30, height: 240, borderRadius: 5 }} />
-        </Row>
+        { (typeof postMetadata.image !== 'undefined') && (
+          <Row style={{ marginTop: 10 }} onPress={() => navigate('SinglePostScreen', { post: post })}>
+            <Image source={{ uri: postMetadata.image[0] }} resizeMode='cover' style={{ width: width - 30, height: 240, borderRadius: 5 }} />
+          </Row>
+        )}
         <Row style={{ marginTop: 10 }} onPress={() => navigate('SinglePostScreen', { post: post })}>
           <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>{ post.title }</Text>
         </Row>
@@ -67,6 +70,7 @@ export default class PostList extends Component {
       name: jsonMetadata.profile.name,
       image: jsonMetadata.profile.profile_image
     }
+    let postMetadata = JSON.parse(post.json_metadata)
     return (
       <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }} key={index}>
         <Row style={{ alignItems: 'center' }}>
@@ -78,9 +82,11 @@ export default class PostList extends Component {
             <Col style={{ justifyContent: 'center', paddingRight: 5 }}>
               <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>{ post.title }</Text>
             </Col>
-            <Col>
-              <Image source={Images.imagePlaceholder} resizeMode='cover' style={{ width: (width / 2) - 15, height: 100, borderRadius: 5 }} />
-            </Col>
+            { (typeof postMetadata.image !== 'undefined') && (
+              <Col>
+                <Image source={{ uri: postMetadata.image[0] }} resizeMode='cover' style={{ width: (width / 2) - 15, height: 100, borderRadius: 5 }} />
+              </Col>
+            )}
           </Grid>
         </Row>
         <Row style={{ alignItems: 'center', marginTop: 15 }}>
