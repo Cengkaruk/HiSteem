@@ -55,16 +55,16 @@ class HighlightScreen extends Component {
             </Header>
             <Tabs>
               <Tab heading='Trending'>
-                <TrendingTab />
+                <TrendingTab navigation={this.props.navigation} />
               </Tab>
               <Tab heading='New'>
-                <NewTab />
+                <NewTab navigation={this.props.navigation} />
               </Tab>
               <Tab heading='Hot'>
-                <HotTab />
+                <HotTab navigation={this.props.navigation} />
               </Tab>
               <Tab heading='Promoted'>
-                <PromotedTab />
+                <PromotedTab navigation={this.props.navigation} />
               </Tab>
             </Tabs>
           </Container>

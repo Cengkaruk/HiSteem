@@ -35,7 +35,6 @@ class PromotedTab extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    navigation: state.nav,
     posts: state.posts
   }
 }
