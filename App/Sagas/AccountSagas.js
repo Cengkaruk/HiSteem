@@ -72,18 +72,18 @@ export function * getFollowList (action) {
   yield put(AccountActions.followListSuccess(currentFollowers, currentFollowing))
 }
 
-export function * getOtherAccounts (names) {
-  // let currentAccounts = yield select(AccountSelectors.getOtherProfiles)
+// export function * getOtherAccounts (names) {
+//   // let currentAccounts = yield select(AccountSelectors.getOtherProfiles)
 
-  let accounts = []
-  try {
-    accounts = yield call(getAccounts, names)
-  } catch (error) {
-    yield put(AccountActions.otherAccountFailure())
-  }
+//   let accounts = []
+//   try {
+//     accounts = yield call(getAccounts, names)
+//   } catch (error) {
+//     yield put(AccountActions.otherAccountFailure())
+//   }
 
-  // TODO: Use currentAccounts and remove duplicates accounts
-  // accounts = [...currentAccounts, ...accounts]
+//   // TODO: Use currentAccounts and remove duplicates accounts
+//   // accounts = [...currentAccounts, ...accounts]
 
-  yield put(AccountActions.otherAccountSuccess(accounts))
-}
+//   yield put(AccountActions.otherAccountSuccess(accounts))
+// }
