@@ -27,6 +27,11 @@ export default class PostList extends Component {
 
   renderFirstPostItem = (post, index) => {
     const { navigate } = this.props.navigation
+    let jsonMetadata = JSON.parse(post.profile.json_metadata)
+    let profile = {
+      name: jsonMetadata.profile.name,
+      image: jsonMetadata.profile.profile_image
+    }
     return (
       <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }} key={index}>
         <Row style={{ alignItems: 'center' }}>
@@ -40,10 +45,10 @@ export default class PostList extends Component {
           <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>{ post.title }</Text>
         </Row>
         <Row style={{ alignItems: 'center', marginTop: 15 }}>
-          <Thumbnail small source={Images.avatar} />
+          <Thumbnail small source={{ uri: profile.image }} />
           <Grid style={{ marginLeft: 10 }}>
             <Col>
-              <Text note>{ post.author }</Text>
+              <Text note>{ profile.name || post.author }</Text>
               <Text note>{ post.created }</Text>
             </Col>
             <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
@@ -57,6 +62,11 @@ export default class PostList extends Component {
 
   renderPostItem = (post, index) => {
     const { navigate } = this.props.navigation
+    let jsonMetadata = JSON.parse(post.profile.json_metadata)
+    let profile = {
+      name: jsonMetadata.profile.name,
+      image: jsonMetadata.profile.profile_image
+    }
     return (
       <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }} key={index}>
         <Row style={{ alignItems: 'center' }}>
@@ -74,10 +84,10 @@ export default class PostList extends Component {
           </Grid>
         </Row>
         <Row style={{ alignItems: 'center', marginTop: 15 }}>
-          <Thumbnail small source={Images.avatar} />
+          <Thumbnail small source={{ uri: profile.image }} />
           <Grid style={{ marginLeft: 10 }}>
             <Col>
-              <Text note>{ post.author }</Text>
+              <Text note>{ profile.name || post.author }</Text>
               <Text note>{ post.created }</Text>
             </Col>
             <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>

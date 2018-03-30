@@ -26,6 +26,11 @@ export default class CarouselItem extends Component {
   render () {
     const { navigate } = this.props.navigation
     const post = this.props.post
+    let jsonMetadata = JSON.parse(post.profile.json_metadata)
+    let profile = {
+      name: jsonMetadata.profile.name,
+      image: jsonMetadata.profile.profile_image
+    }
     return (
       <Container style={{ backgroundColor: '#FFF', height: 240, marginRight: 15, borderRadius: 5 }}>
         <Grid>
@@ -36,7 +41,7 @@ export default class CarouselItem extends Component {
             <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>{ post.title }</Text>
             <Grid style={{ marginTop: 20 }}>
               <Col>
-                <Text note>@{ post.author }</Text>
+                <Text note>{ profile.name || post.author }</Text>
                 <Text note>{ post.created }</Text>
               </Col>
               <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
