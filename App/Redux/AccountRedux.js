@@ -10,7 +10,10 @@ const { Types, Creators } = createActions({
   accountReset: null,
   followListRequest: ['username'],
   followListSuccess: ['followers', 'following'],
-  followListFailure: null
+  followListFailure: null,
+  otherAccountRequest: ['names'],
+  otherAccountSuccess: ['profiles'],
+  otherAccountFailure: null
 })
 
 export const AccountTypes = Types
@@ -23,7 +26,8 @@ export const INITIAL_STATE = Immutable({
   error: null,
   profile: null,
   followers: [],
-  following: []
+  following: [],
+  others: []
 })
 
 /* ------------- Selectors ------------- */
@@ -32,7 +36,8 @@ export const AccountSelectors = {
   getProfile: state => state.account.profile,
   getActivePublicKey: state => state.account.profile.active.key_auths[0][0],
   getFollowers: state => state.account.followers,
-  getFollowing: state => state.account.following
+  getFollowing: state => state.account.following,
+  getOtherProfiles: state => state.account.others
 }
 
 /* ------------- Reducers ------------- */
@@ -61,6 +66,12 @@ export const followListSuccess = (state, { followers, following }) =>
 export const followListFailure = state =>
   state.merge({ fetching: false, error: true })
 
+export const otherAccountSuccess = (state, { profiles }) =>
+  state.merge({ fetching: false, error: null, others: profiles })
+
+export const otherAccountFailure = state =>
+  state.merge({ fetching: true, error: true, others: null })
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -70,5 +81,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.ACCOUNT_RESET]: reset,
   [Types.FOLLOW_LIST_REQUEST]: followListRequest,
   [Types.FOLLOW_LIST_SUCCESS]: followListSuccess,
-  [Types.FOLLOW_LIST_FAILURE]: followListFailure
+  [Types.FOLLOW_LIST_FAILURE]: followListFailure,
+  [Types.OTHER_ACCOUNT_REQUEST]: request,
+  [Types.OTHER_ACCOUNT_SUCCESS]: otherAccountSuccess,
+  [Types.OTHER_ACCOUNT_FAILURE]: otherAccountFailure
 })
