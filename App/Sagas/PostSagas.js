@@ -1,7 +1,7 @@
 import { call, put, select } from 'redux-saga/effects'
 import PostActions, { PostSelectors } from '../Redux/PostRedux'
 import { AccountSelectors } from '../Redux/AccountRedux'
-// import { getOtherAccounts } from './AccountSagas'
+import { getAccounts } from './AccountSagas'
 import Utils from '../Transforms/Utils'
 import { api } from 'steem'
 
@@ -75,6 +75,32 @@ api.setOptions({ url: 'https://api.steemit.com' })
 //   return assignedPosts
 // }
 
+export function * getPostsAuthorProfiles (posts) {
+  let names = posts.map((post) => post.author)
+  names = names.filter((name, index) => names.indexOf(name) === index)
+
+  let accounts = []
+  try {
+    accounts = yield call(getAccounts, names)
+  } catch (error) {
+    yield put(PostActions.postFailure())
+  }
+
+  for (var i = 0; i < posts.length; i++) {
+    var post = posts[i]
+
+    for (var j = 0; j < accounts.length; j++) {
+      var profile = accounts[j]
+
+      if (post.author === profile.name && typeof post.profile === 'undefined') {
+        post.profile = profile
+      }
+    }
+  }
+
+  return posts
+}
+
 export function * getPost (by, query = {}, savedTo = null) {
   let apiMethod = `getDiscussionsBy${Utils.ucFirst(by)}Async`
 
@@ -87,7 +113,7 @@ export function * getPost (by, query = {}, savedTo = null) {
     yield put(PostActions.postFailure())
   }
 
-  // posts = yield call(getPostsAuthorProfiles, posts)
+  posts = yield call(getPostsAuthorProfiles, posts)
 
   if (savedTo) {
     yield put(PostActions.postSuccess(savedTo, posts))
