@@ -15,7 +15,7 @@ import {
   Thumbnail
 } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
-import Markdown from 'react-native-showdown'
+import Markdown from 'react-native-simple-markdown'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -53,8 +53,8 @@ class SinglePostScreen extends Component {
               <Row style={{ padding: 15, backgroundColor: '#FFF' }}>
                 <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 32 }}>{ post.title }</Text>
               </Row>
-              <Row style={{ backgroundColor: '#FFF' }}>
-                <Markdown body={ post.body } />
+              <Row style={{ backgroundColor: '#FFF', padding: 15 }}>
+                <Markdown>{ post.body }</Markdown>
               </Row>
               <Row style={{ marginVertical: 20 }}>
                 <Grid>
