@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Dimensions } from 'react-native'
 import {
   StyleProvider,
   Container,
@@ -25,10 +26,28 @@ import getTheme from '../Themes/NativeBase/components'
 // import styles from './Styles/SinglePostScreenStyle'
 import Images from '../Themes/Images'
 
+const stylesMarkdown = {
+  image: {
+    width: Dimensions.get('window').width - 30,
+    height: 300,
+    marginVertical: 15
+  }
+}
+
 class SinglePostScreen extends Component {
   render () {
     const { goBack, navigate, state: navigationState } = this.props.navigation
     const { post } = navigationState.params
+    let profile = {}
+    if (post.profile.json_metadata) {
+      let jsonMetadata = JSON.parse(post.profile.json_metadata)
+      if (jsonMetadata.profile) {
+        profile = {
+          name: jsonMetadata.profile.name,
+          image: jsonMetadata.profile.profile_image
+        }
+      }
+    }
     return (
       <StyleProvider style={getTheme()}>
         <Container style={{ backgroundColor: '#EEEEEE' }}>
@@ -39,8 +58,8 @@ class SinglePostScreen extends Component {
               </Button>
             </Left>
             <Body>
-              <Title>by { post.author }</Title>
-              <Subtitle>10 March 2018</Subtitle>
+              <Title>{ profile.name || post.author }</Title>
+              <Subtitle>{ post.created }</Subtitle>
             </Body>
             <Right>
               <Button>
@@ -54,7 +73,7 @@ class SinglePostScreen extends Component {
                 <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 32 }}>{ post.title }</Text>
               </Row>
               <Row style={{ backgroundColor: '#FFF', padding: 15 }}>
-                <Markdown>{ post.body }</Markdown>
+                <Markdown styles={stylesMarkdown}>{ post.body }</Markdown>
               </Row>
               <Row style={{ marginVertical: 20 }}>
                 <Grid>
