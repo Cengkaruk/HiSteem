@@ -7601,6 +7601,12 @@ react-native-easy-grid@0.1.17:
   dependencies:
     lodash "^4.11.1"
 
+react-native-easy-markdown@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/react-native-easy-markdown/-/react-native-easy-markdown-1.1.9.tgz#5e650413d61a33d6feb764c99cebaa8a3258c0e1"
+  dependencies:
+    simple-markdown "^0.1.1"
+
 react-native-i18n@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-1.0.0.tgz#0c407d9ebb846aae1aa5e05de6503008553f02fd"
@@ -7615,13 +7621,6 @@ react-native-keyboard-aware-scroll-view@0.4.2:
   dependencies:
     prop-types "^15.6.0"
     react-native-iphone-x-helper "^1.0.1"
-
-react-native-simple-markdown@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-simple-markdown/-/react-native-simple-markdown-1.1.0.tgz#4d462f8ced26393c5230467420c61a50cc6a8095"
-  dependencies:
-    lodash "^4.15.0"
-    simple-markdown "git://github.com/CharlesMangwa/simple-markdown.git"
 
 react-native-tab-view@^0.0.74:
   version "0.0.74"
@@ -9052,9 +9051,9 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-"simple-markdown@git://github.com/CharlesMangwa/simple-markdown.git":
-  version "0.1.1"
-  resolved "git://github.com/CharlesMangwa/simple-markdown.git#33d963c760b8196bee01b1a5ba9974bc7f669af1"
+simple-markdown@^0.1.1:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/simple-markdown/-/simple-markdown-0.1.2.tgz#3c1510fe40bd9ea067717b8a533c9cf36325b413"
 
 simple-plist@^0.2.1:
   version "0.2.1"
