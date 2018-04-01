@@ -3,6 +3,7 @@ import PostActions, { PostSelectors } from '../Redux/PostRedux'
 import { AccountSelectors } from '../Redux/AccountRedux'
 import { getAccounts } from './AccountSagas'
 import Utils from '../Transforms/Utils'
+import ReformatMarkdown from '../Transforms/ReformatMarkdown'
 import { api } from 'steem'
 
 api.setOptions({ url: 'https://api.steemit.com' })
@@ -33,6 +34,15 @@ export function * getPostsAuthorProfiles (posts) {
   return posts
 }
 
+export function * reformatMarkdownBody (posts) {
+  for (var i = 0; i < posts.length; i++) {
+    var post = posts[i]
+    post.body = ReformatMarkdown(post.body)
+  }
+
+  return posts
+}
+
 export function * getPost (by, query = {}, savedTo = null) {
   let apiMethod = `getDiscussionsBy${Utils.ucFirst(by)}Async`
 
@@ -46,6 +56,7 @@ export function * getPost (by, query = {}, savedTo = null) {
   }
 
   posts = yield call(getPostsAuthorProfiles, posts)
+  posts = yield call(reformatMarkdownBody, posts)
 
   if (savedTo) {
     yield put(PostActions.postSuccess(savedTo, posts))
