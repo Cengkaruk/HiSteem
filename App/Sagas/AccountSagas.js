@@ -84,12 +84,30 @@ export function * getWallet () {
   let steemPower = yield call(Utils.vestingSteem, account, globalProps)
   let delegatedSteemPower = yield call(Utils.delegatedSteem, account, globalProps)
 
+  let username = account.name
+  yield call(getAccountHistory, { username })
+  let history = yield select(AccountSelectors.getTransactionHistory)
+
   let wallet = {
     steemBalance: account.balance.split(' ')[0],
     sbdBalance: account.sbd_balance.split(' ')[0],
     steemPower: steemPower,
-    delegatedSteemPower: delegatedSteemPower
+    delegatedSteemPower: delegatedSteemPower,
+    history: history
   }
 
   yield put(AccountActions.walletSuccess(wallet))
+}
+
+export function * getAccountHistory (action) {
+  const { username } = action
+
+  let history = []
+  try {
+    history = yield call(api.getAccountHistoryAsync, username, -1, 100)
+  } catch (error) {
+    yield put(AccountActions.accountHistoryFailure())
+  }
+
+  yield put(AccountActions.accountHistorySuccess(history))
 }

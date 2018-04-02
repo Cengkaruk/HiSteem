@@ -73,33 +73,17 @@ class WalletBalanceTab extends Component {
                 <ListItem itemHeader first style={{ paddingLeft: 0, paddingBottom: 15 }}>
                   <Text>TRANSACTION HISTORY</Text>
                 </ListItem>
-                <ListItem style={{ marginLeft: 0 }}>
-                  <Body>
-                    <Text style={{ marginLeft: 0 }}>Transfer 0.001 SBD from big-whale</Text>
-                    <Text note style={{ marginLeft: 0 }}>Hai @cengkaruk.. Selamat datang di Steemit! Sedikit kado kecil dari kami.. :-]</Text>
-                  </Body>
-                  <Right>
-                    <Text note>7 hours ago</Text>
-                  </Right>
-                </ListItem>
-                <ListItem style={{ marginLeft: 0 }}>
-                  <Body>
-                    <Text style={{ marginLeft: 0 }}>Claim rewards: 0.022 STEEM POWER</Text>
-                    <Text note style={{ marginLeft: 0 }} />
-                  </Body>
-                  <Right>
-                    <Text note>7 hours ago</Text>
-                  </Right>
-                </ListItem>
-                <ListItem style={{ marginLeft: 0 }}>
-                  <Body>
-                    <Text style={{ marginLeft: 0 }}>Transfer 0.001 SBD from big-whale</Text>
-                    <Text note style={{ marginLeft: 0 }}>Hai @cengkaruk.. Selamat datang di Steemit! Sedikit kado kecil dari kami.. :-]</Text>
-                  </Body>
-                  <Right>
-                    <Text note>7 hours ago</Text>
-                  </Right>
-                </ListItem>
+                { this.props.wallet.history.map((item, index) =>
+                  <ListItem style={{ marginLeft: 0 }} key={index}>
+                    <Body>
+                      <Text style={{ marginLeft: 0 }}>Transfer { item[1].op[1].amount } from { item[1].op[1].from }</Text>
+                      <Text note style={{ marginLeft: 0 }}>{ item[1].op[1].memo }</Text>
+                    </Body>
+                    <Right>
+                      <Text note>{ item[1].timestamp }</Text>
+                    </Right>
+                  </ListItem>
+                ) }
               </List>
             </Row>
           </Grid>

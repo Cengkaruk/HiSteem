@@ -13,7 +13,10 @@ const { Types, Creators } = createActions({
   followListFailure: null,
   walletRequest: null,
   walletSuccess: ['wallet'],
-  walletFailure: null
+  walletFailure: null,
+  accountHistoryRequest: ['username'],
+  accountHistorySuccess: ['history'],
+  accountHistoryFailure: null
 })
 
 export const AccountTypes = Types
@@ -28,7 +31,8 @@ export const INITIAL_STATE = Immutable({
   followers: [],
   following: [],
   // others: []
-  wallet: {}
+  wallet: {},
+  history: []
 })
 
 /* ------------- Selectors ------------- */
@@ -37,7 +41,8 @@ export const AccountSelectors = {
   getProfile: state => state.account.profile,
   getActivePublicKey: state => state.account.profile.active.key_auths[0][0],
   getFollowers: state => state.account.followers,
-  getFollowing: state => state.account.following
+  getFollowing: state => state.account.following,
+  getTransactionHistory: state => state.account.history.filter(tx => tx[1].op[0] === 'transfer')
 }
 
 /* ------------- Reducers ------------- */
@@ -72,6 +77,12 @@ export const walletSuccess = (state, { wallet }) =>
 export const walletFailure = state =>
   state.merge({ fetching: false, error: true })
 
+export const accountHistorySuccess = (state, { history }) =>
+  state.merge({ fetching: false, history })
+
+export const accountHistoryFailure = state =>
+  state.merge({ fetching: false, error: true, history: [] })
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -84,5 +95,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.FOLLOW_LIST_FAILURE]: followListFailure,
   [Types.WALLET_REQUEST]: request,
   [Types.WALLET_SUCCESS]: walletSuccess,
-  [Types.WALLET_FAILURE]: walletFailure
+  [Types.WALLET_FAILURE]: walletFailure,
+  [Types.ACCOUNT_HISTORY_REQUEST]: request,
+  [Types.ACCOUNT_HISTORY_SUCCESS]: accountHistorySuccess,
+  [Types.ACCOUNT_HISTORY_FAILURE]: accountHistoryFailure
 })
