@@ -18,14 +18,17 @@ import WalletBalanceTab from '../Components/WalletBalanceTab'
 import WalletTransferTab from '../Components/WalletTransferTab'
 import WalletExchangeTab from '../Components/WalletExchangeTab'
 import { connect } from 'react-redux'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import AccountActions from '../Redux/AccountRedux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
 // import styles from './Styles/WalletScreenStyle'
 
 class WalletScreen extends Component {
+  componentDidMount () {
+    this.props.getWallet()
+  }
+
   closeDrawer = () => {
     this.drawer._root.close()
   }
@@ -78,6 +81,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getWallet: () => dispatch(AccountActions.walletRequest())
   }
 }
 

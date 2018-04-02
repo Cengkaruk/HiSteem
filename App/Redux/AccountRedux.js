@@ -10,7 +10,10 @@ const { Types, Creators } = createActions({
   accountReset: null,
   followListRequest: ['username'],
   followListSuccess: ['followers', 'following'],
-  followListFailure: null
+  followListFailure: null,
+  walletRequest: null,
+  walletSuccess: ['wallet'],
+  walletFailure: null
 })
 
 export const AccountTypes = Types
@@ -23,8 +26,9 @@ export const INITIAL_STATE = Immutable({
   error: null,
   profile: null,
   followers: [],
-  following: []
+  following: [],
   // others: []
+  wallet: {}
 })
 
 /* ------------- Selectors ------------- */
@@ -51,7 +55,7 @@ export const failure = state =>
   state.merge({ fetching: false, error: true, profile: null })
 
 export const reset = state =>
-  state.merge({ fetching: false, profile: null, followers: [], following: [] })
+  state.merge({ fetching: false, profile: null, followers: [], following: [], wallet: {} })
 
 export const followListRequest = state =>
   state.merge({ fetching: true })
@@ -60,6 +64,12 @@ export const followListSuccess = (state, { followers, following }) =>
   state.merge({ fetching: false, followers, following })
 
 export const followListFailure = state =>
+  state.merge({ fetching: false, error: true })
+
+export const walletSuccess = (state, { wallet }) =>
+  state.merge({ fetching: false, wallet })
+
+export const walletFailure = state =>
   state.merge({ fetching: false, error: true })
 
 /* ------------- Hookup Reducers To Types ------------- */
@@ -71,5 +81,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.ACCOUNT_RESET]: reset,
   [Types.FOLLOW_LIST_REQUEST]: followListRequest,
   [Types.FOLLOW_LIST_SUCCESS]: followListSuccess,
-  [Types.FOLLOW_LIST_FAILURE]: followListFailure
+  [Types.FOLLOW_LIST_FAILURE]: followListFailure,
+  [Types.WALLET_REQUEST]: request,
+  [Types.WALLET_SUCCESS]: walletSuccess,
+  [Types.WALLET_FAILURE]: walletFailure
 })

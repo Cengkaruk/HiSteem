@@ -10,11 +10,12 @@ import { AccountTypes } from '../Redux/AccountRedux'
 import { LoginTypes } from '../Redux/LoginRedux'
 import { PostTypes } from '../Redux/PostRedux'
 import { TagTypes } from '../Redux/TagRedux'
+import { GlobalTypes } from '../Redux/GlobalRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
-import { getAccount, getFollowList } from './AccountSagas'
+import { getAccount, getFollowList, getWallet } from './AccountSagas'
 import { login, logout } from './LoginSagas'
 import {
   getPost,
@@ -28,6 +29,7 @@ import {
   getPostPromoted
 } from './PostSagas'
 import { getTag } from './TagSagas'
+import { getGlobal } from './GlobalSagas'
 
 /* ------------- API ------------- */
 
@@ -43,6 +45,7 @@ export default function * root () {
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount),
     takeLatest(AccountTypes.FOLLOW_LIST_REQUEST, getFollowList),
+    takeLatest(AccountTypes.WALLET_REQUEST, getWallet),
     takeLatest(LoginTypes.LOGIN_REQUEST, login),
     takeLatest(LoginTypes.LOGOUT_REQUEST, logout),
     takeLatest(PostTypes.POST_REQUEST, getPost),
@@ -54,6 +57,7 @@ export default function * root () {
     takeLatest(PostTypes.POST_NEW_REQUEST, getPostNew),
     takeLatest(PostTypes.POST_HOT_REQUEST, getPostHot),
     takeLatest(PostTypes.POST_PROMOTED_REQUEST, getPostPromoted),
-    takeLatest(TagTypes.TAG_REQUEST, getTag)
+    takeLatest(TagTypes.TAG_REQUEST, getTag),
+    takeLatest(GlobalTypes.GLOBAL_REQUEST, getGlobal)
   ])
 }

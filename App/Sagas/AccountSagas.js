@@ -1,6 +1,9 @@
 import { call, put, select } from 'redux-saga/effects'
 import AccountActions, { AccountSelectors } from '../Redux/AccountRedux'
+import GlobalActions, { GlobalSelectors } from '../Redux/GlobalRedux'
+import { getGlobal } from './GlobalSagas'
 import { api } from 'steem'
+import Utils from '../Transforms/Utils'
 
 api.setOptions({ url: 'https://api.steemit.com' })
 
@@ -70,4 +73,23 @@ export function * getFollowList (action) {
   }
 
   yield put(AccountActions.followListSuccess(currentFollowers, currentFollowing))
+}
+
+export function * getWallet () {
+  yield call(getGlobal)
+
+  let account = yield select(AccountSelectors.getProfile)
+  let globalProps = yield select(GlobalSelectors.getDynamic)
+
+  let steemPower = yield call(Utils.vestingSteem, account, globalProps)
+  let delegatedSteemPower = yield call(Utils.delegatedSteem, account, globalProps)
+
+  let wallet = {
+    steemBalance: account.balance.split(' ')[0],
+    sbdBalance: account.sbd_balance.split(' ')[0],
+    steemPower: steemPower,
+    delegatedSteemPower: delegatedSteemPower
+  }
+
+  yield put(AccountActions.walletSuccess(wallet))
 }

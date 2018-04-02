@@ -11,7 +11,8 @@ export const reducers = combineReducers({
   account: require('./AccountRedux').reducer,
   login: require('./LoginRedux').reducer,
   posts: require('./PostRedux').reducer,
-  tags: require('./TagRedux').reducer
+  tags: require('./TagRedux').reducer,
+  global: require('./GlobalRedux').reducer
 })
 
 export default () => {

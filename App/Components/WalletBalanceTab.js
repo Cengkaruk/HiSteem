@@ -10,9 +10,10 @@ import {
   Text
 } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
+import { connect } from 'react-redux'
 // import styles from './Styles/WalletBalanceTabStyle'
 
-export default class WalletBalanceTab extends Component {
+class WalletBalanceTab extends Component {
   // // Prop type warnings
   // static propTypes = {
   //   someProperty: PropTypes.object,
@@ -40,7 +41,7 @@ export default class WalletBalanceTab extends Component {
                   <Text note>Tradeable tokens that may be transferred anywhere at anytime. Steem can be converted to STEEM POWER in a process called powering up.</Text>
                 </Col>
                 <Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-                  <Text bold>322.000 STEEM</Text>
+                  <Text bold>{ this.props.wallet.steemBalance } STEEM</Text>
                 </Col>
               </Grid>
             </Row>
@@ -51,7 +52,8 @@ export default class WalletBalanceTab extends Component {
                   <Text note>Influence tokens which give you more control over post payouts and allow you to earn on curation rewards.</Text>
                 </Col>
                 <Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-                  <Text bold>432.000 STEEM</Text>
+                  <Text bold>{ this.props.wallet.steemPower } STEEM</Text>
+                  <Text note>+{ this.props.wallet.delegatedSteemPower }</Text>
                 </Col>
               </Grid>
             </Row>
@@ -62,7 +64,7 @@ export default class WalletBalanceTab extends Component {
                   <Text note>Tokens worth about $1.00 of STEEM, currently collecting 0% APR.</Text>
                 </Col>
                 <Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-                  <Text bold>$54,433</Text>
+                  <Text bold>${ this.props.wallet.sbdBalance }</Text>
                 </Col>
               </Grid>
             </Row>
@@ -106,3 +108,16 @@ export default class WalletBalanceTab extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    wallet: state.account.wallet
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletBalanceTab)
