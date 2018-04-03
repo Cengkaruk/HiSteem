@@ -71,8 +71,11 @@ export const postRepliesRequest = state =>
 
 export const postRepliesSuccess = (state, action) => {
   const { replies } = action
-  return state.merge({ fetching: false, replies })
+  return state.merge({ fetchingReplies: false, replies })
 }
+
+export const postRepliesFailure = state =>
+  state.merge({ fetchingReplies: false, error: true, replies: [] })
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -90,5 +93,5 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.POST_HOT_REQUEST]: request,
   [Types.POST_PROMOTED_REQUEST]: request,
   [Types.POST_REPLIES_REQUEST]: postRepliesRequest,
-  [Types.POST_REPLIES_FAILURE]: failure
+  [Types.POST_REPLIES_FAILURE]: postRepliesFailure
 })
