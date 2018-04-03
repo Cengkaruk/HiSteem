@@ -90,9 +90,15 @@ class SinglePostScreen extends Component {
                     { this.props.replies.map((reply, index) =>
                       <Grid style={{ marginTop: 10, padding: 15, backgroundColor: '#FFF' }} key={index}>
                         <Row>
-                          <Thumbnail small source={{ uri: reply.profile.json_metadata.profile.profile_image }} style={{ marginRight: 10 }} />
+                          { reply.profile.json_metadata.profile && 
+                            <Thumbnail small source={{ uri: reply.profile.json_metadata.profile.profile_image }} style={{ marginRight: 10 }} />
+                          }
                           <Col style={{ alignItems: 'flex-start' }}>
-                            <Text>{ reply.profile.json_metadata.profile.name || reply.author }</Text>
+                            { reply.profile.json_metadata.profile ? (
+                              <Text>{ reply.profile.json_metadata.profile.name }</Text>
+                            ) : (
+                              <Text>{ reply.author }</Text>
+                            ) }
                             <Text note>{ reply.created }</Text>
                           </Col>
                         </Row>
