@@ -28,7 +28,7 @@ export default class CarouselItem extends Component {
     const post = this.props.post
     let profile = {}
     if (post.profile.json_metadata) {
-      let jsonMetadata = JSON.parse(post.profile.json_metadata)
+      let jsonMetadata = post.profile.json_metadata
       if (jsonMetadata.profile) {
         profile = {
           name: jsonMetadata.profile.name,
@@ -36,7 +36,7 @@ export default class CarouselItem extends Component {
         }
       }
     }
-    let postMetadata = JSON.parse(post.json_metadata)
+    let postMetadata = post.json_metadata
     return (
       <Container style={{ backgroundColor: '#FFF', height: 240, marginRight: 15, borderRadius: 5 }}>
         <Grid>

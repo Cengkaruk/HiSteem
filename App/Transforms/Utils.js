@@ -26,8 +26,28 @@ const delegatedSteem = (account, globalProps) => {
   return delegatedSteemPower.toFixed(3)
 }
 
+const parseMetadata = (item) => {
+  if (item.json_metadata) {
+    item.json_metadata = JSON.parse(item.json_metadata)
+  }
+
+  return item
+}
+
+const parseMetadatas = (items) => {
+  let newItems = []
+  for (var i = 0; i < items.length; i++) {
+    let item = parseMetadata(items[i])
+    newItems.push(item)
+  }
+
+  return newItems
+}
+
 export default {
   ucFirst,
   vestingSteem,
-  delegatedSteem
+  delegatedSteem,
+  parseMetadata,
+  parseMetadatas
 }

@@ -29,7 +29,7 @@ export default class PostList extends Component {
     const { navigate } = this.props.navigation
     let profile = {}
     if (post.profile.json_metadata) {
-      let jsonMetadata = JSON.parse(post.profile.json_metadata)
+      let jsonMetadata = post.profile.json_metadata
       if (jsonMetadata.profile) {
         profile = {
           name: jsonMetadata.profile.name,
@@ -37,7 +37,7 @@ export default class PostList extends Component {
         }
       }
     }
-    let postMetadata = JSON.parse(post.json_metadata)
+    let postMetadata = post.json_metadata
     return (
       <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }} key={index}>
         <Row style={{ alignItems: 'center' }}>
@@ -72,7 +72,7 @@ export default class PostList extends Component {
     const { navigate } = this.props.navigation
     let profile = {}
     if (post.profile.json_metadata) {
-      let jsonMetadata = JSON.parse(post.profile.json_metadata)
+      let jsonMetadata = post.profile.json_metadata
       if (jsonMetadata.profile) {
         profile = {
           name: jsonMetadata.profile.name,
@@ -80,7 +80,7 @@ export default class PostList extends Component {
         }
       }
     }
-    let postMetadata = JSON.parse(post.json_metadata)
+    let postMetadata = post.json_metadata
     return (
       <Grid style={{ padding: 15, marginBottom: 5, backgroundColor: '#FFF' }} key={index}>
         <Row style={{ alignItems: 'center' }}>

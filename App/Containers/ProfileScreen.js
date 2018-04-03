@@ -36,7 +36,7 @@ class ProfileScreen extends Component {
 
   render () {
     const { goBack, navigate } = this.props.navigation
-    let jsonMetadata = JSON.parse(this.props.profile.json_metadata)
+    let jsonMetadata = this.props.profile.json_metadata
     const profile = {
       name: jsonMetadata.profile.name,
       about: jsonMetadata.profile.about,

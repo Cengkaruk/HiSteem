@@ -18,6 +18,9 @@ export function * getAccount (action) {
       yield put(AccountActions.accountFailure())
     }
   }
+
+  profile = yield call(Utils.parseMetadata, profile)
+
   yield put(AccountActions.accountSuccess(profile))
 }
 
@@ -50,6 +53,8 @@ export function * getAccounts (usernames) {
   } catch (error) {
     yield put(AccountActions.followListFailure())
   }
+
+  accounts = yield call(Utils.parseMetadatas, accounts)
 
   return accounts
 }

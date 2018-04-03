@@ -33,10 +33,9 @@ class Sidebar extends Component {
     const logout = this.props.logout
     const { json_metadata } = this.props.profile
 
-    let jsonMetadata = JSON.parse(json_metadata)
     let profile = {
-      name: jsonMetadata.profile.name,
-      image: jsonMetadata.profile.profile_image
+      name: json_metadata.profile.name,
+      image: json_metadata.profile.profile_image
     }
     return (
       <Container style={{ backgroundColor: '#EEEEEE' }}>

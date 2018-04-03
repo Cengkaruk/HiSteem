@@ -45,7 +45,7 @@ class SinglePostScreen extends Component {
     const { post } = navigationState.params
     let profile = {}
     if (post.profile.json_metadata) {
-      let jsonMetadata = JSON.parse(post.profile.json_metadata)
+      let jsonMetadata = post.profile.json_metadata
       if (jsonMetadata.profile) {
         profile = {
           name: jsonMetadata.profile.name,

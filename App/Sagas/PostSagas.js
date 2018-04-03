@@ -69,6 +69,7 @@ export function * getPost (by, query = {}, savedTo = null) {
   posts = yield call(takeOutNonBlog, posts)
   posts = yield call(getPostsAuthorProfiles, posts)
   posts = yield call(reformatMarkdownBody, posts)
+  posts = yield call(Utils.parseMetadatas, posts)
 
   if (savedTo) {
     yield put(PostActions.postSuccess(savedTo, posts))
@@ -160,6 +161,7 @@ export function * getPostReplies (action) {
   }
 
   replies = yield call(getPostsAuthorProfiles, replies)
+  replies = yield call(Utils.parseMetadatas, replies)
 
   yield put(PostActions.postSuccess('replies', replies))
 }
