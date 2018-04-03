@@ -83,16 +83,16 @@ class SinglePostScreen extends Component {
               <Row style={{ marginVertical: 20 }}>
                 <Grid>
                   <Row style={{ padding: 7.5, backgroundColor: '#FFF', alignItems: 'center' }} onPress={() => navigate('NewPostScreen')}>
-                    <Thumbnail small source={Images.avatar} style={{ marginRight: 10 }} />
+                    <Thumbnail small source={{ uri: this.props.profile.json_metadata.profile.profile_image }} style={{ marginRight: 10 }} />
                     <Text note>Write a response...</Text>
                   </Row>
                   <Row style={{ flexDirection: 'column', marginTop: 5 }}>
                     { this.props.replies.map((reply, index) =>
                       <Grid style={{ marginTop: 10, padding: 15, backgroundColor: '#FFF' }} key={index}>
                         <Row>
-                          <Thumbnail small source={Images.avatar} style={{ marginRight: 10 }} />
+                          <Thumbnail small source={{ uri: reply.profile.json_metadata.profile.profile_image }} style={{ marginRight: 10 }} />
                           <Col style={{ alignItems: 'flex-start' }}>
-                            <Text>{ reply.author }</Text>
+                            <Text>{ reply.profile.json_metadata.profile.name || reply.author }</Text>
                             <Text note>{ reply.created }</Text>
                           </Col>
                         </Row>
@@ -120,6 +120,7 @@ class SinglePostScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    profile: state.account.profile,
     replies: state.posts.replies
   }
 }
