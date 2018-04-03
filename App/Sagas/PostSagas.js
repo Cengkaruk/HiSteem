@@ -148,3 +148,18 @@ export function * getPostPromoted (action) {
 
   yield put(PostActions.postDone())
 }
+
+export function * getPostReplies (action) {
+  const { author, permalink } = action
+
+  let replies = []
+  try {
+    replies = yield call(api.getContentRepliesAsync, author, permalink)
+  } catch (error) {
+    yield put(PostActions.postRepliesFailure())
+  }
+
+  replies = yield call(getPostsAuthorProfiles, replies)
+
+  yield put(PostActions.postSuccess('replies', replies))
+}

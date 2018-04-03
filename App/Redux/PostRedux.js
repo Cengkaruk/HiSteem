@@ -15,7 +15,9 @@ const { Types, Creators } = createActions({
   postTrendingRequest: null,
   postNewRequest: null,
   postHotRequest: null,
-  postPromotedRequest: null
+  postPromotedRequest: null,
+  postRepliesRequest: ['author', 'permalink'],
+  postRepliesFailure: null
 })
 
 export const PostTypes = Types
@@ -25,6 +27,7 @@ export default Creators
 
 export const INITIAL_STATE = Immutable({
   fetching: null,
+  fetchingReplies: null,
   error: null,
   feed: [],
   trending: [],
@@ -63,6 +66,14 @@ export const failure = state =>
 export const done = state =>
   state.merge({ fetching: false })
 
+export const postRepliesRequest = state =>
+  state.merge({ fetchingReplies: true, replies: [] })
+
+export const postRepliesSuccess = (state, action) => {
+  const { replies } = action
+  return state.merge({ fetching: false, replies })
+}
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -77,5 +88,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.POST_TRENDING_REQUEST]: request,
   [Types.POST_NEW_REQUEST]: request,
   [Types.POST_HOT_REQUEST]: request,
-  [Types.POST_PROMOTED_REQUEST]: request
+  [Types.POST_PROMOTED_REQUEST]: request,
+  [Types.POST_REPLIES_REQUEST]: postRepliesRequest,
+  [Types.POST_REPLIES_FAILURE]: failure
 })

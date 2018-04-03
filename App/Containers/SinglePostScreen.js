@@ -18,6 +18,7 @@ import {
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import { connect } from 'react-redux'
 import Markdown from 'react-native-markdown-renderer'
+import PostActions from '../Redux/PostRedux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
@@ -33,6 +34,12 @@ const stylesMarkdown = {
 }
 
 class SinglePostScreen extends Component {
+  componentDidMount () {
+    const { state: navigationState } = this.props.navigation
+    const { post } = navigationState.params
+    this.props.getPostReplies(post.author, post.permlink)
+  }
+
   render () {
     const { goBack, navigate, state: navigationState } = this.props.navigation
     const { post } = navigationState.params
@@ -80,42 +87,26 @@ class SinglePostScreen extends Component {
                     <Text note>Write a response...</Text>
                   </Row>
                   <Row style={{ flexDirection: 'column', marginTop: 5 }}>
-                    <Grid style={{ marginTop: 10, padding: 15, backgroundColor: '#FFF' }}>
-                      <Row>
-                        <Thumbnail small source={Images.avatar} style={{ marginRight: 10 }} />
-                        <Col style={{ alignItems: 'flex-start' }}>
-                          <Text>Aji Kisworo Mukti</Text>
-                          <Text note>10 Maret 2018</Text>
-                        </Col>
-                      </Row>
-                      <Row style={{ paddingVertical: 10, borderBottomColor: '#F8F8F8', borderBottomWidth: 1 }}>
-                        <Text style={{ color: '#a7a7a7' }}>A center aspect designed for efficient representation of vertically scrolling lists of changing data.</Text>
-                      </Row>
-                      <Row style={{ marginTop: 10, alignItems: 'center' }}>
-                        <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
-                        <Col style={{ alignItems: 'flex-end' }}>
-                          <Text note>$424</Text>
-                        </Col>
-                      </Row>
-                    </Grid>
-                    <Grid style={{ marginTop: 10, padding: 15, backgroundColor: '#FFF' }}>
-                      <Row>
-                        <Thumbnail small source={Images.avatar} style={{ marginRight: 10 }} />
-                        <Col style={{ alignItems: 'flex-start' }}>
-                          <Text>Aji Kisworo Mukti</Text>
-                          <Text note>10 Maret 2018</Text>
-                        </Col>
-                      </Row>
-                      <Row style={{ paddingVertical: 10, borderBottomColor: '#F8F8F8', borderBottomWidth: 1 }}>
-                        <Text style={{ color: '#a7a7a7' }}>A center aspect designed for efficient representation of vertically scrolling lists of changing data.</Text>
-                      </Row>
-                      <Row style={{ marginTop: 10, alignItems: 'center' }}>
-                        <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
-                        <Col style={{ alignItems: 'flex-end' }}>
-                          <Text note>$424</Text>
-                        </Col>
-                      </Row>
-                    </Grid>
+                    { this.props.replies.map((reply, index) =>
+                      <Grid style={{ marginTop: 10, padding: 15, backgroundColor: '#FFF' }} key={index}>
+                        <Row>
+                          <Thumbnail small source={Images.avatar} style={{ marginRight: 10 }} />
+                          <Col style={{ alignItems: 'flex-start' }}>
+                            <Text>{ reply.author }</Text>
+                            <Text note>{ reply.created }</Text>
+                          </Col>
+                        </Row>
+                        <Row style={{ paddingVertical: 10, borderBottomColor: '#F8F8F8', borderBottomWidth: 1 }}>
+                          <Markdown>{ reply.body }</Markdown>
+                        </Row>
+                        <Row style={{ marginTop: 10, alignItems: 'center' }}>
+                          <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
+                          <Col style={{ alignItems: 'flex-end' }}>
+                            <Text note>$ { reply.total_payout_value }</Text>
+                          </Col>
+                        </Row>
+                      </Grid>
+                    ) }
                   </Row>
                 </Grid>
               </Row>
@@ -129,11 +120,13 @@ class SinglePostScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    replies: state.posts.replies
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getPostReplies: (author, permalink) => dispatch(PostActions.postRepliesRequest(author, permalink))
   }
 }
 
