@@ -43,6 +43,17 @@ export function * reformatMarkdownBody (posts) {
   return posts
 }
 
+// FIXME: We currently remove non blog post such as Steepshot
+// https://github.com/mientjan/react-native-markdown-renderer/issues/34
+export function * takeOutNonBlog (posts) {
+  return posts.filter(post => {
+    let jsonMetadata = JSON.parse(post.json_metadata)
+    if (jsonMetadata.tags[jsonMetadata.tags.length - 1] !== 'steepshot') {
+      return post
+    }
+  })
+}
+
 export function * getPost (by, query = {}, savedTo = null) {
   let apiMethod = `getDiscussionsBy${Utils.ucFirst(by)}Async`
 
@@ -55,6 +66,7 @@ export function * getPost (by, query = {}, savedTo = null) {
     yield put(PostActions.postFailure())
   }
 
+  posts = yield call(takeOutNonBlog, posts)
   posts = yield call(getPostsAuthorProfiles, posts)
   posts = yield call(reformatMarkdownBody, posts)
 
