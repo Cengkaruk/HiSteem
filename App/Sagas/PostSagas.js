@@ -150,6 +150,8 @@ export function * getPostPromoted (action) {
   yield put(PostActions.postDone())
 }
 
+// FIXME: Pagination needed, there is no limit option in api
+// https://github.com/steemit/steem-js/issues/366
 export function * getPostReplies (action) {
   const { author, permalink } = action
 
