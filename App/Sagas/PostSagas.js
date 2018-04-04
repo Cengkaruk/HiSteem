@@ -37,7 +37,10 @@ export function * getPostsAuthorProfiles (posts) {
 export function * reformatMarkdownBody (posts) {
   for (var i = 0; i < posts.length; i++) {
     var post = posts[i]
-    post.body = ReformatMarkdown(post.body)
+
+    if (!post.json_metadata.format || post.json_metadata.format === 'markdown') {
+      post.body = ReformatMarkdown(post.body)
+    }
   }
 
   return posts
@@ -185,6 +188,7 @@ export function * getPostReplies (action) {
   replies = yield call(Utils.parseMetadatas, replies)
   replies = yield call(takeOutLinkedImage, replies)
   replies = yield call(getPostsAuthorProfiles, replies)
+  replies = yield call(reformatMarkdownBody, replies)
 
   yield put(PostActions.postSuccess('replies', replies))
 }
