@@ -52,7 +52,7 @@ export function * takeOutLinkedImage (posts) {
     var post = posts[i]
 
     if (post.json_metadata) {
-      let jsonMetadata = JSON.parse(post.json_metadata)
+      let jsonMetadata = post.json_metadata
       if (jsonMetadata.tags) {
         // FIXME: Sorry Steepshot, your footer image are not in best resolution
         if (jsonMetadata.tags[jsonMetadata.tags.length - 1] === 'steepshot') {
@@ -86,10 +86,10 @@ export function * getPost (by, query = {}, savedTo = null) {
     yield put(PostActions.postFailure())
   }
 
+  posts = yield call(Utils.parseMetadatas, posts)
   posts = yield call(takeOutLinkedImage, posts)
   posts = yield call(getPostsAuthorProfiles, posts)
   posts = yield call(reformatMarkdownBody, posts)
-  posts = yield call(Utils.parseMetadatas, posts)
 
   if (savedTo) {
     yield put(PostActions.postSuccess(savedTo, posts))
@@ -182,9 +182,9 @@ export function * getPostReplies (action) {
     yield put(PostActions.postRepliesFailure())
   }
 
+  replies = yield call(Utils.parseMetadatas, replies)
   replies = yield call(takeOutLinkedImage, replies)
   replies = yield call(getPostsAuthorProfiles, replies)
-  replies = yield call(Utils.parseMetadatas, replies)
 
   yield put(PostActions.postSuccess('replies', replies))
 }
