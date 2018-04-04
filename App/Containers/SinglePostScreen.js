@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 import {
   StyleProvider,
   Container,
@@ -26,13 +26,12 @@ import getTheme from '../Themes/NativeBase/components'
 // import styles from './Styles/SinglePostScreenStyle'
 import Images from '../Themes/Images'
 
-const stylesMarkdown = {
+const stylesMarkdown = StyleSheet.create({
   image: {
     width: Dimensions.get('window').width - 30,
-    height: 300,
-    marginVertical: 15
+    height: 300
   }
-}
+})
 
 class SinglePostScreen extends Component {
   componentDidMount () {
@@ -79,7 +78,7 @@ class SinglePostScreen extends Component {
                 <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 32 }}>{ post.title }</Text>
               </Row>
               <Row style={{ backgroundColor: '#FFF', padding: 15 }}>
-                <Markdown>{ post.body }</Markdown>
+                <Markdown style={stylesMarkdown}>{ post.body }</Markdown>
               </Row>
               <Row style={{ marginVertical: 20 }}>
                 <Grid>
@@ -104,7 +103,7 @@ class SinglePostScreen extends Component {
                           </Col>
                         </Row>
                         <Row style={{ paddingVertical: 10, borderBottomColor: '#F8F8F8', borderBottomWidth: 1 }}>
-                          { reply.json_metadata.format === 'markdown' ? (
+                          { !reply.json_metadata.format || reply.json_metadata.format === 'markdown' ? (
                             <Markdown>{ reply.body }</Markdown>
                           ) : (
                             <WebView
