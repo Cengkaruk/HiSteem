@@ -43,15 +43,33 @@ export function * reformatMarkdownBody (posts) {
   return posts
 }
 
-// FIXME: We currently remove non blog post such as Steepshot
+// FIXME: We currently remove linked image markdown
 // https://github.com/mientjan/react-native-markdown-renderer/issues/34
-export function * takeOutNonBlog (posts) {
-  return posts.filter(post => {
+export function * takeOutLinkedImage (posts) {
+  const regexLinkedImage = /\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g
+  const regexImage = /!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g
+  for (var i = 0; i < posts.length; i++) {
+    var post = posts[i]
+
     let jsonMetadata = JSON.parse(post.json_metadata)
-    if (jsonMetadata.tags[jsonMetadata.tags.length - 1] !== 'steepshot') {
-      return post
+    if (jsonMetadata.tags) {
+      // FIXME: Sorry Steepshot, your footer image are not in best resolution
+      if (jsonMetadata.tags[jsonMetadata.tags.length - 1] === 'steepshot') {
+        let images = post.body.match(regexImage)[0]
+        post.body = images
+      }
     }
-  })
+
+    let images = post.body.match(regexImage)
+    let linkedImages = post.body.match(regexLinkedImage)
+    if (linkedImages) {
+      for (var j = 0; j < linkedImages.length; j++) {
+        post.body = post.body.replace(linkedImages[j], images[j])
+      }
+    }
+  }
+
+  return posts
 }
 
 export function * getPost (by, query = {}, savedTo = null) {
@@ -66,7 +84,7 @@ export function * getPost (by, query = {}, savedTo = null) {
     yield put(PostActions.postFailure())
   }
 
-  posts = yield call(takeOutNonBlog, posts)
+  posts = yield call(takeOutLinkedImage, posts)
   posts = yield call(getPostsAuthorProfiles, posts)
   posts = yield call(reformatMarkdownBody, posts)
   posts = yield call(Utils.parseMetadatas, posts)
@@ -162,6 +180,7 @@ export function * getPostReplies (action) {
     yield put(PostActions.postRepliesFailure())
   }
 
+  replies = yield call(takeOutLinkedImage, replies)
   replies = yield call(getPostsAuthorProfiles, replies)
   replies = yield call(Utils.parseMetadatas, replies)
 
