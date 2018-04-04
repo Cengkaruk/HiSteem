@@ -44,10 +44,22 @@ const parseMetadatas = (items) => {
   return newItems
 }
 
+const simplifyReputation = (raw) => {
+  const isNegative = (raw < 0)
+  let reputation = Math.log10(Math.abs(raw))
+
+  reputation = Math.max(reputation - 9, 0)
+  reputation *= isNegative ? -9 : 9
+  reputation += 25
+
+  return Math.floor(reputation)
+}
+
 export default {
   ucFirst,
   vestingSteem,
   delegatedSteem,
   parseMetadata,
-  parseMetadatas
+  parseMetadatas,
+  simplifyReputation
 }

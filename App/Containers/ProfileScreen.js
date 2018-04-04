@@ -13,7 +13,8 @@ import {
   Thumbnail,
   Tabs,
   Tab,
-  Spinner
+  Spinner,
+  Badge
 } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import PostList from '../Components/PostList'
@@ -21,6 +22,7 @@ import CommentList from '../Components/CommentList'
 import { connect } from 'react-redux'
 import AccountActions from '../Redux/AccountRedux'
 import PostActions from '../Redux/PostRedux'
+import Utils from '../Transforms/Utils'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
@@ -42,7 +44,8 @@ class ProfileScreen extends Component {
       about: jsonMetadata.profile.about,
       image: jsonMetadata.profile.profile_image,
       followers: this.props.followers,
-      following: this.props.following
+      following: this.props.following,
+      reputation: Utils.simplifyReputation(this.props.profile.reputation)
     }
     return (
       <StyleProvider style={getTheme()}>
@@ -67,6 +70,9 @@ class ProfileScreen extends Component {
             <Grid style={{ backgroundColor: '#FFF' }}>
               <Row style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Thumbnail large source={{ uri: profile.image }} />
+                <Badge info style={{ alignSelf: 'flex-end' }}>
+                  <Text>{ profile.reputation }</Text>
+                </Badge>
               </Row>
               <Row style={{ flexDirection: 'column', padding: 20, borderBottomWidth: 1, borderBottomColor: '#F8F8F8' }}>
                 <Text style={{ fontSize: 24 }}>{ profile.name }</Text>
