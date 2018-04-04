@@ -51,12 +51,14 @@ export function * takeOutLinkedImage (posts) {
   for (var i = 0; i < posts.length; i++) {
     var post = posts[i]
 
-    let jsonMetadata = JSON.parse(post.json_metadata)
-    if (jsonMetadata.tags) {
-      // FIXME: Sorry Steepshot, your footer image are not in best resolution
-      if (jsonMetadata.tags[jsonMetadata.tags.length - 1] === 'steepshot') {
-        let images = post.body.match(regexImage)[0]
-        post.body = images
+    if (post.json_metadata) {
+      let jsonMetadata = JSON.parse(post.json_metadata)
+      if (jsonMetadata.tags) {
+        // FIXME: Sorry Steepshot, your footer image are not in best resolution
+        if (jsonMetadata.tags[jsonMetadata.tags.length - 1] === 'steepshot') {
+          let images = post.body.match(regexImage)[0]
+          post.body = images
+        }
       }
     }
 
