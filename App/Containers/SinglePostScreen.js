@@ -21,6 +21,7 @@ import { connect } from 'react-redux'
 import Markdown from 'react-native-markdown-renderer'
 import WebView from 'react-native-webview-autoheight'
 import PostActions from '../Redux/PostRedux'
+import Utils from '../Transforms/Utils'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
@@ -65,7 +66,7 @@ class SinglePostScreen extends Component {
             </Left>
             <Body>
               <Title>{ profile.name || post.author }</Title>
-              <Subtitle>{ post.created }</Subtitle>
+              <Subtitle>{ Utils.dateToHuman(post.created) }</Subtitle>
             </Body>
             <Right>
               <Button>
@@ -103,7 +104,7 @@ class SinglePostScreen extends Component {
                               ) : (
                                 <Text>{ reply.author }</Text>
                               ) }
-                              <Text note>{ reply.created }</Text>
+                              <Text note>{ Utils.dateToHuman(reply.created) }</Text>
                             </Col>
                           </Row>
                           <Row style={{ paddingVertical: 10, borderBottomColor: '#F8F8F8', borderBottomWidth: 1 }}>

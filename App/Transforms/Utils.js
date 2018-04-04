@@ -1,4 +1,5 @@
 import { formatter } from 'steem'
+import moment from 'moment'
 
 const ucFirst = (string) => {
   return string.charAt(0).toUpperCase() + string.substr(1)
@@ -55,11 +56,23 @@ const simplifyReputation = (raw) => {
   return Math.floor(reputation)
 }
 
+const dateToHuman = (date) => {
+  let theDate = moment(date)
+  let now = moment()
+
+  if (theDate.isSame(now, 'month') && theDate.isSame(now, 'year')) {
+    return theDate.format('MMM DD')
+  } else {
+    return theDate.format('MMM DD, YYYY')
+  }
+}
+
 export default {
   ucFirst,
   vestingSteem,
   delegatedSteem,
   parseMetadata,
   parseMetadatas,
-  simplifyReputation
+  simplifyReputation,
+  dateToHuman
 }

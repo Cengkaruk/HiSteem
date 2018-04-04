@@ -8,6 +8,7 @@ import {
   Thumbnail
 } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
+import Utils from '../Transforms/Utils'
 // import styles from './Styles/PostListStyle'
 
 import Images from '../Themes/Images'
@@ -57,7 +58,7 @@ export default class PostList extends Component {
           <Grid style={{ marginLeft: 10 }}>
             <Col>
               <Text note>{ profile.name || post.author }</Text>
-              <Text note>{ post.created }</Text>
+              <Text note>{ Utils.dateToHuman(post.created) }</Text>
             </Col>
             <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
               <Text note>${ post.total_payout_value }</Text>
@@ -104,7 +105,7 @@ export default class PostList extends Component {
           <Grid style={{ marginLeft: 10 }}>
             <Col>
               <Text note>{ profile.name || post.author }</Text>
-              <Text note>{ post.created }</Text>
+              <Text note>{ Utils.dateToHuman(post.created) }</Text>
             </Col>
             <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
               <Text note>${ post.total_payout_value }</Text>

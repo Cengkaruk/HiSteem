@@ -7,6 +7,7 @@ import {
 } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import Images from '../Themes/Images'
+import Utils from '../Transforms/Utils'
 // import styles from './Styles/CarouselItemStyle'
 
 const { width } = Dimensions.get('window')
@@ -50,7 +51,7 @@ export default class CarouselItem extends Component {
             <Grid style={{ marginTop: 20 }}>
               <Col>
                 <Text note>{ profile.name || post.author }</Text>
-                <Text note>{ post.created }</Text>
+                <Text note>{ Utils.dateToHuman(post.created) }</Text>
               </Col>
               <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
                 <Text note>${ post.total_payout_value }</Text>

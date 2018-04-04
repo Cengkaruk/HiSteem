@@ -11,6 +11,7 @@ import {
 } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import { connect } from 'react-redux'
+import Utils from '../Transforms/Utils'
 // import styles from './Styles/WalletBalanceTabStyle'
 
 class WalletBalanceTab extends Component {
@@ -80,7 +81,7 @@ class WalletBalanceTab extends Component {
                       <Text note style={{ marginLeft: 0 }}>{ item[1].op[1].memo }</Text>
                     </Body>
                     <Right>
-                      <Text note>{ item[1].timestamp }</Text>
+                      <Text note>{ Utils.dateToHuman(item[1].timestamp) }</Text>
                     </Right>
                   </ListItem>
                 ) }
