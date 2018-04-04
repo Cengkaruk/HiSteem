@@ -73,7 +73,7 @@ class WalletBalanceTab extends Component {
                 <ListItem itemHeader first style={{ paddingLeft: 0, paddingBottom: 15 }}>
                   <Text>TRANSACTION HISTORY</Text>
                 </ListItem>
-                { this.props.wallet.history.map((item, index) =>
+                { this.props.wallet.history && this.props.wallet.history.map((item, index) =>
                   <ListItem style={{ marginLeft: 0 }} key={index}>
                     <Body>
                       <Text style={{ marginLeft: 0 }}>Transfer { item[1].op[1].amount } from { item[1].op[1].from }</Text>
