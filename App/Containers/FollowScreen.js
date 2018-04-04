@@ -12,7 +12,8 @@ import {
   Content,
   Text,
   List,
-  ListItem
+  ListItem,
+  Thumbnail
 } from 'native-base'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -43,8 +44,22 @@ class FollowScreen extends Component {
           <Content>
             <List dataArray={items}
               renderRow={(item, section, index) =>
-                <ListItem>
-                  <Text>{ item.name }</Text>
+                <ListItem avatar>
+                  <Left>
+                  { item.json_metadata.profile
+                    && item.json_metadata.profile.profile_image ? (
+                    <Thumbnail source={{ uri: item.json_metadata.profile.profile_image }} />
+                  ) : (
+                    <Thumbnail source={{ uri: 'https://via.placeholder.com/150x150' }} />
+                  ) }
+                  </Left>
+                  <Body>
+                    { item.json_metadata.profile &&
+                      <Text>{ item.json_metadata.profile.name }</Text>
+                    }
+                    <Text note>{ item.name }</Text>
+                  </Body>
+                  <Right />
                 </ListItem>
               } />
           </Content>
