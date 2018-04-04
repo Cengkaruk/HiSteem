@@ -31,7 +31,7 @@ class WalletBalanceTab extends Component {
         <Content style={{ padding: 20 }}>
           <Grid>
             <Row style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: 120 }}>
-              <Text style={{ fontSize: 40 }}>$54,533</Text>
+              <Text style={{ fontSize: 40 }}>${ this.props.wallet.estimatedValue }</Text>
               <Text style={{ marginTop: 10 }}>Estimated Account Value</Text>
             </Row>
             <Row style={{ height: 100 }}>
