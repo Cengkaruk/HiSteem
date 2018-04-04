@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
-import { Spinner } from 'native-base'
+import { RefreshControl } from 'react-native'
+import { Content, Spinner } from 'native-base'
 import { connect } from 'react-redux'
 import PostActions from '../Redux/PostRedux'
 import PostList from './PostList'
@@ -23,13 +24,26 @@ class TrendingTab extends Component {
     this.props.getPostTrending()
   }
 
+  handleRefresh = () => {
+    this.props.getPostTrending(true)
+  }
+
   render () {
     return (
-      this.props.posts.fetching ? (
-        <Spinner />
-      ) : (
-        <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.trending} />
-      )
+      <Content
+        refreshControl={
+          <RefreshControl
+            refreshing={this.props.posts.fetching}
+            onRefresh={this.handleRefresh}
+          />
+        }
+      >
+        {this.props.posts.fetching ? (
+          <Spinner />
+        ) : (
+          <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.trending} />
+        )}
+      </Content>
     )
   }
 }
@@ -42,7 +56,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostTrending: () => dispatch(PostActions.postTrendingRequest())
+    getPostTrending: (force = false) => dispatch(PostActions.postTrendingRequest(force))
   }
 }
 

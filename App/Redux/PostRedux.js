@@ -8,14 +8,14 @@ const { Types, Creators } = createActions({
   postSuccess: ['by', 'posts'],
   postFailure: null,
   postDone: null,
-  postHomeRequest: null,
-  postHighlightRequest: null,
+  postHomeRequest: ['force'],
+  postHighlightRequest: ['force'],
   postProfileRequest: null,
   postTagRequest: ['tag'],
-  postTrendingRequest: null,
-  postNewRequest: null,
-  postHotRequest: null,
-  postPromotedRequest: null,
+  postTrendingRequest: ['force'],
+  postNewRequest: ['force'],
+  postHotRequest: ['force'],
+  postPromotedRequest: ['force'],
   postRepliesRequest: ['author', 'permalink'],
   postRepliesSuccess: ['replies'],
   postRepliesFailure: null
@@ -27,8 +27,8 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  fetching: null,
-  fetchingReplies: null,
+  fetching: false,
+  fetchingReplies: false,
   error: null,
   feed: [],
   trending: [],
@@ -44,8 +44,14 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Selectors ------------- */
 
 export const PostSelectors = {
-  getFeed: state => state.feed,
-  getBlogLastPost: state => state.blog
+  getFeed: state => state.posts.feed,
+  getBlogLastPost: state => state.posts.blog,
+  getTrending: state => state.posts.trending,
+  getCreated: state => state.posts.created,
+  getHot: state => state.posts.hot,
+  getPromoted: state => state.posts.promoted,
+  getBlog: state => state.posts.blog,
+  getComments: state => state.posts.comments
 }
 
 /* ------------- Reducers ------------- */

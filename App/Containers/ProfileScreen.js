@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { RefreshControl } from 'react-native'
 import {
   StyleProvider,
   Container,
@@ -36,6 +37,10 @@ class ProfileScreen extends Component {
     this.props.getPostProfile()
   }
 
+  handleRefresh = () => {
+    this.props.getPostProfile(true)
+  }
+
   render () {
     const { goBack, navigate } = this.props.navigation
     let jsonMetadata = this.props.profile.json_metadata
@@ -66,7 +71,14 @@ class ProfileScreen extends Component {
               </Button>
             </Right>
           </Header>
-          <Content>
+          <Content
+            refreshControl={
+              <RefreshControl
+                refreshing={this.props.posts.fetching}
+                onRefresh={this.handleRefresh}
+              />
+            }
+          >
             <Grid style={{ backgroundColor: '#FFF' }}>
               <Row style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Thumbnail large source={{ uri: profile.image }} />
@@ -132,7 +144,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getFollowList: (username) => dispatch(AccountActions.followListRequest(username)),
-    getPostProfile: () => dispatch(PostActions.postProfileRequest())
+    getPostProfile: (force = false) => dispatch(PostActions.postProfileRequest(force))
   }
 }
 

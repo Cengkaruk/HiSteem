@@ -116,28 +116,59 @@ export function * getReplies () {
 }
 
 export function * getPostHome (action) {
+  const { force } = action
   let profile = yield select(AccountSelectors.getProfile)
 
-  yield call(getPost, 'trending')
-  yield call(getPost, 'feed', { tag: profile.name })
+  let trending = yield select(PostSelectors.getTrending)
+  if (trending.length <= 0 || force) {
+    yield call(getPost, 'trending')
+  }
+  
+  let feed = yield select(PostSelectors.getFeed)
+  if (feed.length <= 0 || force) {
+    yield call(getPost, 'feed', { tag: profile.name })
+  }
 
   yield put(PostActions.postDone())
 }
 
 export function * getPostHighlight (action) {
-  yield call(getPost, 'trending')
-  yield call(getPost, 'created')
-  yield call(getPost, 'hot')
-  yield call(getPost, 'promoted')
+  let trending = yield select(PostSelectors.getTrending)
+  if (trending.length <= 0) {
+    yield call(getPost, 'trending')
+  }
+
+  let created = yield select(PostSelectors.getCreated)
+  if (created.length <= 0) {
+    yield call(getPost, 'created')
+  }
+  
+  let hot = yield select(PostSelectors.getHot)
+  if (hot.length <= 0) {
+    yield call(getPost, 'hot')
+  }
+  
+  let promoted = yield select(PostSelectors.getPromoted)
+  if (promoted.length <= 0) {
+    yield call(getPost, 'promoted')
+  }
 
   yield put(PostActions.postDone())
 }
 
 export function * getPostProfile (action) {
+  const { force } = action
   let profile = yield select(AccountSelectors.getProfile)
 
-  yield call(getPost, 'blog', { tag: profile.name })
-  yield call(getPost, 'comments', { start_author: profile.name })
+  let blog = yield select(PostSelectors.getBlog)
+  if (blog.length <= 0 || force) {
+    yield call(getPost, 'blog', { tag: profile.name })
+  }
+  
+  let comments = yield select(PostSelectors.getComments)
+  if (comments.length <= 0 || force) {
+    yield call(getPost, 'comments', { start_author: profile.name })
+  }
 
   yield put(PostActions.postDone())
 }
@@ -150,25 +181,45 @@ export function * getPostTag (action) {
 }
 
 export function * getPostTrending (action) {
-  yield call(getPost, 'trending')
+  const { force } = action
+
+  let trending = yield select(PostSelectors.getTrending)
+  if (trending.length <= 0 || force) {
+    yield call(getPost, 'trending')
+  }
 
   yield put(PostActions.postDone())
 }
 
 export function * getPostNew (action) {
-  yield call(getPost, 'created')
+  const { force } = action
+
+  let created = yield select(PostSelectors.getCreated)
+  if (created.length <= 0 || force) {
+    yield call(getPost, 'created')
+  }
 
   yield put(PostActions.postDone())
 }
 
 export function * getPostHot (action) {
-  yield call(getPost, 'hot')
+  const { force } = action
+
+  let hot = yield select(PostSelectors.getHot)
+  if (hot.length <= 0 || force) {
+    yield call(getPost, 'hot')
+  }
 
   yield put(PostActions.postDone())
 }
 
 export function * getPostPromoted (action) {
-  yield call(getPost, 'promoted')
+  const { force } = action
+
+  let promoted = yield select(PostSelectors.getPromoted)
+  if (promoted.length <= 0 || force) {
+    yield call(getPost, 'promoted')
+  }
 
   yield put(PostActions.postDone())
 }

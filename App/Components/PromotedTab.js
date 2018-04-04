@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
-import { Spinner } from 'native-base'
+import { RefreshControl } from 'react-native'
+import { Content, Spinner } from 'native-base'
 import { connect } from 'react-redux'
 import PostActions from '../Redux/PostRedux'
 import PostList from './PostList'
@@ -22,13 +23,26 @@ class PromotedTab extends Component {
     this.props.getPostPromoted()
   }
 
+  handleRefresh = () => {
+    this.props.getPostPromoted(true)
+  }
+
   render () {
     return (
-      this.props.posts.fetching ? (
-        <Spinner />
-      ) : (
-        <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.promoted} />
-      )
+      <Content
+        refreshControl={
+          <RefreshControl
+            refreshing={this.props.posts.fetching}
+            onRefresh={this.handleRefresh}
+          />
+        }
+      >
+        {this.props.posts.fetching ? (
+          <Spinner />
+        ) : (
+          <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.promoted} />
+        )}
+      </Content>
     )
   }
 }
@@ -41,7 +55,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostPromoted: () => dispatch(PostActions.postPromotedRequest())
+    getPostPromoted: (force = false) => dispatch(PostActions.postPromotedRequest(force))
   }
 }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
-import { Spinner } from 'native-base'
+import { RefreshControl } from 'react-native'
+import { Content, Spinner } from 'native-base'
 import { connect } from 'react-redux'
 import PostActions from '../Redux/PostRedux'
 import PostList from './PostList'
@@ -22,13 +23,26 @@ class HotTab extends Component {
     this.props.getPostHot()
   }
 
+  handleRefresh = () => {
+    this.props.getPostHot(true)
+  }
+
   render () {
     return (
-      this.props.posts.fetching ? (
-        <Spinner />
-      ) : (
-        <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.hot} />
-      )
+      <Content
+        refreshControl={
+          <RefreshControl
+            refreshing={this.props.posts.fetching}
+            onRefresh={this.handleRefresh}
+          />
+        }
+      >
+        { this.props.posts.fetching ? (
+          <Spinner />
+        ) : (
+          <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.hot} />
+        ) }
+      </Content>
     )
   }
 }
@@ -41,7 +55,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostHot: () => dispatch(PostActions.postHotRequest())
+    getPostHot: (force = true) => dispatch(PostActions.postHotRequest(force))
   }
 }
 

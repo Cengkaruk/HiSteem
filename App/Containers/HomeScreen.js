@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { RefreshControl } from 'react-native'
 import {
   StyleProvider,
   Drawer,
@@ -38,6 +38,10 @@ class HomeScreen extends Component {
     this.drawer._root.open()
   }
 
+  handleRefresh = () => {
+    this.props.getPostHome(true)
+  }
+
   render () {
     return (
       <StyleProvider style={getTheme()}>
@@ -52,7 +56,7 @@ class HomeScreen extends Component {
                   <Icon name='menu' />
                 </Button>
               </Left>
-              <Body>
+              <Body> 
                 <Title>Home</Title>
               </Body>
               <Right>
@@ -61,7 +65,14 @@ class HomeScreen extends Component {
                 </Button>
               </Right>
             </Header>
-            <Content>
+            <Content
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.props.posts.fetching}
+                  onRefresh={this.handleRefresh}
+                />
+              }
+            >
               { this.props.posts.fetching ? (
                 <Grid>
                   <Row style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -94,7 +105,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostHome: () => dispatch(PostActions.postHomeRequest())
+    getPostHome: (force = false) => dispatch(PostActions.postHomeRequest(force))
   }
 }
 
