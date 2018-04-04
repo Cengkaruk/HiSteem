@@ -18,6 +18,7 @@ import {
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import { connect } from 'react-redux'
 import Markdown from 'react-native-markdown-renderer'
+import WebView from 'react-native-webview-autoheight'
 import PostActions from '../Redux/PostRedux'
 
 // Styles
@@ -103,7 +104,14 @@ class SinglePostScreen extends Component {
                           </Col>
                         </Row>
                         <Row style={{ paddingVertical: 10, borderBottomColor: '#F8F8F8', borderBottomWidth: 1 }}>
-                          <Markdown>{ reply.body }</Markdown>
+                          { reply.json_metadata.format === 'markdown' ? (
+                            <Markdown>{ reply.body }</Markdown>
+                          ) : (
+                            <WebView
+                              source={{ html: reply.body }}
+                              startInLoadingState={true}
+                            />
+                          ) }
                         </Row>
                         <Row style={{ marginTop: 10, alignItems: 'center' }}>
                           <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
