@@ -190,5 +190,5 @@ export function * getPostReplies (action) {
   replies = yield call(getPostsAuthorProfiles, replies)
   replies = yield call(reformatMarkdownBody, replies)
 
-  yield put(PostActions.postSuccess('replies', replies))
+  yield put(PostActions.postRepliesSuccess(replies))
 }

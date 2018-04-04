@@ -17,6 +17,7 @@ const { Types, Creators } = createActions({
   postHotRequest: null,
   postPromotedRequest: null,
   postRepliesRequest: ['author', 'permalink'],
+  postRepliesSuccess: ['replies'],
   postRepliesFailure: null
 })
 
@@ -71,7 +72,7 @@ export const postRepliesRequest = state =>
 
 export const postRepliesSuccess = (state, action) => {
   const { replies } = action
-  return state.merge({ fetchingReplies: false, replies })
+  return state.merge({ fetchingReplies: false, error: null, replies })
 }
 
 export const postRepliesFailure = state =>
@@ -93,5 +94,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.POST_HOT_REQUEST]: request,
   [Types.POST_PROMOTED_REQUEST]: request,
   [Types.POST_REPLIES_REQUEST]: postRepliesRequest,
+  [Types.POST_REPLIES_SUCCESS]: postRepliesSuccess,
   [Types.POST_REPLIES_FAILURE]: postRepliesFailure
 })
