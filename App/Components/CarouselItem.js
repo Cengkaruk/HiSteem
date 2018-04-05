@@ -49,7 +49,7 @@ export default class CarouselItem extends Component {
           <Row size={1} style={{ flexDirection: 'column', paddingHorizontal: 10 }} onPress={() => navigate('SinglePostScreen', { post: post })}>
             <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>{ post.title }</Text>
             <Grid style={{ marginTop: 20 }}>
-              <Col>
+              <Col onPress={() => navigate('ProfileScreen', { profile: post.profile })}>
                 <Text note>{ profile.name || post.author }</Text>
                 <Text note>{ Utils.dateToHuman(post.created) }</Text>
               </Col>

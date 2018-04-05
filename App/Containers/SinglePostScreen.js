@@ -94,7 +94,7 @@ class SinglePostScreen extends Component {
                     <Row style={{ flexDirection: 'column', marginTop: 5 }}>
                       { this.props.replies.map((reply, index) =>
                         <Grid style={{ marginTop: 10, padding: 15, backgroundColor: '#FFF' }} key={index}>
-                          <Row>
+                          <Row onPress={() => navigate('ProfileScreen', { profile: reply.profile })}>
                             { reply.profile.json_metadata.profile && 
                               <Thumbnail small source={{ uri: reply.profile.json_metadata.profile.profile_image }} style={{ marginRight: 10 }} />
                             }

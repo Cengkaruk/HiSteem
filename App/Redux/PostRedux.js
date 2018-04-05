@@ -10,7 +10,7 @@ const { Types, Creators } = createActions({
   postDone: null,
   postHomeRequest: ['force'],
   postHighlightRequest: ['force'],
-  postProfileRequest: ['force'],
+  postProfileRequest: ['username', 'force'],
   postTagRequest: ['tag'],
   postTrendingRequest: ['force'],
   postNewRequest: ['force'],

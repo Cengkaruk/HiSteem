@@ -193,17 +193,24 @@ export function * getPostHighlight (action) {
 }
 
 export function * getPostProfile (action) {
-  const { force } = action
+  const { username, force } = action
   let profile = yield select(AccountSelectors.getProfile)
+
+  let theUsername = undefined
+  if (username && username !== profile.name) {
+    theUsername = username
+  } else {
+    theUsername = profile.name
+  }
 
   let blog = yield select(PostSelectors.getBlog)
   if (blog.length <= 0 || force) {
-    yield call(getPost, 'blog', { tag: profile.name })
+    yield call(getPost, 'blog', { tag: theUsername })
   }
   
   let comments = yield select(PostSelectors.getComments)
   if (comments.length <= 0 || force) {
-    yield call(getPost, 'comments', { start_author: profile.name })
+    yield call(getPost, 'comments', { start_author: theUsername })
   }
 
   yield put(PostActions.postDone())

@@ -25,7 +25,7 @@ import getTheme from '../Themes/NativeBase/components'
 
 class FollowScreen extends Component {
   render () {
-    const { goBack, state: navigationState } = this.props.navigation
+    const { goBack, navigate, state: navigationState } = this.props.navigation
     const { title, items } = navigationState.params
     return (
       <StyleProvider style={getTheme()}>
@@ -44,7 +44,7 @@ class FollowScreen extends Component {
           <Content>
             <List dataArray={items}
               renderRow={(item, section, index) =>
-                <ListItem avatar>
+                <ListItem avatar onPress={() => navigate('ProfileScreen', { profile: item })}>
                   <Left>
                   { item.json_metadata.profile
                     && item.json_metadata.profile.profile_image ? (

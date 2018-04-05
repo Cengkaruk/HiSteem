@@ -54,9 +54,9 @@ export default class PostList extends Component {
           <Text style={{ fontFamily: 'Cabin-Bold', fontSize: 18 }}>{ post.title }</Text>
         </Row>
         <Row style={{ alignItems: 'center', marginTop: 15 }}>
-          <Thumbnail small source={{ uri: profile.image }} />
+          <Thumbnail small source={{ uri: profile.image }} onPress={() => navigate('ProfileScreen', { profile: post.profile })} />
           <Grid style={{ marginLeft: 10 }}>
-            <Col>
+            <Col onPress={() => navigate('ProfileScreen', { profile: post.profile })}>
               <Text note>{ profile.name || post.author }</Text>
               <Text note>{ Utils.dateToHuman(post.created) }</Text>
             </Col>
@@ -101,9 +101,9 @@ export default class PostList extends Component {
           </Grid>
         </Row>
         <Row style={{ alignItems: 'center', marginTop: 15 }}>
-          <Thumbnail small source={{ uri: profile.image }} />
+          <Thumbnail small source={{ uri: profile.image }} onPress={() => navigate('ProfileScreen', { profile: post.profile })} />
           <Grid style={{ marginLeft: 10 }}>
-            <Col>
+            <Col onPress={() => navigate('ProfileScreen', { profile: post.profile })}>
               <Text note>{ profile.name || post.author }</Text>
               <Text note>{ Utils.dateToHuman(post.created) }</Text>
             </Col>

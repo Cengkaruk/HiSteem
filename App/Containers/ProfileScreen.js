@@ -32,25 +32,44 @@ import getTheme from '../Themes/NativeBase/components'
 import Images from '../Themes/Images'
 
 class ProfileScreen extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      profile: {}
+    }
+  }
+
   componentDidMount () {
-    this.props.getFollowList(this.props.profile.name)
-    this.props.getPostProfile()
+    const { state: navigationState } = this.props.navigation
+    
+    let username = this.props.profile.name
+    if (navigationState.params) {
+      const { profile: profileState } = navigationState.params
+      this.setState({ profile: profileState })
+      username = profileState.name
+    }
+    this.props.getPostProfile(username, true)
+    this.props.getFollowList(username)
   }
 
   handleRefresh = () => {
-    this.props.getPostProfile(true)
+    let username = (this.state.profile.name) ? this.state.profile.name : this.props.profile.name
+    this.props.getPostProfile(username, true)
+    this.props.getFollowList(username)
   }
 
   render () {
     const { goBack, navigate } = this.props.navigation
-    let jsonMetadata = this.props.profile.json_metadata
-    const profile = {
+    let profile = (this.state.profile.name) ? this.state.profile : this.props.profile
+    let jsonMetadata = profile.json_metadata
+    profile = {
       name: jsonMetadata.profile.name,
       about: jsonMetadata.profile.about,
       image: jsonMetadata.profile.profile_image,
       followers: this.props.followers,
       following: this.props.following,
-      reputation: Utils.simplifyReputation(this.props.profile.reputation)
+      reputation: Utils.simplifyReputation(profile.reputation)
     }
     return (
       <StyleProvider style={getTheme()}>
@@ -144,7 +163,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getFollowList: (username) => dispatch(AccountActions.followListRequest(username)),
-    getPostProfile: (force = false) => dispatch(PostActions.postProfileRequest(force))
+    getPostProfile: (username = null, force = false) => dispatch(PostActions.postProfileRequest(username, force))
   }
 }
 

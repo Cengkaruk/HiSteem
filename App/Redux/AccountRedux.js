@@ -30,7 +30,6 @@ export const INITIAL_STATE = Immutable({
   profile: null,
   followers: [],
   following: [],
-  // others: []
   wallet: {},
   history: []
 })
