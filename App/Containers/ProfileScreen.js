@@ -81,14 +81,18 @@ class ProfileScreen extends Component {
               </Button>
             </Left>
             <Body />
-            <Right>
-              <Button medium dark bordered>
-                <Text>Follow</Text>
-              </Button>
-              <Button>
-                <Icon name='ios-more' />
-              </Button>
-            </Right>
+            { this.state.profile.name ? (
+              <Right>
+                <Button medium dark bordered>
+                  <Text>Follow</Text>
+                </Button>
+                <Button>
+                  <Icon name='ios-more' />
+                </Button>
+              </Right>
+            ) : (
+              <Right />
+            ) }
           </Header>
           <Content
             refreshControl={
