@@ -6,7 +6,11 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   globalRequest: null,
   globalSuccess: ['dynamic'],
-  globalFailure: null
+  globalFailure: null,
+  rewardFundRequest: null,
+  rewardFundSuccess: ['reward'],
+  rewardFundFailure: null,
+  medianHistoryPriceFailure: null
 })
 
 export const GlobalTypes = Types
@@ -17,13 +21,15 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   fetching: null,
   error: null,
-  dynamic: {}
+  dynamic: {},
+  rewardFund: {}
 })
 
 /* ------------- Selectors ------------- */
 
 export const GlobalSelectors = {
-  getDynamic: state => state.global.dynamic
+  getDynamic: state => state.global.dynamic,
+  getRewardFund: state => state.global.rewardFund
 }
 
 /* ------------- Reducers ------------- */
@@ -42,10 +48,25 @@ export const success = (state, action) => {
 export const failure = state =>
   state.merge({ fetching: false, error: true, dynamic: null })
 
+export const rewardFundSuccess = (state, action) => {
+  const { reward } = action
+  return state.merge({ fetching: false, error: null, rewardFund: reward })
+}
+
+export const rewardFundFailure = state =>
+  state.merge({ fetching: false, error: true, rewardFund: null })
+
+export const medianHistoryPriceFailure = state =>
+  state.merge({ fetching: false, error: true })
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GLOBAL_REQUEST]: request,
   [Types.GLOBAL_SUCCESS]: success,
-  [Types.GLOBAL_FAILURE]: failure
+  [Types.GLOBAL_FAILURE]: failure,
+  [Types.REWARD_FUND_REQUEST]: request,
+  [Types.REWARD_FUND_SUCCESS]: rewardFundSuccess,
+  [Types.REWARD_FUND_FAILURE]: rewardFundFailure,
+  [Types.MEDIAN_HISTORY_PRICE_FAILURE]: medianHistoryPriceFailure
 })

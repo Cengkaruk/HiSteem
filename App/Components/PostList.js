@@ -61,7 +61,7 @@ export default class PostList extends Component {
               <Text note>{ Utils.dateToHuman(post.created) }</Text>
             </Col>
             <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-              <Text note>${ post.total_payout_value }</Text>
+              <Text note>${ post.estimated_payout }</Text>
             </Col>
           </Grid>
         </Row>
@@ -108,7 +108,7 @@ export default class PostList extends Component {
               <Text note>{ Utils.dateToHuman(post.created) }</Text>
             </Col>
             <Col style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-              <Text note>${ post.total_payout_value }</Text>
+              <Text note>${ post.estimated_payout }</Text>
             </Col>
           </Grid>
         </Row>

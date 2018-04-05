@@ -2,6 +2,8 @@ import { call, put, select } from 'redux-saga/effects'
 import PostActions, { PostSelectors } from '../Redux/PostRedux'
 import { AccountSelectors } from '../Redux/AccountRedux'
 import { getAccounts } from './AccountSagas'
+import { getRewardFund, getCurrentMedianHistoryPrice } from './GlobalSagas'
+import { GlobalSelectors } from '../Redux/GlobalRedux'
 import Utils from '../Transforms/Utils'
 import ReformatMarkdown from '../Transforms/ReformatMarkdown'
 import { api } from 'steem'
@@ -77,6 +79,34 @@ export function * takeOutLinkedImage (posts) {
   return posts
 }
 
+export function * getPayoutFromRewardShares (rewardFund, currentPrice) {
+  let rewardBalance = parseFloat(rewardFund.reward_balance.split(' ')[0])
+  let recentClaims = parseFloat(rewardFund.recent_claims)
+  let fundPerShare = rewardBalance / recentClaims
+
+  let basePrice = parseFloat(currentPrice.base.split(' ')[0])
+  let payout = fundPerShare * basePrice
+  
+  return payout
+}
+
+export function * calculateEstimatedPayout (posts, rewardFund, currentPrice) {
+  for (let i = 0; i < posts.length; i++) {
+    let post = posts[i]
+
+    let estimatedPayout = 0
+    let payoutFromRewardShares = yield call(getPayoutFromRewardShares, rewardFund, currentPrice)
+    for (let j = 0; j < post.active_votes.length; j++) {
+      let vote = post.active_votes[j]
+      let rshares = parseFloat(vote.rshares)
+      estimatedPayout += rshares * payoutFromRewardShares
+    }
+    post.estimated_payout = estimatedPayout.toFixed(2)
+  }
+
+  return posts
+}
+
 export function * getPost (by, query = {}, savedTo = null) {
   let apiMethod = `getDiscussionsBy${Utils.ucFirst(by)}Async`
 
@@ -93,6 +123,12 @@ export function * getPost (by, query = {}, savedTo = null) {
   posts = yield call(takeOutLinkedImage, posts)
   posts = yield call(getPostsAuthorProfiles, posts)
   posts = yield call(reformatMarkdownBody, posts)
+
+  yield call(getRewardFund)
+  let rewardFund = yield select(GlobalSelectors.getRewardFund)
+  let currentPrice = yield call(getCurrentMedianHistoryPrice)
+
+  posts = yield call(calculateEstimatedPayout, posts, rewardFund, currentPrice)
 
   if (savedTo) {
     yield put(PostActions.postSuccess(savedTo, posts))
@@ -240,6 +276,12 @@ export function * getPostReplies (action) {
   replies = yield call(takeOutLinkedImage, replies)
   replies = yield call(getPostsAuthorProfiles, replies)
   replies = yield call(reformatMarkdownBody, replies)
+
+  yield call(getRewardFund)
+  let rewardFund = yield select(GlobalSelectors.getRewardFund)
+  let currentPrice = yield call(getCurrentMedianHistoryPrice)
+
+  replies = yield call(calculateEstimatedPayout, replies, rewardFund, currentPrice)
 
   yield put(PostActions.postRepliesSuccess(replies))
 }

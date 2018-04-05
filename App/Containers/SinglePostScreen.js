@@ -120,7 +120,7 @@ class SinglePostScreen extends Component {
                           <Row style={{ marginTop: 10, alignItems: 'center' }}>
                             <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
                             <Col style={{ alignItems: 'flex-end' }}>
-                              <Text note>$ { reply.total_payout_value }</Text>
+                              <Text note>$ { reply.estimated_payout }</Text>
                             </Col>
                           </Row>
                         </Grid>

@@ -94,7 +94,7 @@ export function * getWallet () {
   let history = yield select(AccountSelectors.getTransactionHistory)
 
   let pricePerSteem = 0
-  let currentPrice = yield call(getCurrentMedianHistoryPrice)
+  let currentPrice = yield call(GlobalActions.getCurrentMedianHistoryPrice)
   if (currentPrice) {
     const { base, quote } = currentPrice
     if (/ SBD$/.test(base) && / STEEM$/.test(quote))
@@ -126,15 +126,4 @@ export function * getAccountHistory (action) {
   }
 
   yield put(AccountActions.accountHistorySuccess(history))
-}
-
-export function * getCurrentMedianHistoryPrice () {
-  let currentPrice = {}
-  try {
-    currentPrice = yield call(api.getCurrentMedianHistoryPriceAsync)
-  } catch (error) {
-    yield put(AccountActions.walletFailure())
-  }
-
-  return currentPrice
 }

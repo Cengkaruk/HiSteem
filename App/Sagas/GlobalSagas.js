@@ -17,3 +17,25 @@ export function * getDynamicGlobalProperties () {
 export function * getGlobal () {
   yield call(getDynamicGlobalProperties)
 }
+
+export function * getRewardFund () {
+  let reward = {}
+  try {
+    reward = yield call(api.getRewardFundAsync, 'post')
+  } catch (error) {
+    yield put(GlobalActions.rewardFundFailure())
+  }
+
+  yield put(GlobalActions.rewardFundSuccess(reward))
+}
+
+export function * getCurrentMedianHistoryPrice () {
+  let currentPrice = {}
+  try {
+    currentPrice = yield call(api.getCurrentMedianHistoryPriceAsync)
+  } catch (error) {
+    yield put(GlobalActions.medianHistoryPriceFailure())
+  }
+
+  return currentPrice
+}
