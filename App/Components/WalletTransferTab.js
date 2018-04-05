@@ -43,35 +43,8 @@ export default class WalletTransferTab extends Component {
   render () {
     return (
       <Container>
-        <Content style={{ marginTop: 20 }}>
-          <Form>
-            <Item stackedLabel>
-              <Label>Transfer to</Label>
-              <Input />
-            </Item>
-            <Picker
-              iosHeader='Select Asset'
-              mode='dropdown'
-              selectedValue={this.state.currency}
-              onValueChange={this.onValueChange.bind(this)}
-              style={{ margin: 7.5, marginBottom: 10 }}
-            >
-              <PickerItem label='Steem' value='key0' />
-              <PickerItem label='Steem Dollar' value='key1' />
-              <PickerItem label='Steem Power' value='key2' />
-            </Picker>
-            <Item stackedLabel style={{ borderTopWidth: 0.5, borderTopColor: '#D9D5DC' }}>
-              <Label>Amount</Label>
-              <Input />
-            </Item>
-            <Item stackedLabel>
-              <Label>Optional Memo</Label>
-              <Input />
-            </Item>
-          </Form>
-          <Button light block style={{ margin: 20 }}>
-            <Text>Send</Text>
-          </Button>
+        <Content style={{ padding: 20 }}>
+          <Text>Transfer Coming Soon</Text>
         </Content>
       </Container>
     )
