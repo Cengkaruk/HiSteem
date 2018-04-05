@@ -1,7 +1,7 @@
 import { call, put, select } from 'redux-saga/effects'
 import AccountActions, { AccountSelectors } from '../Redux/AccountRedux'
 import GlobalActions, { GlobalSelectors } from '../Redux/GlobalRedux'
-import { getGlobal } from './GlobalSagas'
+import { getGlobal, getCurrentMedianHistoryPrice } from './GlobalSagas'
 import { api } from 'steem'
 import Utils from '../Transforms/Utils'
 
@@ -94,7 +94,7 @@ export function * getWallet () {
   let history = yield select(AccountSelectors.getTransactionHistory)
 
   let pricePerSteem = 0
-  let currentPrice = yield call(GlobalActions.getCurrentMedianHistoryPrice)
+  let currentPrice = yield call(getCurrentMedianHistoryPrice)
   if (currentPrice) {
     const { base, quote } = currentPrice
     if (/ SBD$/.test(base) && / STEEM$/.test(quote))
