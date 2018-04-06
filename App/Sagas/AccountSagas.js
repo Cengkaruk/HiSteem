@@ -24,10 +24,10 @@ export function * getAccount (action) {
   yield put(AccountActions.accountSuccess(profile))
 }
 
-export function * getFollowers (username) {
+export function * getFollowers (username, limit) {
   let followers = []
   try {
-    followers = yield call(api.getFollowersAsync, username, null, null, 100)
+    followers = yield call(api.getFollowersAsync, username, null, null, limit)
   } catch (error) {
     yield put(AccountActions.followListFailure())
   }
@@ -35,10 +35,10 @@ export function * getFollowers (username) {
   return followers
 }
 
-export function * getFollowing (username) {
+export function * getFollowing (username, limit) {
   let following = []
   try {
-    following = yield call(api.getFollowingAsync, username, null, null, 100)
+    following = yield call(api.getFollowingAsync, username, null, null, limit)
   } catch (error) {
     yield put(AccountActions.followListFailure())
   }
@@ -61,23 +61,45 @@ export function * getAccounts (usernames) {
 
 export function * getFollowList (action) {
   const { username } = action
-  let followers = yield call(getFollowers, username)
-  let following = yield call(getFollowing, username)
+  let profile = yield select(AccountSelectors.getProfile)
 
-  let currentFollowers = yield select(AccountSelectors.getFollowers)
-  let currentFollowing = yield select(AccountSelectors.getFollowing)
+  let theUsername = profile.name
+  let others = false
+  if (username && username !== profile.name) {
+    theUsername = username
+    others = true
+  }
 
-  if (followers.length !== currentFollowers.length) {
+  let followCount = {}
+  try {
+    followCount = yield call(api.getFollowCountAsync, theUsername)
+  } catch (error) {
+    yield put(AccountActions.followListFailure())
+  }
+
+  let currentFollowers = []
+  let currentFollowing = []
+  if (others) {
+    let currentFollowers = yield select(AccountSelectors.getOtherFollowers)
+    let currentFollowing = yield select(AccountSelectors.getOtherFollowing)
+  } else {
+    let currentFollowers = yield select(AccountSelectors.getFollowers)
+    let currentFollowing = yield select(AccountSelectors.getFollowing)
+  }
+  
+  if (followCount.follower_count.length !== currentFollowers.length) {
+    let followers = yield call(getFollowers, theUsername, followCount.follower_count)
     let followersNames = followers.map((item) => item.follower)
     currentFollowers = yield call(getAccounts, followersNames)
   }
 
-  if (following.length !== currentFollowing.length) {
+  if (followCount.following_count.length !== currentFollowing.length) {
+    let following = yield call(getFollowing, theUsername, followCount.following_count)
     let followingNames = following.map((item) => item.following)
     currentFollowing = yield call(getAccounts, followingNames)
   }
 
-  yield put(AccountActions.followListSuccess(currentFollowers, currentFollowing))
+  yield put(AccountActions.followListSuccess(currentFollowers, currentFollowing, others))
 }
 
 export function * getWallet () {

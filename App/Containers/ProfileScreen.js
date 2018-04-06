@@ -61,14 +61,21 @@ class ProfileScreen extends Component {
   render () {
     const { goBack, navigate } = this.props.navigation
     let profile = (this.state.profile.name) ? this.state.profile : this.props.profile
+    let followers = (this.state.profile.name) ? this.props.others.followers : this.props.followers
+    let following = (this.state.profile.name) ? this.props.others.following : this.props.following
+    let blog = (this.state.profile.name) ? this.props.posts.others.blog : this.props.posts.blog
+    let comments = (this.state.profile.name) ? this.props.posts.others.comments : this.props.posts.comments
+
     let jsonMetadata = profile.json_metadata
     profile = {
       name: jsonMetadata.profile.name,
       about: jsonMetadata.profile.about,
       image: jsonMetadata.profile.profile_image,
-      followers: this.props.followers,
-      following: this.props.following,
-      reputation: Utils.simplifyReputation(profile.reputation)
+      followers: followers,
+      following: following,
+      reputation: Utils.simplifyReputation(profile.reputation),
+      blog: blog,
+      comments: comments
     }
     return (
       <StyleProvider style={getTheme()}>
@@ -127,14 +134,14 @@ class ProfileScreen extends Component {
                     activeTabStyle={{ backgroundColor: '#FFF' }}
                     activeTextStyle={{ color: '#000' }}
                     heading='Latest'>
-                    <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.blog} />
+                    <PostList title={false} navigation={this.props.navigation} posts={profile.blog} />
                   </Tab>
                   <Tab
                     tabStyle={{ backgroundColor: '#FFF' }}
                     activeTabStyle={{ backgroundColor: '#FFF' }}
                     activeTextStyle={{ color: '#000' }}
                     heading='Comments'>
-                    <CommentList navigation={this.props.navigation} comments={this.props.posts.comments} />
+                    <CommentList navigation={this.props.navigation} comments={profile.comments} />
                   </Tab>
                 </Tabs>
               </Row>
@@ -151,6 +158,7 @@ const mapStateToProps = (state) => {
     profile: state.account.profile,
     followers: state.account.followers,
     following: state.account.following,
+    others: state.account.others,
     posts: state.posts
   }
 }

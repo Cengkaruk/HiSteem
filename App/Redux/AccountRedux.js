@@ -9,7 +9,7 @@ const { Types, Creators } = createActions({
   accountFailure: null,
   accountReset: null,
   followListRequest: ['username'],
-  followListSuccess: ['followers', 'following'],
+  followListSuccess: ['followers', 'following', 'others'],
   followListFailure: null,
   walletRequest: null,
   walletSuccess: ['wallet'],
@@ -31,7 +31,11 @@ export const INITIAL_STATE = Immutable({
   followers: [],
   following: [],
   wallet: {},
-  history: []
+  history: [],
+  others: {
+    followers: [],
+    following: []
+  }
 })
 
 /* ------------- Selectors ------------- */
@@ -41,6 +45,8 @@ export const AccountSelectors = {
   getActivePublicKey: state => state.account.profile.active.key_auths[0][0],
   getFollowers: state => state.account.followers,
   getFollowing: state => state.account.following,
+  getOtherFollowers: state => state.account.others.followers,
+  getOtherFollowing: state => state.account.others.following,
   getTransactionHistory: state => state.account.history.filter(tx => tx[1].op[0] === 'transfer')
 }
 
@@ -64,8 +70,13 @@ export const reset = state =>
 export const followListRequest = state =>
   state.merge({ fetching: true })
 
-export const followListSuccess = (state, { followers, following }) =>
-  state.merge({ fetching: false, followers, following })
+export const followListSuccess = (state, { followers, following, others }) => {
+  if (others) {
+    return state.merge({ fetching: false, others: { followers, following } })
+  } else {
+    return state.merge({ fetching: false, followers, following })
+  }
+}
 
 export const followListFailure = state =>
   state.merge({ fetching: false, error: true })

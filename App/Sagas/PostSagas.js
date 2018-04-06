@@ -61,17 +61,21 @@ export function * takeOutLinkedImage (posts) {
       if (jsonMetadata.tags) {
         // FIXME: Sorry Steepshot, your footer image are not in best resolution
         if (jsonMetadata.tags[jsonMetadata.tags.length - 1] === 'steepshot') {
-          let images = post.body.match(regexImage)[0]
-          post.body = images
+          if (post.body) {
+            let images = post.body.match(regexImage)[0]
+            post.body = images
+          }
         }
       }
     }
 
-    let images = post.body.match(regexImage)
-    let linkedImages = post.body.match(regexLinkedImage)
-    if (linkedImages) {
-      for (var j = 0; j < linkedImages.length; j++) {
-        post.body = post.body.replace(linkedImages[j], images[j])
+    if (post.body) {
+      let images = post.body.match(regexImage)
+      let linkedImages = post.body.match(regexLinkedImage)
+      if (linkedImages) {
+        for (var j = 0; j < linkedImages.length; j++) {
+          post.body = post.body.replace(linkedImages[j], images[j])
+        }
       }
     }
   }
@@ -196,21 +200,23 @@ export function * getPostProfile (action) {
   const { username, force } = action
   let profile = yield select(AccountSelectors.getProfile)
 
-  let theUsername = undefined
+  let theUsername = profile.name
+  let others = false
   if (username && username !== profile.name) {
     theUsername = username
-  } else {
-    theUsername = profile.name
+    others = true
   }
 
   let blog = yield select(PostSelectors.getBlog)
   if (blog.length <= 0 || force) {
-    yield call(getPost, 'blog', { tag: theUsername })
+    let savedTo = (others) ? 'others.blog' : null
+    yield call(getPost, 'blog', { tag: theUsername }, savedTo)
   }
   
   let comments = yield select(PostSelectors.getComments)
   if (comments.length <= 0 || force) {
-    yield call(getPost, 'comments', { start_author: theUsername })
+    let savedTo = (others) ? 'others.comments' : null
+    yield call(getPost, 'comments', { start_author: theUsername }, savedTo)
   }
 
   yield put(PostActions.postDone())

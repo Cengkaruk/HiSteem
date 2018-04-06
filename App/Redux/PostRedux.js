@@ -38,7 +38,11 @@ export const INITIAL_STATE = Immutable({
   blog: [],
   comments: [],
   replies: [],
-  tags: []
+  tags: [],
+  others: {
+    blog: [],
+    comments: []
+  }
 })
 
 /* ------------- Selectors ------------- */
@@ -62,8 +66,20 @@ export const request = state =>
 
 // successful api lookup
 export const success = (state, action) => {
-  const { by, posts } = action
-  return state.merge({ error: null, [by]: posts })
+  let { by, posts } = action
+  let byObject = by.split('.')
+  let others = false
+
+  if (byObject.length > 1) {
+    by = byObject[1]
+    others = true
+  }
+
+  if (others) {
+    return state.merge({ error: null, others: { ...state.others, [by]: posts } })
+  } else {
+    return state.merge({ error: null, [by]: posts })
+  }
 }
 
 // Something went wrong somewhere.
