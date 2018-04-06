@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
 import { RefreshControl } from 'react-native'
-import { Content, Spinner } from 'native-base'
+import { Content } from 'native-base'
 import { connect } from 'react-redux'
 import PostActions from '../Redux/PostRedux'
 import PostList from './PostList'
@@ -38,11 +38,7 @@ class TrendingTab extends Component {
           />
         }
       >
-        {this.props.posts.fetching ? (
-          <Spinner />
-        ) : (
-          <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.trending} />
-        )}
+        <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.trending} />
       </Content>
     )
   }
