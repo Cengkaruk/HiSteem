@@ -61,6 +61,8 @@ class ProfileScreen extends Component {
   render () {
     const { goBack, navigate } = this.props.navigation
     let profile = (this.state.profile.name) ? this.state.profile : this.props.profile
+    let followersCount = (this.state.profile.name) ? this.props.others.followersCount : this.props.followersCount
+    let followingCount = (this.state.profile.name) ? this.props.others.followingCount : this.props.followingCount
     let followers = (this.state.profile.name) ? this.props.others.followers : this.props.followers
     let following = (this.state.profile.name) ? this.props.others.following : this.props.following
     let blog = (this.state.profile.name) ? this.props.posts.others.blog : this.props.posts.blog
@@ -71,6 +73,8 @@ class ProfileScreen extends Component {
       name: jsonMetadata.profile.name,
       about: jsonMetadata.profile.about,
       image: jsonMetadata.profile.profile_image,
+      followersCount: followersCount,
+      followingCount: followingCount,
       followers: followers,
       following: following,
       reputation: Utils.simplifyReputation(profile.reputation),
@@ -121,10 +125,10 @@ class ProfileScreen extends Component {
               </Row>
               <Row style={{ padding: 20 }}>
                 <Col>
-                  <Text note onPress={() => navigate('FollowScreen', { title: 'Followers', items: profile.followers })}>{ profile.followers.length } Followers</Text>
+                  <Text note onPress={() => navigate('FollowScreen', { title: 'Followers', items: profile.followers })}>{ profile.followersCount } Followers</Text>
                 </Col>
                 <Col>
-                  <Text note onPress={() => navigate('FollowScreen', { title: 'Following', items: profile.following })}>{ profile.following.length } Following</Text>
+                  <Text note onPress={() => navigate('FollowScreen', { title: 'Following', items: profile.following })}>{ profile.followingCount } Following</Text>
                 </Col>
               </Row>
               <Row>
@@ -156,6 +160,8 @@ class ProfileScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     profile: state.account.profile,
+    followersCount: state.account.followersCount,
+    followingCount: state.account.followingCount,
     followers: state.account.followers,
     following: state.account.following,
     others: state.account.others,

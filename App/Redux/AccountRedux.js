@@ -9,7 +9,7 @@ const { Types, Creators } = createActions({
   accountFailure: null,
   accountReset: null,
   followListRequest: ['username'],
-  followListSuccess: ['followers', 'following', 'others'],
+  followListSuccess: ['count', 'followers', 'following', 'others'],
   followListFailure: null,
   walletRequest: null,
   walletSuccess: ['wallet'],
@@ -28,11 +28,15 @@ export const INITIAL_STATE = Immutable({
   fetching: null,
   error: null,
   profile: null,
+  followersCount: 0,
+  followingCount: 0,
   followers: [],
   following: [],
   wallet: {},
   history: [],
   others: {
+    followersCount: 0,
+    followingCount: 0,
     followers: [],
     following: []
   }
@@ -70,11 +74,11 @@ export const reset = state =>
 export const followListRequest = state =>
   state.merge({ fetching: true })
 
-export const followListSuccess = (state, { followers, following, others }) => {
+export const followListSuccess = (state, { count, followers, following, others }) => {
   if (others) {
-    return state.merge({ fetching: false, others: { followers, following } })
+    return state.merge({ fetching: false, others: { followers, following, followersCount: count.followers, followingCount: count.following } })
   } else {
-    return state.merge({ fetching: false, followers, following })
+    return state.merge({ fetching: false, followers, following, followersCount: count.followers, followingCount: count.following })
   }
 }
 

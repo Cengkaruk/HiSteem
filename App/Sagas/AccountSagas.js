@@ -24,7 +24,7 @@ export function * getAccount (action) {
   yield put(AccountActions.accountSuccess(profile))
 }
 
-export function * getFollowers (username, limit) {
+export function * getFollowers (username, limit = 100) {
   let followers = []
   try {
     followers = yield call(api.getFollowersAsync, username, null, null, limit)
@@ -35,7 +35,7 @@ export function * getFollowers (username, limit) {
   return followers
 }
 
-export function * getFollowing (username, limit) {
+export function * getFollowing (username, limit = 100) {
   let following = []
   try {
     following = yield call(api.getFollowingAsync, username, null, null, limit)
@@ -76,6 +76,10 @@ export function * getFollowList (action) {
   } catch (error) {
     yield put(AccountActions.followListFailure())
   }
+  followCount = {
+    followers: followCount.follower_count,
+    following: followCount.following_count
+  }
 
   let currentFollowers = []
   let currentFollowing = []
@@ -87,19 +91,19 @@ export function * getFollowList (action) {
     let currentFollowing = yield select(AccountSelectors.getFollowing)
   }
   
-  if (followCount.follower_count.length !== currentFollowers.length) {
-    let followers = yield call(getFollowers, theUsername, followCount.follower_count)
+  if (followCount.followers !== currentFollowers.length) {
+    let followers = yield call(getFollowers, theUsername)
     let followersNames = followers.map((item) => item.follower)
     currentFollowers = yield call(getAccounts, followersNames)
   }
 
-  if (followCount.following_count.length !== currentFollowing.length) {
-    let following = yield call(getFollowing, theUsername, followCount.following_count)
+  if (followCount.following !== currentFollowing.length) {
+    let following = yield call(getFollowing, theUsername)
     let followingNames = following.map((item) => item.following)
     currentFollowing = yield call(getAccounts, followingNames)
   }
 
-  yield put(AccountActions.followListSuccess(currentFollowers, currentFollowing, others))
+  yield put(AccountActions.followListSuccess(followCount, currentFollowers, currentFollowing, others))
 }
 
 export function * getWallet () {
