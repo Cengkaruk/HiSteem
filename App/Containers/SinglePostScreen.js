@@ -28,9 +28,11 @@ import getTheme from '../Themes/NativeBase/components'
 // import styles from './Styles/SinglePostScreenStyle'
 import Images from '../Themes/Images'
 
+const minMaxWidth = Dimensions.get('window').width - 30
 const stylesMarkdown = StyleSheet.create({
   image: {
-    minWidth: Dimensions.get('window').width - 30
+    minWidth: minMaxWidth,
+    maxWidth: minMaxWidth
   }
 })
 
