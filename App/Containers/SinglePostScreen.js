@@ -30,8 +30,7 @@ import Images from '../Themes/Images'
 
 const stylesMarkdown = StyleSheet.create({
   image: {
-    width: Dimensions.get('window').width - 30,
-    height: 300
+    minWidth: Dimensions.get('window').width - 30
   }
 })
 
@@ -109,7 +108,7 @@ class SinglePostScreen extends Component {
                           </Row>
                           <Row style={{ paddingVertical: 10, borderBottomColor: '#F8F8F8', borderBottomWidth: 1 }}>
                             { !reply.json_metadata.format || reply.json_metadata.format === 'markdown' ? (
-                              <Markdown>{ reply.body }</Markdown>
+                              <Markdown style={stylesMarkdown}>{ reply.body }</Markdown>
                             ) : (
                               <WebView
                                 source={{ html: reply.body }}
