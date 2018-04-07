@@ -8,8 +8,8 @@ const { Types, Creators } = createActions({
   accountSuccess: ['profile'],
   accountFailure: null,
   accountReset: null,
-  followListRequest: ['username'],
-  followListSuccess: ['count', 'followers', 'following', 'others'],
+  followListRequest: ['username', 'next'],
+  followListSuccess: ['count', 'followers', 'following', 'others', 'append'],
   followListFailure: null,
   walletRequest: null,
   walletSuccess: ['wallet'],
@@ -74,10 +74,25 @@ export const reset = state =>
 export const followListRequest = state =>
   state.merge({ fetching: true })
 
-export const followListSuccess = (state, { count, followers, following, others }) => {
+export const followListSuccess = (state, { count, followers, following, others, append }) => {
+  if (append) {
+    followers = followers.slice()
+    following = following.slice()
+  }
+
   if (others) {
+    if (append) {
+      followers = [...state.others.followers, ...followers]
+      following = [...state.others.following, ...following]
+    }
+
     return state.merge({ fetching: false, others: { followers, following, followersCount: count.followers, followingCount: count.following } })
   } else {
+    if (append) {
+      followers = [...state.followers, ...followers]
+      following = [...state.following, ...following]
+    }
+
     return state.merge({ fetching: false, followers, following, followersCount: count.followers, followingCount: count.following })
   }
 }

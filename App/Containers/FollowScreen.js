@@ -16,14 +16,19 @@ import {
   Thumbnail
 } from 'native-base'
 import { connect } from 'react-redux'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import AccountActions from '../Redux/AccountRedux'
 
 // Styles
 import getTheme from '../Themes/NativeBase/components'
 // import styles from './Styles/FollowScreenStyle'
 
 class FollowScreen extends Component {
+  onEndReached = () => {
+    const { state: navigationState } = this.props.navigation
+    const { username, title, items } = navigationState.params
+    this.props.getFollowList(username, true)
+  }
+
   render () {
     const { goBack, navigate, state: navigationState } = this.props.navigation
     const { title, items } = navigationState.params
@@ -43,6 +48,7 @@ class FollowScreen extends Component {
           </Header>
           <Content>
             <List dataArray={items}
+              onEndReached={this.onEndReached}
               renderRow={(item, section, index) =>
                 <ListItem avatar onPress={() => navigate('ProfileScreen', { profile: item })}>
                   <Left>
@@ -76,6 +82,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getFollowList: (username, next = false) => dispatch(AccountActions.followListRequest(username, next)),
   }
 }
 

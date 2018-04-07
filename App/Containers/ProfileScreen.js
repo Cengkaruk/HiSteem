@@ -60,7 +60,7 @@ class ProfileScreen extends Component {
 
   render () {
     const { goBack, navigate } = this.props.navigation
-    let profile = (this.state.profile.name) ? this.state.profile : this.props.profile
+    let profileOriginal = (this.state.profile.name) ? this.state.profile : this.props.profile
     let followersCount = (this.state.profile.name) ? this.props.others.followersCount : this.props.followersCount
     let followingCount = (this.state.profile.name) ? this.props.others.followingCount : this.props.followingCount
     let followers = (this.state.profile.name) ? this.props.others.followers : this.props.followers
@@ -68,8 +68,8 @@ class ProfileScreen extends Component {
     let blog = (this.state.profile.name) ? this.props.posts.others.blog : this.props.posts.blog
     let comments = (this.state.profile.name) ? this.props.posts.others.comments : this.props.posts.comments
 
-    let jsonMetadata = profile.json_metadata
-    profile = {
+    let jsonMetadata = profileOriginal.json_metadata
+    let profile = {
       name: jsonMetadata.profile.name,
       about: jsonMetadata.profile.about,
       image: jsonMetadata.profile.profile_image,
@@ -77,7 +77,7 @@ class ProfileScreen extends Component {
       followingCount: followingCount,
       followers: followers,
       following: following,
-      reputation: Utils.simplifyReputation(profile.reputation),
+      reputation: Utils.simplifyReputation(profileOriginal.reputation),
       blog: blog,
       comments: comments
     }
@@ -120,15 +120,15 @@ class ProfileScreen extends Component {
                 </Badge>
               </Row>
               <Row style={{ flexDirection: 'column', padding: 20, borderBottomWidth: 1, borderBottomColor: '#F8F8F8' }}>
-                <Text style={{ fontSize: 24 }}>{ profile.name }</Text>
+                <Text style={{ fontSize: 24 }}>{ profile.name || profileOriginal.name }</Text>
                 <Text>{ profile.about }</Text>
               </Row>
               <Row style={{ padding: 20 }}>
                 <Col>
-                  <Text note onPress={() => navigate('FollowScreen', { title: 'Followers', items: profile.followers })}>{ profile.followersCount } Followers</Text>
+                  <Text note onPress={() => navigate('FollowScreen', { title: 'Followers', items: profile.followers, username: profileOriginal.name })}>{ profile.followersCount } Followers</Text>
                 </Col>
                 <Col>
-                  <Text note onPress={() => navigate('FollowScreen', { title: 'Following', items: profile.following })}>{ profile.followingCount } Following</Text>
+                  <Text note onPress={() => navigate('FollowScreen', { title: 'Following', items: profile.following, username: profileOriginal.name })}>{ profile.followingCount } Following</Text>
                 </Col>
               </Row>
               <Row>
@@ -171,7 +171,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getFollowList: (username) => dispatch(AccountActions.followListRequest(username)),
+    getFollowList: (username, next = false) => dispatch(AccountActions.followListRequest(username, next)),
     getPostProfile: (username = null, force = false) => dispatch(PostActions.postProfileRequest(username, force))
   }
 }
