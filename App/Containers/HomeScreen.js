@@ -11,7 +11,8 @@ import {
   Right,
   Title,
   Button,
-  Icon
+  Icon,
+  Text
 } from 'native-base'
 import { Row, Grid } from 'react-native-easy-grid'
 import Sidebar from '../Components/Sidebar'
@@ -39,6 +40,10 @@ class HomeScreen extends Component {
 
   handleRefresh = () => {
     this.props.getPostHome(true)
+  }
+
+  handleLoadMore = () => {
+    this.props.getPostHome(true, true)
   }
 
   render () {
@@ -79,6 +84,11 @@ class HomeScreen extends Component {
                 <Row>
                   <PostList navigation={this.props.navigation} posts={this.props.posts.feed} />
                 </Row>
+                <Row style={{ padding: 20, justifyContent: 'center' }}>
+                  <Button transparent dark onPress={this.handleLoadMore}>
+                    <Text>Load More</Text>
+                  </Button>
+                </Row>
               </Grid>
             </Content>
           </Container>
@@ -96,7 +106,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostHome: (force = false) => dispatch(PostActions.postHomeRequest(force))
+    getPostHome: (force = false, next = false) => dispatch(PostActions.postHomeRequest(force, next))
   }
 }
 

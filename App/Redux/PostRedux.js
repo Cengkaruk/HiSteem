@@ -5,17 +5,17 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   postRequest: ['by'],
-  postSuccess: ['by', 'posts'],
+  postSuccess: ['by', 'posts', 'next'],
   postFailure: null,
   postDone: null,
-  postHomeRequest: ['force'],
+  postHomeRequest: ['force', 'next'],
   postHighlightRequest: ['force'],
-  postProfileRequest: ['username', 'force'],
+  postProfileRequest: ['username', 'force', 'next'],
   postTagRequest: ['tag'],
-  postTrendingRequest: ['force'],
-  postNewRequest: ['force'],
-  postHotRequest: ['force'],
-  postPromotedRequest: ['force'],
+  postTrendingRequest: ['force', 'next'],
+  postNewRequest: ['force', 'next'],
+  postHotRequest: ['force', 'next'],
+  postPromotedRequest: ['force', 'next'],
   postRepliesRequest: ['author', 'permalink'],
   postRepliesSuccess: ['replies'],
   postRepliesFailure: null
@@ -66,8 +66,8 @@ export const request = state =>
 
 // successful api lookup
 export const success = (state, action) => {
-  let { by, posts } = action
-  let byObject = by.split('.')
+  let { by, posts, next } = action
+  let byObject = (by) ? by.split('.') : {}
   let others = false
 
   if (byObject.length > 1) {
@@ -76,8 +76,16 @@ export const success = (state, action) => {
   }
 
   if (others) {
+    if (next) {
+      posts = [...state.others[by], ...posts]
+    }
+
     return state.merge({ error: null, others: { ...state.others, [by]: posts } })
   } else {
+    if (next) {
+      posts = [...state[by], ...posts]
+    }
+
     return state.merge({ error: null, [by]: posts })
   }
 }

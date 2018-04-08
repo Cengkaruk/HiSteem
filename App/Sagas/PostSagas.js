@@ -111,12 +111,19 @@ export function * calculateEstimatedPayout (posts, rewardFund, currentPrice) {
   return posts
 }
 
-export function * getPost (by, query = {}, savedTo = null) {
+export function * getPost (by, query = {}, savedTo = null, next = null) {
   let apiMethod = `getDiscussionsBy${Utils.ucFirst(by)}Async`
 
   let posts = []
   try {
-    query.limit = 10
+    if (!query.limit) {
+      query.limit = 10
+    }
+
+    if (next) {
+      query.start_author = next.author
+      query.permlink = next.permlink
+    }
 
     posts = yield call(api[apiMethod], query)
   } catch (error) {
@@ -134,10 +141,11 @@ export function * getPost (by, query = {}, savedTo = null) {
 
   posts = yield call(calculateEstimatedPayout, posts, rewardFund, currentPrice)
 
+  let isNext = (next) ? true : false
   if (savedTo) {
-    yield put(PostActions.postSuccess(savedTo, posts))
+    yield put(PostActions.postSuccess(savedTo, posts, isNext))
   } else {
-    yield put(PostActions.postSuccess(by, posts))
+    yield put(PostActions.postSuccess(by, posts, isNext))
   }
 }
 
@@ -156,7 +164,7 @@ export function * getReplies () {
 }
 
 export function * getPostHome (action) {
-  const { force } = action
+  const { force, next } = action
   let profile = yield select(AccountSelectors.getProfile)
 
   let trending = yield select(PostSelectors.getTrending)
@@ -166,7 +174,12 @@ export function * getPostHome (action) {
   
   let feed = yield select(PostSelectors.getFeed)
   if (feed.length <= 0 || force) {
-    yield call(getPost, 'feed', { tag: profile.name })
+    // FIXME: start_author and permlink query are not available at Feed
+    let limit = 10
+    if (next) {
+      limit = feed.length + limit
+    }
+    yield call(getPost, 'feed', { tag: profile.name, limit: limit })
   }
 
   yield put(PostActions.postDone())
@@ -197,7 +210,7 @@ export function * getPostHighlight (action) {
 }
 
 export function * getPostProfile (action) {
-  const { username, force } = action
+  const { username, force, next } = action
   let profile = yield select(AccountSelectors.getProfile)
 
   let theUsername = profile.name
@@ -210,13 +223,22 @@ export function * getPostProfile (action) {
   let blog = yield select(PostSelectors.getBlog)
   if (blog.length <= 0 || force) {
     let savedTo = (others) ? 'others.blog' : null
-    yield call(getPost, 'blog', { tag: theUsername }, savedTo)
+    // FIXME: start_author and permlink query are not available at Feed
+    let limit = 10
+    if (next) {
+      limit = blog.length + limit
+    }
+    yield call(getPost, 'blog', { tag: theUsername, limit: limit }, savedTo)
   }
   
   let comments = yield select(PostSelectors.getComments)
   if (comments.length <= 0 || force) {
     let savedTo = (others) ? 'others.comments' : null
-    yield call(getPost, 'comments', { start_author: theUsername }, savedTo)
+    let nextComment = null
+    if (next) {
+      nextComment = comments[comments.length - 1]
+    }
+    yield call(getPost, 'comments', { start_author: theUsername }, savedTo, nextComment)
   }
 
   yield put(PostActions.postDone())
@@ -230,44 +252,60 @@ export function * getPostTag (action) {
 }
 
 export function * getPostTrending (action) {
-  const { force } = action
+  const { force, next } = action
 
   let trending = yield select(PostSelectors.getTrending)
   if (trending.length <= 0 || force) {
-    yield call(getPost, 'trending')
+    let nextTrending = null
+    if (next) {
+      nextTrending = trending[trending.length - 1]
+    }
+    yield call(getPost, 'trending', {}, null, nextTrending)
   }
 
   yield put(PostActions.postDone())
 }
 
 export function * getPostNew (action) {
-  const { force } = action
+  const { force, next } = action
 
   let created = yield select(PostSelectors.getCreated)
   if (created.length <= 0 || force) {
-    yield call(getPost, 'created')
+    let nextCreated = null
+    if (next) {
+      nextCreated = created[created.length - 1]
+    }
+    yield call(getPost, 'created', {}, null, nextCreated)
   }
 
   yield put(PostActions.postDone())
 }
 
 export function * getPostHot (action) {
-  const { force } = action
+  const { force, next } = action
 
   let hot = yield select(PostSelectors.getHot)
   if (hot.length <= 0 || force) {
-    yield call(getPost, 'hot')
+    let nextHot = null
+    if (next) {
+      nextHot = hot[hot.length - 1]
+    }
+    yield call(getPost, 'hot', {}, null, nextHot)
   }
 
   yield put(PostActions.postDone())
 }
 
 export function * getPostPromoted (action) {
-  const { force } = action
+  const { force, next } = action
 
   let promoted = yield select(PostSelectors.getPromoted)
   if (promoted.length <= 0 || force) {
-    yield call(getPost, 'promoted')
+    let nextPromoted = null
+    if (next) {
+      nextPromoted = promoted[promoted.length - 1]
+    }
+    yield call(getPost, 'promoted', {}, null, nextPromoted)
   }
 
   yield put(PostActions.postDone())

@@ -58,6 +58,11 @@ class ProfileScreen extends Component {
     this.props.getFollowList(username)
   }
 
+  handleLoadMore = () => {
+    let username = (this.state.profile.name) ? this.state.profile.name : this.props.profile.name
+    this.props.getPostProfile(username, true, true)
+  }
+
   render () {
     const { goBack, navigate } = this.props.navigation
     let profileOriginal = (this.state.profile.name) ? this.state.profile : this.props.profile
@@ -138,7 +143,16 @@ class ProfileScreen extends Component {
                     activeTabStyle={{ backgroundColor: '#FFF' }}
                     activeTextStyle={{ color: '#000' }}
                     heading='Latest'>
-                    <PostList title={false} navigation={this.props.navigation} posts={profile.blog} />
+                    <Grid>
+                      <Row>
+                        <PostList title={false} navigation={this.props.navigation} posts={profile.blog} />
+                      </Row>
+                      <Row style={{ padding: 20, justifyContent: 'center' }}>
+                        <Button transparent dark onPress={this.handleLoadMore}>
+                          <Text>Load More</Text>
+                        </Button>
+                      </Row>
+                    </Grid>
                   </Tab>
                   <Tab
                     tabStyle={{ backgroundColor: '#FFF' }}
@@ -172,7 +186,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getFollowList: (username, next = false) => dispatch(AccountActions.followListRequest(username, next)),
-    getPostProfile: (username = null, force = false) => dispatch(PostActions.postProfileRequest(username, force))
+    getPostProfile: (username = null, force = false, next = false) => dispatch(PostActions.postProfileRequest(username, force, next))
   }
 }
 

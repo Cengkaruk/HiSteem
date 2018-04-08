@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
 import { RefreshControl } from 'react-native'
-import { Content } from 'native-base'
+import { Col, Row, Grid } from 'react-native-easy-grid'
+import { Content, Button, Text } from 'native-base'
 import { connect } from 'react-redux'
 import PostActions from '../Redux/PostRedux'
 import PostList from './PostList'
@@ -27,6 +28,10 @@ class HotTab extends Component {
     this.props.getPostHot(true)
   }
 
+  handleLoadMore = () => {
+    this.props.getPostHot(true, true)
+  }
+
   render () {
     return (
       <Content
@@ -37,7 +42,16 @@ class HotTab extends Component {
           />
         }
       >
-        <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.hot} />
+        <Grid>
+          <Row>
+            <PostList title={false} navigation={this.props.navigation} posts={this.props.posts.hot} />
+          </Row>
+          <Row style={{ padding: 20, justifyContent: 'center' }}>
+            <Button transparent dark onPress={this.handleLoadMore}>
+              <Text>Load More</Text>
+            </Button>
+          </Row>
+        </Grid>
       </Content>
     )
   }
@@ -51,7 +65,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostHot: (force = true) => dispatch(PostActions.postHotRequest(force))
+    getPostHot: (force = true, next = false) => dispatch(PostActions.postHotRequest(force, next))
   }
 }
 
