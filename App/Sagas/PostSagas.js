@@ -1,12 +1,13 @@
 import { call, put, select } from 'redux-saga/effects'
 import PostActions, { PostSelectors } from '../Redux/PostRedux'
+import { LoginSelectors } from '../Redux/LoginRedux'
 import { AccountSelectors } from '../Redux/AccountRedux'
 import { getAccounts } from './AccountSagas'
 import { getRewardFund, getCurrentMedianHistoryPrice } from './GlobalSagas'
 import { GlobalSelectors } from '../Redux/GlobalRedux'
 import Utils from '../Transforms/Utils'
 import ReformatMarkdown from '../Transforms/ReformatMarkdown'
-import { api } from 'steem'
+import { api, broadcast } from 'steem'
 
 api.setOptions({ url: 'https://api.steemit.com' })
 
@@ -335,4 +336,19 @@ export function * getPostReplies (action) {
   replies = yield call(calculateEstimatedPayout, replies, rewardFund, currentPrice)
 
   yield put(PostActions.postRepliesSuccess(replies))
+}
+
+export function * voteRequest (action) {
+  const { author, permalink } = action
+  const weight = 10000
+
+  let login = yield select(LoginSelectors.getLogin)
+  try {
+    // FIXME: Still not doing the vote work
+    yield call(broadcast.voteAsync, login.privateKey, login.username, author, permalink, weight)
+  } catch (error) {
+    yield put(PostActions.postVoteFailure())
+  }
+
+  yield put(PostActions.postVoteSuccess())
 }

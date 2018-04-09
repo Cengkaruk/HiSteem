@@ -18,7 +18,10 @@ const { Types, Creators } = createActions({
   postPromotedRequest: ['force', 'next'],
   postRepliesRequest: ['author', 'permalink'],
   postRepliesSuccess: ['replies'],
-  postRepliesFailure: null
+  postRepliesFailure: null,
+  postVoteRequest: ['author', 'permalink'],
+  postVoteSuccess: null,
+  postVoteFailure: null
 })
 
 export const PostTypes = Types
@@ -42,6 +45,10 @@ export const INITIAL_STATE = Immutable({
   others: {
     blog: [],
     comments: []
+  },
+  vote: {
+    fetching: false,
+    error: false
   }
 })
 
@@ -108,6 +115,15 @@ export const postRepliesSuccess = (state, action) => {
 export const postRepliesFailure = state =>
   state.merge({ fetchingReplies: false, error: true, replies: [] })
 
+export const postVoteRequest = state =>
+  state.merge({ vote: { fetching: true } })
+
+export const postVoteSuccess = state =>
+  state.merge({ vote: { fetching: false, error: false } })
+
+ export const postVoteFailure = state =>
+  state.merge({ vote: { fetching: false, error: true } })
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -125,5 +141,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.POST_PROMOTED_REQUEST]: request,
   [Types.POST_REPLIES_REQUEST]: postRepliesRequest,
   [Types.POST_REPLIES_SUCCESS]: postRepliesSuccess,
-  [Types.POST_REPLIES_FAILURE]: postRepliesFailure
+  [Types.POST_REPLIES_FAILURE]: postRepliesFailure,
+  [Types.POST_VOTE_REQUEST]: postVoteRequest,
+  [Types.POST_VOTE_SUCCESS]: postVoteSuccess,
+  [Types.POST_VOTE_FAILURE]: postVoteFailure
 })

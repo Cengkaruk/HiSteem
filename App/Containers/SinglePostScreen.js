@@ -17,6 +17,7 @@ import {
   Spinner
 } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
+import ActionButton from 'react-native-action-button'
 import { connect } from 'react-redux'
 import Markdown from 'react-native-markdown-renderer'
 import WebView from 'react-native-webview-autoheight'
@@ -41,6 +42,17 @@ class SinglePostScreen extends Component {
     const { state: navigationState } = this.props.navigation
     const { post } = navigationState.params
     this.props.getPostReplies(post.author, post.permlink)
+  }
+
+  handleVote = (author, permalink) => {
+    if (!author && !permalink) {
+      const { state: navigationState } = this.props.navigation
+      const { post } = navigationState.params
+      author = post.author
+      permalink = post.permlink
+    }
+
+    this.props.doVote(author, permalink)
   }
 
   render () {
@@ -119,7 +131,7 @@ class SinglePostScreen extends Component {
                             ) }
                           </Row>
                           <Row style={{ marginTop: 10, alignItems: 'center' }}>
-                            <Icon name='ios-heart' style={{ color: '#a7a7a7' }} />
+                            <Icon name='ios-heart-outline' style={{ color: '#a7a7a7' }} onPress={() => this.handleVote(reply.author, reply.permlink)} />
                             <Col style={{ alignItems: 'flex-end' }}>
                               <Text note>$ { reply.estimated_payout }</Text>
                             </Col>
@@ -132,6 +144,11 @@ class SinglePostScreen extends Component {
               </Row>
             </Grid>
           </Content>
+          <ActionButton
+            buttonColor='#FFF'
+            renderIcon={active => active ? <Icon name='ios-heart' dark /> : <Icon name='ios-heart-outline' dark />}
+            onPress={() => this.handleVote()}
+          />
         </Container>
       </StyleProvider>
     )
@@ -148,7 +165,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPostReplies: (author, permalink) => dispatch(PostActions.postRepliesRequest(author, permalink))
+    getPostReplies: (author, permalink) => dispatch(PostActions.postRepliesRequest(author, permalink)),
+    doVote: (author, permalink) => dispatch(PostActions.postVoteRequest(author, permalink))
   }
 }
 
