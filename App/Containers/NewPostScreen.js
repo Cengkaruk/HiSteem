@@ -19,6 +19,18 @@ import getTheme from '../Themes/NativeBase/components'
 // import styles from './Styles/NewPostScreenStyle'
 
 class NewPostScreen extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      content: ''
+    }
+  }
+
+  onChangeText = (value) => {
+    this.setState({ content: value })
+  }
+
   render () {
     const { goBack } = this.props.navigation
     return (
@@ -39,7 +51,7 @@ class NewPostScreen extends Component {
               </Button>
             </Right>
           </Header>
-          <MarkdownEditor />
+          <MarkdownEditor onChangeText={this.onChangeText} />
         </Container>
       </StyleProvider>
     )
