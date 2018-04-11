@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   loginRequest: ['username', 'password'],
-  loginSuccess: ['username', 'privateKey', 'role'],
+  loginSuccess: ['username', 'privateKey', 'postingPrivateKey'],
   loginFailure: null,
   logoutRequest: null
 })
@@ -21,7 +21,7 @@ export const INITIAL_STATE = Immutable({
   loggedIn: false,
   username: null,
   privateKey: null,
-  role: null
+  postingPrivateKey: null
 })
 
 /* ------------- Selectors ------------- */
@@ -39,16 +39,16 @@ export const request = state =>
 
 // successful api lookup
 export const success = (state, action) => {
-  const { username, privateKey, role } = action
-  return state.merge({ fetching: false, error: null, loggedIn: true, username, privateKey: privateKey, role })
+  const { username, privateKey, postingPrivateKey } = action
+  return state.merge({ fetching: false, error: null, loggedIn: true, username, privateKey: privateKey, postingPrivateKey: postingPrivateKey })
 }
 
 // Something went wrong somewhere.
 export const failure = state =>
-  state.merge({ fetching: false, error: true, loggedIn: false, username: null, privateKey: null, role: null })
+  state.merge({ fetching: false, error: true, loggedIn: false, username: null, privateKey: null, postingPrivateKey: null })
 
 export const logoutRequest = state =>
-  state.merge({ fetching: false, error: true, loggedIn: false, username: null, privateKey: null, role: null })
+  state.merge({ fetching: false, error: true, loggedIn: false, username: null, privateKey: null, postingPrivateKey: null })
 
 /* ------------- Hookup Reducers To Types ------------- */
 

@@ -83,7 +83,7 @@ class LoginScreen extends Component {
                         />
                       </Item>
                       <Item floatingLabel last>
-                        <Label>Password or Active Private Key</Label>
+                        <Label>Password</Label>
                         <Input
                           keyboardType='default'
                           returnKeyType='go'

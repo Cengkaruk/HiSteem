@@ -10,13 +10,23 @@ api.setOptions({ url: 'https://api.steemit.com' })
 export function * login (action) {
   const { username, password } = action
 
-  let privWif = password
-  if (!auth.isWif(privWif)) {
+  // NOTE: Must use password, because we need active and posting keys
+  let privWif = undefined
+  let postingPrivWif = undefined
+  if (!auth.isWif(password)) {
     try {
-      privWif = auth.toWif(username, privWif, 'active')
+      privWif = auth.toWif(username, password, 'active')
     } catch (error) {
       yield put(LoginActions.loginFailure())
     }
+
+    try {
+      postingPrivWif = auth.toWif(username, password, 'posting')
+    } catch (error) {
+      yield put(LoginActions.loginFailure())
+    }
+  } else {
+    yield put(LoginActions.loginFailure())
   }
 
   // FIXME: This accountReset should in logout
@@ -25,9 +35,11 @@ export function * login (action) {
 
   yield call(getAccount, { username })
   let pubWif = yield select(AccountSelectors.getActivePublicKey)
-
-  if (auth.wifIsValid(privWif, pubWif)) {
-    yield put(LoginActions.loginSuccess(username, privWif, 'active'))
+  let postingPubWif = yield select(AccountSelectors.getPostingPublicKey)
+  console.tron.log(postingPrivWif)
+  console.tron.log(postingPubWif)
+  if (auth.wifIsValid(privWif, pubWif) && auth.wifIsValid(postingPrivWif, postingPubWif)) {
+    yield put(LoginActions.loginSuccess(username, privWif, postingPrivWif))
     yield put(NavigationActions.navigate({ routeName: 'HomeScreen' }))
   } else {
     yield put(LoginActions.loginFailure())

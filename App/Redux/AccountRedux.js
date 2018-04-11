@@ -47,6 +47,7 @@ export const INITIAL_STATE = Immutable({
 export const AccountSelectors = {
   getProfile: state => state.account.profile,
   getActivePublicKey: state => state.account.profile.active.key_auths[0][0],
+  getPostingPublicKey: state => state.account.profile.posting.key_auths[0][0],
   getFollowers: state => state.account.followers,
   getFollowing: state => state.account.following,
   getOtherFollowers: state => state.account.others.followers,
