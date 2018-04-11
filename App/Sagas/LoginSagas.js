@@ -36,8 +36,7 @@ export function * login (action) {
   yield call(getAccount, { username })
   let pubWif = yield select(AccountSelectors.getActivePublicKey)
   let postingPubWif = yield select(AccountSelectors.getPostingPublicKey)
-  console.tron.log(postingPrivWif)
-  console.tron.log(postingPubWif)
+
   if (auth.wifIsValid(privWif, pubWif) && auth.wifIsValid(postingPrivWif, postingPubWif)) {
     yield put(LoginActions.loginSuccess(username, privWif, postingPrivWif))
     yield put(NavigationActions.navigate({ routeName: 'HomeScreen' }))
