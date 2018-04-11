@@ -30,6 +30,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.22.0",
     "native-base": "^2.3.10",
+    "node-libs-react-native": "^1.0.2",
     "path": "^0.12.7",
     "prop-types": "^15.6.0",
     "querystringify": "1.0.0",
