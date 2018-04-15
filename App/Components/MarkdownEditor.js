@@ -46,6 +46,10 @@ class MarkdownEditor extends Component {
     }
   }
 
+  componentDidMount () {
+    this.props.onChangeText(this.state.text)
+  }
+
   componentWillReceiveProps (nextProps) {
     if (!nextProps.posts.image.uploading && nextProps.posts.image.url) {
       this.applyImageFormat(nextProps.posts.image.url)

@@ -10,6 +10,7 @@ import ReformatMarkdown from '../Transforms/ReformatMarkdown'
 import { api, broadcast } from 'steem'
 import { hash, PrivateKey, Signature } from 'steem/lib/auth/ecc'
 import axios from 'axios'
+import { version } from '../../package.json'
 
 api.setOptions({ url: 'https://api.steemit.com' })
 
@@ -382,5 +383,47 @@ export function * uploadImageRequest (action) {
     yield put(PostActions.uploadImageSuccess(response.url))
   } catch (error) {
     yield put(PostActions.uploadImageFailure())
+  }
+}
+
+export function * postComment (action) {
+  let { parentAuthor, parentPermalink, title, body, tags } = action
+  parentAuthor = (parentAuthor) ? parentAuthor : ''
+
+  parentPermalink = (parentPermalink) ? parentPermalink : 'histeem'
+
+  let login = yield select(LoginSelectors.getLogin)
+  let wif = login.postingPrivateKey
+  
+  let content = body.replace(title, '')
+  content = content.replace(/^(\#{1,6})+/gm, '')
+  content = content.trim()
+
+  let profile = yield select(AccountSelectors.getProfile)
+  let author = profile.name
+
+  let permalink = Utils.postPermalink(title)
+  
+  // FIXME: Still detect image as link
+  // const regexLink = /\[[^\]]*\]\((.*?)("(?:.*[^"])")?\s*\)/g
+  let regexImage = /!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/g
+  // let links = content.match(regexLink)
+  let images = content.match(regexImage)
+
+  let jsonMetadata = {
+    app: `histeem/lemah/${version}`,
+    format: 'markdown',
+    community: 'histeem',
+    tags: tags,
+    // links: links,
+    image: images
+  }
+  jsonMetadata = JSON.stringify(jsonMetadata)
+
+  try {
+    let comment = yield call(broadcast.comment, wif, parentAuthor, parentPermalink, author, permalink, title, body, jsonMetadata)
+    yield put(PostActions.postCommentSuccess())
+  } catch (error) {
+    yield put(PostActions.postCommentFailure())
   }
 }

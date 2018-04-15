@@ -1,5 +1,6 @@
 import { formatter } from 'steem'
 import moment from 'moment'
+import slugify from 'slugify'
 
 const ucFirst = (string) => {
   return string.charAt(0).toUpperCase() + string.substr(1)
@@ -67,6 +68,11 @@ const dateToHuman = (date) => {
   }
 }
 
+const postPermalink = (title) => {
+  let slug = slugify(title, {remove: /[$*_+~.()'"!\-:@]/g})
+  return slug
+}
+
 export default {
   ucFirst,
   vestingSteem,
@@ -74,5 +80,6 @@ export default {
   parseMetadata,
   parseMetadatas,
   simplifyReputation,
-  dateToHuman
+  dateToHuman,
+  postPermalink
 }

@@ -24,7 +24,10 @@ const { Types, Creators } = createActions({
   postVoteFailure: null,
   uploadImageRequest: ['image'],
   uploadImageSuccess: ['url'],
-  uploadImageFailure: null
+  uploadImageFailure: null,
+  postCommentRequest: ['parentAuthor', 'parentPermalink', 'title', 'body', 'tags'],
+  postCommentSuccess: null,
+  postCommentFailure: null
 })
 
 export const PostTypes = Types
@@ -56,6 +59,11 @@ export const INITIAL_STATE = Immutable({
   image: {
     uploading: false,
     url: null
+  },
+  new: {
+    fetching: false,
+    error: false,
+    data: null
   }
 })
 
@@ -144,6 +152,16 @@ export const uploadImageSuccess = (state, action) => {
 export const uploadImageFailure = state =>
   state.merge({ image: { uploading: false, url: null } })
 
+export const postCommentRequest = (state, action) => {
+  return state.merge({ new: { fetching: true, data: action } })
+}
+
+export const postCommentSuccess = state =>
+  state.merge({ new: { fetching: false } })
+
+export const postCommentFailure = state =>
+  state.merge({ new: { fetching: false, error: true } })
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -167,5 +185,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.POST_VOTE_FAILURE]: postVoteFailure,
   [Types.UPLOAD_IMAGE_REQUEST]: uploadImageRequest,
   [Types.UPLOAD_IMAGE_SUCCESS]: uploadImageSuccess,
-  [Types.UPLOAD_IMAGE_FAILURE]: uploadImageFailure
+  [Types.UPLOAD_IMAGE_FAILURE]: uploadImageFailure,
+  [Types.POST_COMMENT_REQUEST]: postCommentRequest,
+  [Types.POST_COMMENT_SUCCESS]: postCommentSuccess,
+  [Types.POST_COMMENT_FAILURE]: postCommentFailure
 })
