@@ -28,7 +28,8 @@ import {
   getPostHot,
   getPostPromoted,
   getPostReplies,
-  voteRequest
+  voteRequest,
+  uploadImageRequest
 } from './PostSagas'
 import { getTag } from './TagSagas'
 import { getGlobal } from './GlobalSagas'
@@ -61,6 +62,7 @@ export default function * root () {
     takeLatest(PostTypes.POST_PROMOTED_REQUEST, getPostPromoted),
     takeLatest(PostTypes.POST_REPLIES_REQUEST, getPostReplies),
     takeLatest(PostTypes.POST_VOTE_REQUEST, voteRequest),
+    takeLatest(PostTypes.UPLOAD_IMAGE_REQUEST, uploadImageRequest),
     takeLatest(TagTypes.TAG_REQUEST, getTag),
     takeLatest(GlobalTypes.GLOBAL_REQUEST, getGlobal)
   ])

@@ -12,7 +12,6 @@ import {
   Text
 } from 'native-base'
 import { connect } from 'react-redux'
-import { PrivateKey, Signature } from 'steem/lib/auth/ecc'
 import MarkdownEditor from '../Components/MarkdownEditor'
 
 // Styles

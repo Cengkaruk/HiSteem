@@ -8,6 +8,8 @@ import { GlobalSelectors } from '../Redux/GlobalRedux'
 import Utils from '../Transforms/Utils'
 import ReformatMarkdown from '../Transforms/ReformatMarkdown'
 import { api, broadcast } from 'steem'
+import { hash, PrivateKey, Signature } from 'steem/lib/auth/ecc'
+import axios from 'axios'
 
 api.setOptions({ url: 'https://api.steemit.com' })
 
@@ -351,4 +353,34 @@ export function * voteRequest (action) {
   }
 
   yield put(PostActions.postVoteSuccess())
+}
+
+export function * uploadImageRequest (action) {
+  const { image } = action
+  const data = Buffer.from(image.data, 'base64')
+
+  let login = yield select(LoginSelectors.getLogin)
+
+  // The challenge needs to be prefixed with a constant (both on the server and checked on the client) to make sure the server can't easily make the client sign a transaction doing something else.
+  // https://github.com/steemit/imagehoster/blob/master/imagehoster/app/server/upload-data.js#L147
+  const prefix = new Buffer('ImageSigningChallenge')
+  const bufferData = hash.sha256(Buffer.concat([prefix, data]))
+  const signature = Signature.signBufferSha256(bufferData, login.postingPrivateKey)
+  
+  const profile = yield select(AccountSelectors.getProfile)
+
+  let url = `https://steemitimages.com/${profile.name}/${signature.toHex()}`
+  let formData = new FormData()
+  formData.append('data', {
+    uri: image.uri,
+    type: image.type,
+    name: image.fileName
+  })
+
+  try {
+    let { data: response } = yield call(axios.post, url, formData)
+    yield put(PostActions.uploadImageSuccess(response.url))
+  } catch (error) {
+    yield put(PostActions.uploadImageFailure())
+  }
 }

@@ -9,14 +9,18 @@ import {
   Icon,
   Text,
   Item,
-  Input
+  Input,
+  Spinner
 } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import Modal from 'react-native-modal'
+import { connect } from 'react-redux'
+import ImagePicker from 'react-native-image-picker'
 import styles from './Styles/MarkdownEditorStyle'
 import regexValidator from '../Lib/webLinkValidator'
+import PostActions from '../Redux/PostRedux'
 
-export default class MarkdownEditor extends Component {
+class MarkdownEditor extends Component {
   // // Prop type warnings
   // static propTypes = {
   //   someProperty: PropTypes.object,
@@ -42,6 +46,12 @@ export default class MarkdownEditor extends Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (!nextProps.posts.image.uploading && nextProps.posts.image.url) {
+      this.applyImageFormat(nextProps.posts.image.url)
+    }
+  }
+
   onChangeText = (input) => {
     this.setState({ text: input })
     this.props.onChangeText(input)
@@ -50,6 +60,30 @@ export default class MarkdownEditor extends Component {
   onSelectionChange = (event) => {
     this.setState({
       selection: event.nativeEvent.selection,
+    })
+  }
+
+  showImagePicker = () => {
+    let options = {
+      title: 'Select Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    }
+
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response)
+    
+      if (response.didCancel) {
+        console.log('User cancelled image picker')
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error)
+      }
+      else {
+        this.props.uploadImage(response)
+      }
     })
   }
 
@@ -128,6 +162,29 @@ export default class MarkdownEditor extends Component {
     this.setState({ text: newText, selection: newSelection })
   }
 
+  applyImageFormat = (imageUrl) => {
+    imageUrl = (imageUrl) ? imageUrl : 'https://example.com/image.jpg'
+    const imageAlt = 'Image Caption'
+    const { selection, text } = this.state
+    let newText
+    let newSelection
+    const selectedText = text.substring(selection.start, selection.end)
+    if (selection.start !== selection.end) {
+      newText = this.replaceBetween(text, selection, `[${selectedText}](${imageUrl})`)
+      newSelection = {
+        start: selection.end + 3,
+        end: selection.end + 3 + imageUrl.length,
+      }
+    } else {
+      newText = this.replaceBetween(text, selection, `![${imageAlt}](${imageUrl})`)
+      newSelection = {
+        start: selection.start + 1,
+        end: selection.start + 1 + imageAlt.length,
+      }
+    }
+    this.setState({ text: newText, selection: newSelection })
+  }
+
   formatHeader = () => {
     let prefix = '#'
     this.applyListFormat(prefix)
@@ -152,6 +209,10 @@ export default class MarkdownEditor extends Component {
     this.applyWebLinkFormat(this.state.linkURL)
     this.setState({ linkURL: '' })
     this.setLinkModalVisible(false)
+  }
+
+  formatImage = () => {
+    this.showImagePicker()
   }
 
   render () {
@@ -189,7 +250,7 @@ export default class MarkdownEditor extends Component {
               </Button>
             </Col>
             <Col style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-              <Button transparent>
+              <Button transparent onPress={this.formatImage}>
                 <Icon name='picture-o' type='FontAwesome' style={{ fontSize: 16, color: '#6b6b6b', marginLeft: 10, marginRight: 10 }} />
               </Button>
             </Col>
@@ -213,7 +274,29 @@ export default class MarkdownEditor extends Component {
               </Button>
             </View>
         </Modal>
+        <Modal
+          isVisible={this.props.posts.image.uploading}>
+            <View style={{ backgroundColor: '#FFF', padding: 20, alignItems: 'center' }}>
+              <Spinner />
+              <Text>Uploading...</Text>
+            </View>
+        </Modal>
       </Grid>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    login: state.login,
+    posts: state.posts
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    uploadImage: (image) => dispatch(PostActions.uploadImageRequest(image))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MarkdownEditor)
