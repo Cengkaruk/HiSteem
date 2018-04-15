@@ -418,7 +418,6 @@ export function * postComment (action) {
     // links: links,
     image: images
   }
-  jsonMetadata = JSON.stringify(jsonMetadata)
 
   try {
     let comment = yield call(broadcast.comment, wif, parentAuthor, parentPermalink, author, permalink, title, body, jsonMetadata)
