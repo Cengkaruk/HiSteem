@@ -1,3 +1,3 @@
 module.exports = {
-  extraNodeModules: 'node-libs-react-native',
+  extraNodeModules: require('node-libs-react-native'),
 }
