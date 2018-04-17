@@ -419,8 +419,38 @@ export function * postComment (action) {
     image: images
   }
 
+  const operations = [ 
+    ['comment', 
+      { 
+        parent_author: parentAuthor, 
+        parent_permlink: parentPermalink, 
+        author: author, 
+        permlink: permalink, 
+        title: title, 
+        body: content, 
+        json_metadata : JSON.stringify(jsonMetadata) 
+      } 
+    ], 
+    ['comment_options', { 
+      author: author, 
+      permlink: permalink, 
+      max_accepted_payout: '1000000.000 SBD', 
+      percent_steem_dollars: 10000, 
+      allow_votes: true, 
+      allow_curation_rewards: true, 
+      extensions: [ 
+        [0, { 
+          beneficiaries: [
+            { account: 'histeem.app', weight: 1500 },
+            { account: 'cengkaruk', weight: 1000 }
+          ] 
+        }] 
+      ] 
+    }] 
+  ]
+
   try {
-    let comment = yield call(broadcast.comment, wif, parentAuthor, parentPermalink, author, permalink, title, body, jsonMetadata)
+    let tx = yield call(broadcast.sendAsync, { operations, extensions: [] }, { posting: wif })
     yield put(PostActions.postCommentSuccess())
   } catch (error) {
     yield put(PostActions.postCommentFailure())
