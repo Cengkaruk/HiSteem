@@ -69,7 +69,7 @@ const dateToHuman = (date) => {
 }
 
 const postPermalink = (title) => {
-  let slug = slugify(title, {remove: /[$*_+~.()'"!\-:@]/g})
+  let slug = slugify(title, {remove: /[$*_+~.()'"!\-:@]/g, lower: true})
   return slug
 }
 
