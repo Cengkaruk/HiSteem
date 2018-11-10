@@ -2,7 +2,21 @@
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
 
-* Standard compliant React Native App Utilizing [Ignite](https://github.com/infinitered/ignite)
+Steem/Steemit Blockchain Mobile App Client
+
+## Screenshots
+
+![Shoot](https://raw.githubusercontent.com/Cengkaruk/HiSteem/master/screenshots/11.14.10.jpg)
+
+![Shoot](https://raw.githubusercontent.com/Cengkaruk/HiSteem/master/screenshots/11.14.15.jpg)
+
+![Shoot](https://raw.githubusercontent.com/Cengkaruk/HiSteem/master/screenshots/11.14.19.jpg)
+
+![Shoot](https://raw.githubusercontent.com/Cengkaruk/HiSteem/master/screenshots/11.14.23.jpg)
+
+![Shoot](https://raw.githubusercontent.com/Cengkaruk/HiSteem/master/screenshots/11.14.27.jpg)
+
+![Shoot](https://raw.githubusercontent.com/Cengkaruk/HiSteem/master/screenshots/11.14.34.jpg)
 
 ## :arrow_up: How to Setup
 
